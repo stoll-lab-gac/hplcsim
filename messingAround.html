@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111207257-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			
+			gtag('config', 'UA-111207257-1');
+		</script>
+		<title>Multi-Dimensional Separations</title>
+		<!--<link rel="stylesheet" type="text/css" href="sim_css.css">-->
+		<meta charset="utf-8">
+		<link rel="icon" href="../images/mini-icon.png">
+		<link rel="shortcut icon" href="../images/mini-icon.png">
+		<script src="http://d3js.org/d3.v4.min.js"></script>
+		<script src="../d3.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+		<script type="text/javascript" src="../jquery.js"></script>
+		<script type="text/javascript" src="../toolkit/pressure_prediction.js"></script>
+		<script type="text/javascript" src="messingAround_simulator.js"></script>
+		<script type="text/javascript" src="../master-js.js"></script>
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+		<style>
+			body {
+				text-align: center;
+				font-family: "Trebuchet MS", Helvetica, sans-serif;
+				margin: 0px;
+				height: 100%;
+				width: 100%;
+				overflow-x: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Hello, World!</h1>
+		<h3 id="displayTime"></h3>
+		<!--Length: <input type='number' id='length_column' value='100.0'> mm<br>
+		Inner Diameter: <input type='number' id='inner_diameter_column' value='4.6'> mm<br><br>
+		Flow Rate: <input type='number' id='flow_rate_chrom' value='2.0'> mL/min<br><br>
+		<input type='button' id="btn" value='Run Calculations' onclick='calculatePeaks();'><br><br>
+		<div id="messingAround_Div"></div>
+		<h3>messingAround.html<h3>-->
+	</body>
+	<script>
+		updateCurrentTime();
+		function getCurrentTime(){
+			var d = new Date(); var hr = Number(d.getHours()) + 1; var min = d.getMinutes(); var sec = d.getSeconds(); var msec = d.getMilliseconds();
+			if(hr < 10){ hr = "0"+hr; } if(min < 10){ min = "0"+min; } if(sec < 10){ sec = "0"+sec; } if(msec < 10){ msec = "0"+msec; } if(msec < 100){ msec = "0"+msec; }
+			var timeStamp = hr + ":" + min + ":" + sec + "." + msec;
+			return timeStamp;
+		}
+		
+		function updateCurrentTime(){
+			var timestamp = getCurrentTime();
+			document.getElementById("displayTime").innerHTML = timestamp;
+		}
+		
+		setInterval("updateCurrentTime();", 10);
+	</script>
+</html>

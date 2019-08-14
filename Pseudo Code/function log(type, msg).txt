@@ -1,0 +1,40 @@
+var debugLog = true;
+var logGeneral = true;
+var logCalculations = true;
+var logInputValues = true;
+var logReturnValues = true;
+var logIntermediateValues = true;
+
+function log(type, msg){
+	var logEnabled = false;
+	if(debugLog && logGeneral && type == "gen"){
+		logEnabled = true;
+	}
+	if(debugLog && logCalculations && type == "cal"){
+		logEnabled = true;
+	}
+	if(debugLog && logInputValues && type == "inp"){
+		logEnabled = true;
+	}
+	if(debugLog && logReturnValues && type == "ret"){
+		logEnabled = true;
+	}
+	if(debugLog && logIntermediateValues && type == "int"){
+		logEnabled = true;
+	}
+	
+	if(logEnabled){
+		var logCache = "";
+		var t = getCurrentTime();
+		logCache += logCounter + ") " + t + " -\n\t" + msg;
+		logCache += "\n--------------------------------------------------------------------------------\n";
+		console.log(logCache);
+		logCounter++;
+	}
+}
+
+log("gen", "");
+log("cal", "");
+log("inp", "");
+log("ret", "");
+log("int", "");
