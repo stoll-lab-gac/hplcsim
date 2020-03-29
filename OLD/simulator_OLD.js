@@ -3,6 +3,32 @@
 //	     18.46,16.23,14.13,12.18,10.4,8.79,7.36,6.09,5];
 //var M = [40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40];
 
+var exportFileData_Full = "";
+var exportFileData_Selected = "";
+var exportFileData_SelectedCompound = "";
+
+function logExportFileData_Full(){
+	console.log(exportFileData_Full);
+	
+	var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(exportFileData_Full);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'FullChromatogram.csv';
+    hiddenElement.click();
+}
+function logExportFileData_Selected(){
+	if(exportFileData_Selected == ""){
+		console.log("No Compound Selected!");
+	} else {
+		console.log(exportFileData_Selected);
+		var hiddenElement = document.createElement('a');
+		hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(exportFileData_Selected);
+		hiddenElement.target = '_blank';
+		hiddenElement.download = ''+exportFileData_SelectedCompound+'.csv';
+		hiddenElement.click();
+	}
+}
+
 var M = [1.15,33.50,3.33,39.69,36.91,39.62,25.09,39.57,38.55,38.98,30.16,2.66,1.76,4.77,35.56,2.98,31.02,8.43,39.02,6.72,39.78,19.60,39.19,12.06,28.60,4.29,11.40,29.86,1.06,3.21,36.55,37.02,38.24,
 	38.89,39.36,2.77,38.17,1.29,39.72,1.97,15.29,21.99,16.05,39.74,15.67,1.90,35.86,39.25,34.13,33.72,5.48,39.63,9.84,27.94,34.70,38.94,36.67,32.82,3.99,0.95,2.29,39.12,26.55,37.23,38.71,1.45,8.70,
 	38.80,18.40,39.65,2.13,38.76,32.58,13.10,2.47,4.60,39.09,39.22,14.54,28.27,36.79,37.87,10.76,35.71,18.80,39.73,37.43,36.15,39.55,2.87,1.40,9.55,5.11,24.33,6.95,0.88,4.94,13.45,2.57,23.17,39.45,
@@ -55,15 +81,15 @@ var calcGradientACN = {
 	"hexanophenone": [13.0781795720922, -0.0197554842203633, 12.3839302756758, -0.0130680713075359],
 	"heptanophenone": [12.9705190560471, -0.0182211003263966, 10.8623066945769, -0.00850288263012924],
 	"octanophenone": [14.3891847086718, -0.0199033409824707, 11.7236631163352, -0.00894938100296847],
-	//"ibuprofen": [5.59239458233024, -0.00434643221635735, -6.93530425991638, 0.0489485565782194],
-	"Loratidine": [6.568915, -0.000766666666666656, 3.09189, 0.0260666666666667],
-	//"Impurity-A": [10.522385, -0.0145666666666666, -3.91414000000002, 0.0889333333333334],
-	//"Impurity-B": [9.638725, -0.0115, 1.263735, 0.0697666666666667],
-	//"Impurity-C": [6.31166, -0.00306666666666665, 9.61285, 0.00766666666666668],
-	//"Impurity-D": [9.67080999999999, -0.0107333333333333, 5.15878499999999, 0.0161],
-	//"Impurity-E": [11.10164, -0.0122666666666667, 8.09002, 0.00919999999999999],
-	//"Impurity-F": [11.8243, -0.0153333333333333, -2.24583500000001, 0.0375666666666667],
-	//"Impurity-G": [10.72881, -0.0107333333333333, 0.538314999999997, 0.0299],
+	"ibuprofen": [5.59239458233024, -0.00434643221635735, -6.93530425991638, 0.0489485565782194],
+	"Loratidine": [6.46, 0.000, 18.75, -0.026],
+	"Impurity-A": [11.2, -0.017, 55.14, -0.105],
+	"Impurity-B": [9.7, -0.012, 43.51, -0.069],
+	"Impurity-C": [6.24, -0.003, 9.51, 0.008],
+	"Impurity-D": [3.19, 0.011, 5.38, 0.015],
+	"Impurity-E": [3.55, 0.013, 8.14, 0.009],
+	"Impurity-F": [2.62, 0.015, -2.09, 0.037],
+	"Impurity-G": [4.36, 0.010, 0.72, 0.029],
 }
 
 var calcGradientMeOH = {
@@ -102,15 +128,15 @@ var calcGradientMeOH = {
 	"hexanophenone": [13.0781795720922, -0.0197554842203633, 12.3839302756758, -0.0130680713075359],
 	"heptanophenone": [12.9705190560471, -0.0182211003263966, 10.8623066945769, -0.00850288263012924],
 	"octanophenone": [14.3891847086718, -0.0199033409824707, 11.7236631163352, -0.00894938100296847],
-	//"ibuprofen": [5.59239458233024, -0.00434643221635735, -6.93530425991638, 0.0489485565782194],
-	"Loratidine": [6.568915, -0.000766666666666656, 3.09189, 0.0260666666666667],
-	//"Impurity-A": [10.522385, -0.0145666666666666, -3.91414000000002, 0.0889333333333334],
-	//"Impurity-B": [9.638725, -0.0115, 1.263735, 0.0697666666666667],
-	//"Impurity-C": [6.31166, -0.00306666666666665, 9.61285, 0.00766666666666668],
-	//"Impurity-D": [9.67080999999999, -0.0107333333333333, 5.15878499999999, 0.0161],
-	//"Impurity-E": [11.10164, -0.0122666666666667, 8.09002, 0.00919999999999999],
-	//"Impurity-F": [11.8243, -0.0153333333333333, -2.24583500000001, 0.0375666666666667],
-	//"Impurity-G": [10.72881, -0.0107333333333333, 0.538314999999997, 0.0299],
+	"ibuprofen": [5.59239458233024, -0.00434643221635735, -6.93530425991638, 0.0489485565782194],
+	"Loratidine": [6.46, 0.000, 18.75, -0.026],
+	"Impurity-A": [11.2, -0.017, 55.14, -0.105],
+	"Impurity-B": [9.7, -0.012, 43.51, -0.069],
+	"Impurity-C": [6.24, -0.003, 9.51, 0.008],
+	"Impurity-D": [3.19, 0.011, 5.38, 0.015],
+	"Impurity-E": [3.55, 0.013, 8.14, 0.009],
+	"Impurity-F": [2.62, 0.015, -2.09, 0.037],
+	"Impurity-G": [4.36, 0.010, 0.72, 0.029],
 }
 
 var logCounter = 1;
@@ -146,7 +172,15 @@ function shuffleArray(array) {
 }
 
 function log(msg){
-	document.getElementById("messingAround_Div").innerHTML = msg;
+	var debugLog = document.getElementById("showDebuggingLog").checked;
+	if(debugLog == true){
+		var logCache = "";
+		var t = getCurrentTime();
+		logCache += logCounter + ") " + t + " -\n\t" + msg;
+		logCache += "\n--------------------------------------------------------------------------------\n";
+		//console.log(logCache);
+		logCounter++;
+	}
 }
 
 function showCustom(){
@@ -855,8 +889,15 @@ function renderGraph(data) {
 		// Second signal: individual signal (activated when highlighted).
 	new_data = [];
 	new_data[0] = aggregateSignal(data);
+	
+	createDataExportFile_Full(new_data[0]);
+	
 	if (document.getElementById("dataTable").className != ""){
 		new_data[1] = data[document.getElementById("dataTable").className];
+		createDataExportFile_Selected(new_data[1], compoundList[document.getElementById("dataTable").className]);
+	} else {
+		exportFileData_Selected = "";
+		exportFileData_SelectedCompound = "";
 	}
 
 	x.domain(d3.extent(new_data[0], function(d) { return d.t; }));
@@ -882,7 +923,8 @@ function renderGraph(data) {
 	    .attr("y", 6)
 	    .attr("dy", "-3.5em")
 	    .attr("text-anchor", "end")
-	    .text("Signal (µ moles/liter)");
+		.text("Signal");
+	    //.text("Signal (µ moles/liter)");
 		
 	/*g.append("g")
 	    .call(d3.axisRight(megan))
@@ -910,6 +952,27 @@ function renderGraph(data) {
 		    .attr("stroke-width", 1.5)
 		    .attr("d", line);
 	}
+}
+
+function createDataExportFile_Full(data){
+	//console.log(data);
+	var fileData = "t, Ct";
+	for(i=0; i<data.length; i++){
+		fileData += "\n"+data[i].t.toFixed(2)+", "+data[i].Ct;
+	}
+	//console.log(fileData);
+	exportFileData_Full = fileData;
+}
+
+function createDataExportFile_Selected(data, compound){
+	//console.log(data);
+	exportFileData_SelectedCompound = compound;
+	var fileData = "t, "+compound;
+	for(i=0; i<data.length; i++){
+		fileData += "\n"+data[i].t.toFixed(2)+", "+data[i].Ct;
+	}
+	//console.log(fileData);
+	exportFileData_Selected = fileData;
 }
 
 function interpolate(x1_ref, y1_ref, x3_ref, y3_ref, x2_target){
@@ -1073,7 +1136,7 @@ function intraparticlePorosity(Vp, Vl) {
 //Reduced plate height
 
 function theoreticalPlates(h, dP, L) {
-	//log("Running 'theoreticalPlates("+h+", "+dP+", "+L+")'...");
+	log("Running 'theoreticalPlates("+h+", "+dP+", "+L+")'...");
 	//h = reduced plate height
 	//dP = diameter of stationary phase particles
 	//L = column length
@@ -1121,7 +1184,7 @@ function isocraticPeakWidth(tR, N, Vinj, F, tau) {
 }
 
 function tubingVolume(length, diameter) {
-	//log("Running 'tubingVolume("+length+", "+diameter+")'...");
+	log("Running 'tubingVolume("+length+", "+diameter+")'...");
     var volume = (length / 100) * (Math.PI * Math.pow((diameter * 0.0000254) / 2, 2) * 1000000000);
     return volume;
 }
@@ -1242,14 +1305,16 @@ function tubingTimeBroadening(volume, diameter, length, flowRate, diffusionCoeff
 function isocraticElutionMode(t0, T, phi, N, tau, Vinj, F, solvent, compoundList, v, d, l, De) {
 	var compoundName = Object.keys(compoundList);
 	
+	//console.log("Isocratic Elution Mode");
+	
 	compoundName = compoundList; // Change implemented by Ray Sajulga 6/2/17
 
 	var graphData = [];
 	var tF = 0.0;
 
-	//if (!document.getElementById("auto_time_check").checked) { tF = (parseFloat(document.getElementById("final_time_general").value))/60; }
+	if (!document.getElementById("auto_time_check").checked) { tF = (parseFloat(document.getElementById("final_time_general").value))/60; }
 	
-	console.log("tF = "+tF);
+	//console.log("tF = "+tF);
 	
 	var tableArray = new Array();
 	var previous_tR = 0;
@@ -1257,11 +1322,13 @@ function isocraticElutionMode(t0, T, phi, N, tau, Vinj, F, solvent, compoundList
 	var table = [];
 	
 	var max_final_time = 0;
+	
+	var resolution_maxTime = 1000;
 
 	if (tF <= 0.0) {
 		//time is determined automatically
 	  //var step = parseFloat((8.34/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
-		var step = parseFloat((30/3000).toFixed(3));
+		var step = parseFloat((30/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
 		//step = .01;
 		for (i = 0; i < compoundName.length; i++) {
 			var cmpdData = [];
@@ -1321,11 +1388,12 @@ function isocraticElutionMode(t0, T, phi, N, tau, Vinj, F, solvent, compoundList
 			}
 			graphData[i] = cmpdData;
 		}
-		//document.getElementById("initial_time_general").value = 0;
-		//document.getElementById("final_time_general").value = (max_final_time*60)+10;
+		document.getElementById("initial_time_general").value = 0;
+		document.getElementById("final_time_general").value = (max_final_time*60)+10;
+		resolution_maxTime = (max_final_time*60)+10;
 	} else {
 		//time is set manually
-		var step = parseFloat(((60)/3000).toFixed(3));
+		var step = parseFloat(((60)/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
 		
 		for (i = 0; i < compoundName.length; i++) {
 			var cmpdData = [];
@@ -1359,7 +1427,7 @@ function isocraticElutionMode(t0, T, phi, N, tau, Vinj, F, solvent, compoundList
 			table[i][0] = compoundName[i];
 
 			while (t <= tF && running) {
-				console.log("t = "+t)
+				//console.log("t = "+t)
 				var Ct = 1000000*(W/1000000)/(Math.pow((2*Math.PI), 0.5)*(sigma/60)*(F/(60*1000)))*Math.exp(-Math.pow((t-tR),2)/(2*Math.pow((sigma/60), 2)));
 				if (loops > 10000000) {
 					alert("infinite loop");
@@ -1386,9 +1454,10 @@ function isocraticElutionMode(t0, T, phi, N, tau, Vinj, F, solvent, compoundList
 			graphData[i] = cmpdData;
 		}
 	}
-	//tableArray = tableArray.sort(compareSecondColumn);
-	//updateTable(tableArray);
-	//graphData = updateGraphData(compoundName, tableArray, graphData);
+	tableArray = tableArray.sort(compareSecondColumn);
+	updateTable(tableArray);
+	calcResolution(phi,T,resolution_maxTime,tableArray);
+	graphData = updateGraphData(compoundName, tableArray, graphData);
 	return graphData;
 }
 
@@ -1434,12 +1503,29 @@ function gradientElutionMode(solvent, T, phi_i, phi_f, tD, F, d, L, Et, tG, t0, 
 	log("Running 'gradientElutionMode("+solvent+", "+T+", "+phi_i+", "+phi_f+", "+tD+", "+F+", "+d+", "+L+", "+Et+", "+tG+", "+t0+", "+N+", "+tau+", "+Vinj+", "+V0+")'...");
 	var logProcess = true;
 	if(logProcess){
-		Et /= 1000;
-		t0 /= 60;
-		var deltaPhi = (phi_f - phi_i)/100;
-		phi_i /= 100;
-		phi_f /= 100;
+		
 	}
+	
+	Et /= 1000;
+	t0 /= 60;
+	var deltaPhi = (phi_f - phi_i)/100;
+	phi_i /= 100;
+	phi_f /= 100;
+	
+	var gradientSlope = deltaPhi/tG;
+	
+	//console.log("--------------------");
+	
+	//console.log("phi_i:\n"+phi_i);
+	//console.log("phi_f:\n"+phi_f);
+	//console.log("deltaPhi:\n"+deltaPhi);
+	//console.log("tG:\n"+tG);
+	
+	//console.log("gradientSlope:\n"+gradientSlope);
+	
+	//console.log("phi_e = "+gradientSlope+"(tR-"+tD+"-"+t0+")+"+phi_i);
+	
+	//console.log("--------------------");
 	
 	var tKelvin = T + 273.15;
 	
@@ -1487,7 +1573,15 @@ function gradientElutionMode(solvent, T, phi_i, phi_f, tD, F, d, L, Et, tG, t0, 
 		cache += "tR = " + tR + "\n";
 		
 		var kw = Math.exp(lnkw);
-		var phi_e = (1/S)*Math.log((S*(deltaPhi/tG)*kw*t0*(k0-tD/t0)+1)/k0);
+		//var phi_e = (1/S)*Math.log((S*(deltaPhi/tG)*kw*t0*(k0-tD/t0)+1)/k0);
+		
+		var phi_e = gradientSlope*(tR-tD-t0)+phi_i;
+		
+		//console.log("tR: "+tR);
+		//console.log("phi_e: "+phi_e);
+		//console.log("NEW_phi_e: "+NEW_phi_e);
+		//console.log("--------------------");
+		
 		//var phi_e = (((phi_f-phi_i)/tG)*tR)+phi_i;
 		cache += "phi_e = " + phi_e + "\n";
 		
@@ -1521,6 +1615,9 @@ function gradientElutionMode(solvent, T, phi_i, phi_f, tD, F, d, L, Et, tG, t0, 
 		
 		var finalRun = false;
 		
+		//var thisIsATest_peakValue = 0;
+		//var thisIsATest_peakTime = 0;
+		
 		while (t <= tF) {
 			var Ct = 1000000*(W/1000000)/(Math.pow((2*Math.PI), 0.5)*(sigma/60)*(F/(60*1000)))*Math.exp(-Math.pow((t-tR),2)/(2*Math.pow((sigma/60), 2)));
 			if (loops > 10000000) {
@@ -1543,12 +1640,21 @@ function gradientElutionMode(solvent, T, phi_i, phi_f, tD, F, d, L, Et, tG, t0, 
 			if (check || Ct > 0.00001) {
 				tF += step;
 			}
+			
+			//if(Ct > thisIsATest_peakValue){
+			//	thisIsATest_peakValue = Ct;
+			//	thisIsATest_peakTime = t;
+			//}
 
 			table[i][j+1]=Ct;
 			t += step;
 			j++;
 			loops++;
 		}
+		
+		//console.log("peakValue:\n"+thisIsATest_peakValue);
+		//console.log("peakTime:\n"+thisIsATest_peakTime);
+		
 		graphData[i] = cmpdData;
 	}
 	tableArray = tableArray.sort(compareSecondColumn);
@@ -1637,14 +1743,67 @@ function displayTable(tabularData){
 	document.getElementById("dataTable").innerHTML = myTable;
 }
 
+var optimize_max_resolution = 0;
+var optimize_maxRs_phi = 0;
+var optimize_maxRs_T = 0;
+var optimize_min_time = 1000;
+
+function calcResolution(Rs_solventBFraction, Rs_temperature, Rs_time, tableArray){
+	//console.log("calcResolution(tableArray)");
+	//console.log("----------");
+	//console.log(tableArray);
+	//console.log("Compound, k', tR(min), σ(s), kw, S\n");
+	for(var tableArrayPos=0; tableArrayPos<(tableArray.length-1); tableArrayPos++){
+		//console.log(tableArray[tableArrayPos]);
+		//console.log("----------");
+		//console.log("Compounds --> "+tableArray[tableArrayPos][0]+" & "+tableArray[tableArrayPos+1][0]);
+		//console.log("tR1(min) --> "+tableArray[tableArrayPos][2]);
+		//console.log("σ1(s) --> "+tableArray[tableArrayPos][3]);
+		//console.log("tR2(min) --> "+tableArray[tableArrayPos+1][2]);
+		//console.log("σ2(s) --> "+tableArray[tableArrayPos+1][3]);
+		var trA = tableArray[tableArrayPos][2];
+		var trB = tableArray[tableArrayPos+1][2];
+		var wA = 4*(tableArray[tableArrayPos][3] / 60);
+		var wB = 4*(tableArray[tableArrayPos+1][3] / 60);
+		//console.log(trA+", "+trB+", "+wA+", "+wB);
+		var resolution = 2*(trB-trA)/(wA+wB);
+		//console.log(","+Rs_solventBFraction+","+Rs_temperature+","+resolution+","+Rs_time+",");
+		
+		if(Rs_time < optimize_min_time){
+			if(resolution > optimize_max_resolution){
+				optimize_max_resolution = resolution;
+				optimize_maxRs_phi = Rs_solventBFraction;
+				optimize_maxRs_T = Rs_temperature;
+				optimize_min_time = Rs_time;
+			}
+		}
+	}
+	//console.log("----------");
+}
+
+function optimize(){
+	optimize_max_resolution = 0;
+	optimize_maxRs_phi = 0;
+	optimize_maxRs_T = 0;
+	var optimize_phi_initial = document.getElementById('solvent_fraction_comp').value;
+	for(optimize_phi=0; optimize_phi<=100; optimize_phi++){
+		document.getElementById('solvent_fraction_comp').value = optimize_phi;
+		for(optimize_T=10; optimize_T<=150; optimize_T++){
+			document.getElementById('temperature_chrom').value = optimize_T;
+			calculatePeaks();
+		}
+	}
+	document.getElementById('solvent_fraction_comp').value = optimize_phi_initial;
+	calculatePeaks();
+	console.log("Max Rs = "+optimize_max_resolution+" @ phi = "+optimize_maxRs_phi+" & T = "+optimize_maxRs_T+", time = "+optimize_min_time);
+}
+
 //consolidate calculations
 function calculatePeaks() {
 	
-	document.getElementById("btn").disabled = true;
-	
 	//Find Elution Mode
-	var mode = "isocratic";
-	/*if (document.getElementById("isocratic_radio").checked) {
+	var mode;
+	if (document.getElementById("isocratic_radio").checked) {
 		mode = "isocratic";
 		hideGradientElutionStuffs("true");
 		document.getElementById("headerTable_k").innerHTML = "k&#39;";
@@ -1655,48 +1814,64 @@ function calculatePeaks() {
 	}
 	
 	//Run value validation
-	if(document.getElementById("Gradient_MixingVolume").value == ""){ document.getElementById("Gradient_MixingVolume").value = 200; }
-	if(document.getElementById("Gradient_NonMixingVolume").value == ""){ document.getElementById("Gradient_NonMixingVolume").value = 200; }*/
+	//if(document.getElementById("Gradient_MixingVolume").value == ""){ document.getElementById("Gradient_MixingVolume").value = 200; }
+	//if(document.getElementById("Gradient_NonMixingVolume").value == ""){ document.getElementById("Gradient_NonMixingVolume").value = 200; }
+	if(document.getElementById("Gradient_Delay_Volume").value == ""){ document.getElementById("Gradient_MixingVolume").value = 400; }
+	
+	if(document.getElementById('solvent_fraction_comp').value > 100){ document.getElementById('solvent_fraction_comp').value = 100; }
+	if(document.getElementById('solvent_fraction_comp').value < 0){ document.getElementById('solvent_fraction_comp').value = 0; }
+	
+	if(document.getElementById("Gradient_Phi_Init").value > 100){ document.getElementById("Gradient_Phi_Init").value = 100; }
+	if(document.getElementById("Gradient_Phi_Init").value < 0){ document.getElementById("Gradient_Phi_Init").value = 0; }
+	
+	if(document.getElementById("Gradient_Phi_Final").value > 100){ document.getElementById("Gradient_Phi_Final").value = 100; }
+	if(document.getElementById("Gradient_Phi_Final").value < 0){ document.getElementById("Gradient_Phi_Final").value = 0; }
+	
+	if(document.getElementById('temperature_chrom').value > 150){ document.getElementById('temperature_chrom').value = 150; }
+	if(document.getElementById('temperature_chrom').value < 10){ document.getElementById('temperature_chrom').value = 10; }
+	
+	if(document.getElementById("flow_rate_chrom").value > 8){ document.getElementById("flow_rate_chrom").value = 8; }
+	if(document.getElementById("flow_rate_chrom").value < 0.05){ document.getElementById("flow_rate_chrom").value = 0.05; }
 	
 //============================================================================================================================================
 	//Collect inputs from the user interface
 	
-	var solvent = "ACN";
-	//var solvent = document.getElementById("solvent_b_text").innerHTML; //Organic Modifier
+	var solvent = document.getElementById("solvent_b_text").innerHTML; //Organic Modifier
 	
-	var d = document.getElementById('inner_diameter_column').value;	//*column diameter
-	var L = document.getElementById('length_column').value;	//*column length
-	var Vinj = 5; //*injection volume
-	var fR = document.getElementById("flow_rate_chrom").value; //flow rate
+	var d = checkIfValid("d", document.getElementById('inner_diameter_column').value);	//*column diameter
+	var L = checkIfValid("L", document.getElementById('length_column').value);	//*column length
+	var Vinj = checkIfValid("Vinj", document.getElementById('injection_volume_chrom').value); //*injection volume
+	var fR = checkIfValid("fR", document.getElementById("flow_rate_chrom").value); //flow rate
 	
-	var gradient_mixingVolume = 200;
-	var gradient_nonMixingVolume = 200;
+	//var gradient_mixingVolume = document.getElementById("Gradient_MixingVolume").value;
+	//var gradient_nonMixingVolume = document.getElementById("Gradient_NonMixingVolume").value;
 	
-	var phi_i = 5;
-	var phi_f = 95;
+	var gradient_mixingVolume = document.getElementById("Gradient_Delay_Volume").value / 2;
+	var gradient_nonMixingVolume = document.getElementById("Gradient_Delay_Volume").value / 2;
 	
-	var tG = 5;
+	var phi_i = document.getElementById("Gradient_Phi_Init").value;
+	var phi_f = document.getElementById("Gradient_Phi_Final").value;
 	
-	var Ee = 0.4; //interparticlePorosity(Ve, V);	//fraction of volume in column between stationary phase particles
-	var El = 0.4; //intraparticlePorosity(Vp, Vl);	//fraction of stationary phase particles occupied by eluent
+	var tG = document.getElementById("Gradient_Time").value;
 	
-	var dP = 3;	//diameter of stationary phase particles
+	var Ee = checkIfValid("Ee", document.getElementById('interparticle_porosity_column').value); //interparticlePorosity(Ve, V);	//fraction of volume in column between stationary phase particles
+	var El = checkIfValid("El", document.getElementById('intraparticle_porosity_column').value); //intraparticlePorosity(Vp, Vl);	//fraction of stationary phase particles occupied by eluent
 	
-	var T = 40;	//temperature
-	var phi = 0.4;		//volume fraction of organic modifier
+	var dP = checkIfValid("dP", document.getElementById('particle_size_column').value);	//diameter of stationary phase particles
 	
-	var A = 1;	//*van Deemter coefficient
-	var B = 5;	//*van Deemter coefficient
-	var C = 0.05;	//*van Deemter coefficient
+	var T = checkIfValid_blank("T", document.getElementById('temperature_chrom').value);	//temperature
+	var phi = checkIfValid_blank("phi", document.getElementById('solvent_fraction_comp').value) / 100;		//volume fraction of organic modifier
 	
-	var tau = 0.1;
+	var A = checkIfValid("A", document.getElementById("A_column").value);	//*van Deemter coefficient
+	var B = checkIfValid("B", document.getElementById("B_column").value);	//*van Deemter coefficient
+	var C = checkIfValid("C", document.getElementById("C_column").value);	//*van Deemter coefficient
 	
-	var iD = 2;	//inner diameter
-	var l = 0;	//post column tubing
+	var tau = checkIfValid("tau", document.getElementById("time_constant_general").value);
+	
+	var iD = checkIfValid("iD", document.getElementById("inner_diameter_other").value);	//inner diameter
+	var l = checkIfValid_blank("l", document.getElementById("other_length").value);	//post column tubing
 	var v = tubingVolume(l, iD);
 	//document.getElementById("volume_other").innerHTML = v.toFixed(5);
-	
-	document.getElementById("messingAround_Div").innerHTML = "<h1>Inputs Collected!</h1>";
 	
 //============================================================================================================================================
 	//Run calculations and update user interface
@@ -1715,20 +1890,45 @@ function calculatePeaks() {
 	var VD = Number(gradient_mixingVolume) + Number(gradient_nonMixingVolume); //Dwell volume
 	var tD = (((Number(gradient_mixingVolume)/1000) + (Number(gradient_nonMixingVolume)/1000))/Number(fR)); //Dwell time
 	//document.getElementById("Gradient_PreColumn_Volume_DwellVolume").innerHTML = VD;
-	//document.getElementById("Gradient_PreColumn_Volume_DwellTime").innerHTML = tD.toFixed(2);
+	document.getElementById("Gradient_PreColumn_Volume_DwellTime").innerHTML = tD.toFixed(2);
 	
 	if(tG <= 0){ tG = 0.01; document.getElementById("Gradient_Time").value = 0.01; } //Gradient Time
 	
 	var Et = Ee + El*(1-Ee); //total porosity
-	//document.getElementById("total_porosity_column").innerHTML = Et.toFixed(4);
+	document.getElementById("total_porosity_column").innerHTML = Et.toFixed(4);
 	
 	var V0 = Math.PI*Math.pow(((d/10)/2), 2)*(L/10)*Et; //void volume
 	var t0 = V0/fR*60; //void time
-	//document.getElementById("void_volume_column").innerHTML = V0.toFixed(4);
-	//document.getElementById("void_time_column").innerHTML = t0.toFixed(4);
+	document.getElementById("void_volume_column").innerHTML = V0.toFixed(4);
+	document.getElementById("void_time_column").innerHTML = t0.toFixed(4);
 
-	var n = Math.exp(phi*(-3.476+(726/(T+273.15)))+(1-phi)*(-5.414+(1566/(T+273.15)))+phi*(1-phi)*(-1.762+(929/(T+273.15)))); //viscosity
-	//document.getElementById("eluent_viscosity_general").innerHTML = n.toFixed(4);
+	if(mode == "isocratic"){
+		if(solvent == "Acetonitrile"){
+			var n = Math.exp(phi*(-3.476+( 726/(T+273.15)))+(1-phi)*(-5.414+(1566/(T+273.15)))+phi*(1-phi)*(-1.762+( 929/(T+273.15)))); //viscosity - acetonitrile
+		} else if(solvent == "Methanol"){
+			var n = Math.exp(phi*(-4.597+(1211/(T+273.15)))+(1-phi)*(-5.961+(1736/(T+273.15)))+phi*(1-phi)*(-6.215+(2809/(T+273.15)))); //viscosity - methanol
+		}
+	} else if(mode == "gradient"){
+		var n = 0;
+		var phi_Tmp_count = 0;
+		//console.log("phi_i = " + phi_i);
+		//console.log("phi_f = " + phi_f);
+		for(phi_Tmp = phi_i/100; phi_Tmp <= phi_f/100; phi_Tmp+=0.01){
+			if(solvent == "Acetonitrile"){
+				n += Math.exp(phi_Tmp*(-3.476+( 726/(T+273.15)))+(1-phi_Tmp)*(-5.414+(1566/(T+273.15)))+phi_Tmp*(1-phi_Tmp)*(-1.762+( 929/(T+273.15)))); //viscosity - acetonitrile
+			} else if(solvent == "Methanol"){
+				n += Math.exp(phi_Tmp*(-4.597+(1211/(T+273.15)))+(1-phi_Tmp)*(-5.961+(1736/(T+273.15)))+phi_Tmp*(1-phi_Tmp)*(-6.215+(2809/(T+273.15)))); //viscosity - methanol
+			}
+			phi_Tmp_count += 1;
+		}
+		//console.log("n = " + n);
+		//console.log("phi_Tmp_count = " + phi_Tmp_count);
+		n = n / phi_Tmp_count;
+		//console.log("n = " + n);
+	}
+	
+	//console.log("n = " + n);
+	document.getElementById("eluent_viscosity_general").innerHTML = n.toFixed(4);
 	
 	var associationParameter = ((1 - phi) * (2.6 - 1.9)) + 1.9;	//association parameter
 	
@@ -1741,28 +1941,28 @@ function calculatePeaks() {
 	//Currently, 200 g/mol is just a representitive value. Will add full functionality soon. -Thomas Lauer 03/06/2018
 	
 	var De = 0.000000074*(((T + 273.15)*Math.sqrt(associationParameter*Msolv))/(n*Math.pow(Vm, 0.6))); //average analyte diffusion coefficient
-	//document.getElementById("avg_diffusion_coefficient_general").innerHTML = De.toExponential(4);
+	document.getElementById("avg_diffusion_coefficient_general").innerHTML = De.toExponential(4);
 	
 	var Us = (fR/60)/((Math.PI * Math.pow((d/10), 2))/4); //open tube flow velocity
 	var Ue = Us/Ee; //interstitial flow velocity
 	var U = Us/Et; //chromatographic flow velocity
 	var V = Ue*(dP/10000)/De; //reduced velocity
-	//document.getElementById("open_tube_flow_velocity").innerHTML = Us.toFixed(4);
-	//document.getElementById("intersitial_flow_velocity").innerHTML = Ue.toFixed(4);
-	//document.getElementById("chromatographic_flow_velocity").innerHTML = U.toFixed(4);
-	//document.getElementById("reduced_flow_velocity").innerHTML = V.toFixed(4);
+	document.getElementById("open_tube_flow_velocity").innerHTML = Us.toFixed(4);
+	document.getElementById("intersitial_flow_velocity").innerHTML = Ue.toFixed(4);
+	document.getElementById("chromatographic_flow_velocity").innerHTML = U.toFixed(4);
+	document.getElementById("reduced_flow_velocity").innerHTML = V.toFixed(4);
 	
 	var deltaP = 180*((Us*n*(L/10)*Math.pow((1-Ee), 2))/(Math.pow(Ee, 3)*Math.pow(dP, 2)));		//backpressure
-	//document.getElementById("backpressure_chrom").innerHTML = (deltaP).toFixed(2);
+	document.getElementById("backpressure_chrom").innerHTML = (deltaP).toFixed(2);
 	
 	var h = A+(B/V)+(C*V);	//reduced plate height
-	//document.getElementById("reduced_plate_height_column").innerHTML = parseFloat(h).toFixed(4);
+	document.getElementById("reduced_plate_height_column").innerHTML = parseFloat(h).toFixed(4);
 	
 	var NHETP = theoreticalPlates(h, dP, L);	//theoretical plate number
-	//document.getElementById("HETP_chrom").innerHTML = NHETP[0] .toExponential(4);
+	document.getElementById("HETP_chrom").innerHTML = NHETP[0] .toExponential(4);
 	
 	var N = NHETP[1]; //number of theoretical plates
-	//document.getElementById("theoretical_plates_chrom").innerHTML = Math.floor(N);
+	document.getElementById("theoretical_plates_chrom").innerHTML = Math.floor(N);
 	
 //============================================================================================================================================
 	//Run elution mode specific calculations
@@ -1776,12 +1976,8 @@ function calculatePeaks() {
 	
 //============================================================================================================================================
 	//Render the graph and run final user interface updates
-	
-	document.getElementById("messingAround_Div").innerHTML = "Calculations Successful!";
-	document.getElementById("btn").disabled = false;
-	//alert("Calculations Successful!");
 
-	/*renderGraph(data);
+	renderGraph(data);
 	
 	document.getElementById('GenRandExpBtn').disabled = false;
 	
@@ -1797,7 +1993,6 @@ function calculatePeaks() {
 	}
 	
 	if(compoundList.length <= 1){ document.getElementById("now_loaded").disabled = true; } else { document.getElementById("now_loaded").disabled = false; }
-	*/
 } 
 
 function load() {

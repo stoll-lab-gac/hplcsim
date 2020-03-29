@@ -13,15 +13,15 @@
 		<title>Multi-Dimensional Separations</title>
 		<link rel="stylesheet" type="text/css" href="sim_css.css">
 		<meta charset="utf-8">
-		<link rel="icon" href="/images/mini-icon.png">
-		<link rel="shortcut icon" href="/images/mini-icon.png">
+		<link rel="icon" href="../images/mini-icon.png">
+		<link rel="shortcut icon" href="../images/mini-icon.png">
 		<script src="http://d3js.org/d3.v4.min.js"></script>
-		<script src="/d3.min.js"></script>
+		<script src="../d3.min.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-		<script type="text/javascript" src="/jquery.js"></script>
-		<!--<script type="text/javascript" src="/toolkit/pressure_prediction.js"></script>-->
+		<script type="text/javascript" src="../jquery.js"></script>
+		<script type="text/javascript" src="../toolkit/pressure_prediction.js"></script>
 		<script type="text/javascript" src="simulator.js"></script>
-		<script type="text/javascript" src="/master-js.js"></script>
+		<script type="text/javascript" src="../master-js.js"></script>
 		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 		<style></style>
 	</head>
@@ -29,10 +29,10 @@
 		<div id="everything">
 			<div class="bar"></div>
 			<div id="topYellowBar" class="bar"></div>
-			<img src="/images/column.png" alt="Multi-D LC" id="column">
+			<img src="../images/column.png" alt="Multi-D LC" id="column">
 			<div style="min-width:1060px">
 				<div id="left">
-					<img src="/images/icon.png" alt="Multi-D LC" id="logo">
+					<img src="../images/icon.png" alt="Multi-D LC" id="logo">
 					<div id="corner"></div>
 				</div>
 				<div id="middle">
@@ -46,12 +46,12 @@
 						</div>
 						<a href="http://gustavus.edu">
 							<div id="banner" onmouseover="lower($(this))" onmouseleave="raise($(this))" style="top: -50px;">
-								<img src="/images/gac_logo.png" alt="GAC" id="gac" style="width:76px">
+								<img src="../images/gac_logo.png" alt="GAC" id="gac" style="width:76px">
 							</div>
 						</a>
 						<a href="https://www.uva.nl/en">
 						<div id="bannerUVA" onmouseover="lower($(this))" onmouseleave="raise($(this))">
-							<img src="/images/uva_logo.png" alt="UAV" id="UVA" style="width:76px"></img>
+							<img src="../images/uva_logo.png" alt="UAV" id="UVA" style="width:76px"></img>
 						</div> </a>
 						<h1><br>Multi-Dimensional Separations</h1>
 
@@ -59,8 +59,8 @@
 							A site dedicated to multi-dimensional separations with an emphasis on the liquid phase.
 						</div>
 
-						<img src="/images/peak.png" alt="peak" class="peak" id="peak" style="left: 28px; z-index: 1; height: 23px; padding-top: 5px; width: 80px; opacity: 1;">
-						<img src="/images/peak2.png" alt="peak" class="peak" id="peak2" style="z-index: -2; opacity: 1; height: 23px; padding-top: 5px; width: 80px; left: -57px;">
+						<img src="../images/peak.png" alt="peak" class="peak" id="peak" "="" style="left: 28px; z-index: 1; height: 23px; padding-top: 5px; width: 80px; opacity: 1;">
+						<img src="../images/peak2.png" alt="peak" class="peak" id="peak2" "="" style="z-index: -2; opacity: 1; height: 23px; padding-top: 5px; width: 80px; left: -57px;">
 						<script>
 							selected_tab = 5;							setPeak(selected_tab);
 							menuSelect(selected_tab);
@@ -68,25 +68,25 @@
 						<menu style="position:relative;top:-36px;">
 							<ul class="cf">
 								<li class="unselectable" onmouseover="menuSelect(0)" onmouseleave="menuSelect(selected_tab);">
-									<a href="/">Home</a>
+									<a href="../">Home</a>
 								</li>
 								<li class="unselectable" onmouseover="menuSelect(1)" onmouseleave="menuSelect(selected_tab);">
-									<a href="/about">About</a>
+									<a href="../about/about">About</a>
 								</li>
 								<li class="unselectable" onmouseover="menuSelect(2)" onmouseleave="menuSelect(selected_tab);">
-									<a href="/hplc_resources">Resources</a>
+									<a href="../hplc_resources">Resources</a>
 								</li>
 								<li class="unselectable" onmouseleave="menuSelect(selected_tab);hideLiteratureDropdown();">
-									<a class="dropdown" id="LiteratureDropdownA" onmouseover="menuSelect(3);showLiteratureDropdown();" href="/literature/applications-multidlc" style="width:110px">Literature</a>
+									<a class="dropdown" id="LiteratureDropdownA" onmouseover="menuSelect(3);showLiteratureDropdown();" href="../literature/applications-multidlc" style="width:110px">Literature</a>
 									<ul id="LiteratureDropdownUL">
 										<li>
-											<a href="/literature/2DLC-Applications">Applications of Multi-Dimensional LC</a>
+											<a href="../literature/2DLC-Applications">Applications of Multi-Dimensional LC</a>
 										</li>
 										<li>
-											<a href="/literature/2D-LC">Database of Technical Papers</a>
+											<a href="../literature/2D-LC">Database of Technical Papers</a>
 										</li>
 										<li>
-											<a href="/literature/reviews">Reviews</a>
+											<a href="../literature/reviews">Reviews</a>
 										</li>
 										<!--<li>
 											<a href="../literature/top-30">Top 30</a>
@@ -95,18 +95,18 @@
 											<a href="../literature/top-10">Top Ten</a>
 										</li>-->
 										<li>
-											<a href="/literature/books">Books</a>
+											<a href="../books">Books</a>
 										</li>
 									</ul>
 								</li>
 								<li class="unselectable" onmouseover="menuSelect(4)" onmouseleave="menuSelect(selected_tab);">
-									<a href="/terminology">Terminology</a>
+									<a href="../terminology">Terminology</a>
 								</li>
 								<li class="unselectable" onmouseleave="menuSelect(selected_tab);hideToolsDropdown();">
-									<a class="dropdown" id="ToolsDropdownA" onmouseover="menuSelect(5);showToolsDropdown();" href="/toolkit/tools" style="width:110px">Tools</a>
+									<a class="dropdown" id="ToolsDropdownA" onmouseover="menuSelect(5);showToolsDropdown();" href="../toolkit/tools" style="width:110px">Tools</a>
 									<ul id="ToolsDropdownUL">
 										<li>
-											<a href="/hplcsim">1D-LC Simulator</a>
+											<a href="../hplcsim/hplcsim.html">1D-LC Simulator</a>
 										</li>
 									</ul>
 								</li>
@@ -145,8 +145,7 @@
 					<main style="position:relative;left: -128px;max-height:700px;min-height:700px;width:1091px;top:-13.4px;">
 						<div id="content" onclick="isMouseOverDropdownMenu();">
 							<div id="header">
-								<!--<table width="940px">-->
-								<table width="1050px">
+								<table width="940px">
 									<tr>
 										<td>
 											<div id="title" >
@@ -157,12 +156,11 @@
 											<input type="button" value="Reset" onclick="resetMenus()">
 										</td>
 										<td>
-											<a href="../about"><input class="title_button" type="button" value="About"></a>
-											<a href="../whats_new"><input class="title_button" type="button" value="What's New"></a>
+											<a href="../hplcsimabout/about.html"><input class="title_button" type="button" value="About"></a>
+											<a href="../hplcsimabout/whats_new.html"><input class="title_button" type="button" value="What's New"></a>
 										</td>
 										<td style="padding-left:10px;">
 											<input class="export_button" type="button" value="Export Chromatogram" onclick="logExportFileData_Full()">
-											<h3 style="width:50px; height:25px; float:right;">Version:<br>3.0.0</h3>
 											<input class="export_button" type="button" value="Export Selected Compound" onclick="logExportFileData_Selected()">
 										</td>
 									</tr>
@@ -254,15 +252,43 @@
 										</table>
 									</div>
 									<div hidden>
+										<button id="loadAllImpurities_button" class="compound_button" onclick="loadAllImpurities();">Load All Impurities</button>
+										<button id="loadAllParabens_button" class="compound_button" onclick="loadAllParabens();">Load All Parabens</button>
+									</div>
+									<div hidden>
 										<button id="loadAllCompounds_button" class="compound_button" onclick="loadAllCompounds();">Load All Compounds</button>
 									</div>
-									<div>
-										<table id="all_compounds_table">
-											<tr colspan="2">
-												<th>Name</th>
-											</tr>
-										</table>
-									</div>
+									<table id="preloaded_compound_menu">
+										<tr>
+											<td colspan="4">Add Compound</td>
+											<td class="dropdown_div" onblur="show('preloaded')">
+												<button id="preloaded" class="dropbutton" onclick="show('preloaded')" onchange="reloadStats(this.innerHTML);">
+													<div id="preloaded_text" class='dropname' >Select</div>
+													<div id='preloaded_switch' class="switch">&#9660;</div>
+												</button>
+												<div id="preloaded_dropdown" class="dropdown-content"></div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="4">Manage Compound</td>
+											<td class="dropdown_div" onblur="show('now_loaded')">
+												<button id="now_loaded" class="dropbutton" onclick="show('now_loaded')" onchange="reloadStats(this.innerHTML);">
+													<div id="now_loaded_text" class='dropname' >Select</div>
+													<div id='now_loaded_switch' class="switch">&#9660;</div>
+												</button>
+												<div id="now_loaded_dropdown" class="dropdown-content"></div>
+											</td>
+										</tr>
+										<tr id="manageCompound" hidden>
+											<td colspan="4">
+												Managing
+												<a id="manageCompound_compound"></a>
+											</td>
+											<td>
+												<input type="button" class="compound_button" value="Remove Compound" onclick="removeCompoundFromList()">
+											</td>
+										</tr>
+									</table>
 								</div>
 								<!--
 									Mobile Phase Composition
@@ -292,8 +318,8 @@
 													<div id='solvent_b_switch' class="switch">&#9660;</div>
 												</button>
 												<div id="solvent_b_dropdown" class="dropdown-content">
-													<a id="solvent_b_dropdown_ACN" onclick="select_option('Acetonitrile', 'solvent_b'); calculatePeaks(); show('solvent_b')">Acetonitrile</a>
-													<a id="solvent_b_dropdown_MeOH" onclick="select_option('Methanol', 'solvent_b'); calculatePeaks(); show('solvent_b')">Methanol</a>
+													<a onclick="select_option('Acetonitrile', 'solvent_b'); calculatePeaks(); show('solvent_b')">Acetonitrile</a>
+													<a onclick="select_option('Methanol', 'solvent_b'); calculatePeaks(); show('solvent_b')">Methanol</a>
 												</div>
 											</td>
 										</tr>
@@ -431,22 +457,15 @@
 								</div>
 								<div id="chromatographic_properties" class="menu_section">
 									<table>
-										<tr id="temperature_disabled_text" hidden>
-											<td colspan="4"><b style="color:red">
-												Temperature is <i>disabled</i> for this stationary phase.<br>These measurements have not yet been made.</b><br>
-											</td>
-										</tr>
-										<tr id="temperature_input_rowOne" onmouseenter="setDesc('Temperature (&deg;C)', 'The temperature at which the experiment is ran.')" onmouseleave="setDesc('', '')">
+										<tr onmouseenter="setDesc('Temperature (&deg;C)', 'The temperature at which the experiment is ran.')" onmouseleave="setDesc('', '')">
 											<td colspan="3">Temperature (&deg;C):</td>
 										</tr>
-										<tr id="temperature_input_rowTwo">
+										<tr>
 											<td colspan="3">
 												<input onmouseenter="setDesc('Temperature (&deg;C)', 'The temperature at which the experiment is ran.<div>-----</div><div>Drag the slider to change the temperature.</div>')" onmouseleave="setDesc('', '')" id="temperature_slider" class="slider" type="range" min="10" max="150" value="40" oninput="document.getElementById('temperature_chrom').value = document.getElementById('temperature_slider').value; calculatePeaks();">
 												<div id="temperature_slider_tick" class="slider_ticks"></div>
 											</td>
-											<td>
-												<input onmouseenter="setDesc('Temperature (&deg;C)', 'The temperature at which the experiment is ran.<div>-----</div><div>Enter the temperature at which to run the experiment. Press Enter to apply.</div>')" onmouseleave="setDesc('', '')" class="number" type="number" step="any" id="temperature_chrom" value="40" onchange="document.getElementById('temperature_slider').value = document.getElementById('temperature_chrom').value; calculatePeaks();"/>
-											</td>
+											<td><input onmouseenter="setDesc('Temperature (&deg;C)', 'The temperature at which the experiment is ran.<div>-----</div><div>Enter the temperature at which to run the experiment. Press Enter to apply.</div>')" onmouseleave="setDesc('', '')" class="number" type="number" step="any" id="temperature_chrom" value="40" onchange="document.getElementById('temperature_slider').value = document.getElementById('temperature_chrom').value; calculatePeaks();"/></td>
 										</tr>
 										<tr onmouseenter="setDesc('Injection Volume', 'The volume of the mobile phase to analize during the experiment.')" onmouseleave="setDesc('', '')">
 											<td>Injection Volume:</td>
@@ -586,7 +605,10 @@
 												</button>
 												<div id="stationary_phase_dropdown" class="dropdown-content">
 													<a onclick="select_option('Agilent SB-C18', 'stationary_phase'); show('stationary_phase'); toggleColumnProperties('Agilent SB-C18')">Agilent SB-C18</a>
-													<!--<a onclick="select_option('Agilent SB-C8', 'stationary_phase'); show('stationary_phase'); toggleColumnProperties('Agilent SB-C8')" disabled>Agilent SB-C8</a>-->
+													<a style="color:lightgrey" disabled>---------------</a>
+													<a onclick="select_option('Edit Current Column', 'stationary_phase'); show('stationary_phase'); toggleColumnProperties('Edit Current Column')">Edit Current Column</a>
+													<a onclick="select_option('Custom Column', 'stationary_phase'); show('stationary_phase'); toggleColumnProperties('Custom Column')">Custom Column</a>
+													<a onclick="select_option('Generate Random Column', 'stationary_phase'); show('stationary_phase'); toggleColumnProperties('Generate Random Column')">Generate Random Column</a>
 												</div>
 											</td>
 										</tr>
@@ -594,27 +616,27 @@
 										are disabled by default because the default selected column is 'Agilent SB-C18'. -->
 										<tr onmouseenter="setDesc('Column Length', 'Distance from the column inlet to the column outlet. Measured in millimeters.')" onmouseleave="setDesc('', '')">
 											<td>Length:</td>
-											<td><input class="number" type="number" step="any" id="length_column" value="100.0" onchange="calculatePeaks()"></td>
+											<td><input class="number" type="number" step="any" id="length_column" value="100.0" onchange="calculatePeaks()" disabled></td>
 											<td>mm</td>
 										</tr>
 										<tr onmouseenter="setDesc('Column Inner Diameter', 'Distance between the inner walls of the column. Measured in millimeters.')" onmouseleave="setDesc('', '')">
 											<td>Inner Diameter:</td>
-											<td><input class="number" type="number" step="any" id="inner_diameter_column" value="4.6" onchange="calculatePeaks()"></td>
+											<td><input class="number" type="number" step="any" id="inner_diameter_column" value="4.6" onchange="calculatePeaks()" disabled></td>
 											<td>mm</td>
 										</tr>
 										<tr onmouseenter="setDesc('Column Particle Size', 'Average diameter of the particles inside the column. Measured in micrometers.')" onmouseleave="setDesc('', '')">
 											<td>Particle Size:</td>
-											<td><input class="number" type="number" step="any" id="particle_size_column" value="3.0" onchange="calculatePeaks()"></td>
+											<td><input class="number" type="number" step="any" id="particle_size_column" value="3.0" onchange="calculatePeaks()" disabled></td>
 											<td>&mu;m</td>
 										</tr>
 										<tr onmouseenter="setDesc('Column Interparticle Porosity', 'The fraction of the volume in the column that is between the stationary phase particles.')" onmouseleave="setDesc('', '')">
 											<td>Interparticle porosity:</td>
-											<td><input class="number" type="number" step="any" id="interparticle_porosity_column" value="0.4" onchange="calculatePeaks()"></td>
+											<td><input class="number" type="number" step="any" id="interparticle_porosity_column" value="0.4" onchange="calculatePeaks()" disabled></td>
 											<td></td>
 										</tr>
 										<tr onmouseenter="setDesc('Column Intraparticle Porosity', 'The fraction of the stationary phase particles that is occupied by the eluent.')" onmouseleave="setDesc('', '')">
 											<td>Intraparticle porosity:</td>
-											<td><input class="number" type="number" step="any" id="intraparticle_porosity_column" value="0.4" onchange="calculatePeaks()"></td>
+											<td><input class="number" type="number" step="any" id="intraparticle_porosity_column" value="0.4" onchange="calculatePeaks()" disabled></td>
 											<td></td>
 										</tr>
 										<tr onmouseenter="setDesc('Column Total Porosity', 'The fraction of the volume in the column that is occupied by eluent, both outside and inside the stationary phase particles.')" onmouseleave="setDesc('', '')">
@@ -634,17 +656,17 @@
 										</tr>
 										<tr onmouseenter="setDesc('A', 'A van Deemter parameter used in finding the Reduced Plate Height. Typically has a value of 1.0.')" onmouseleave="setDesc('', '')">
 											<td>A:</td>
-											<td><input class="number" type="number" step="any" id="A_column" onchange="calculatePeaks()" value="1.0"></td>
+											<td><input class="number" type="number" step="any" id="A_column" onchange="calculatePeaks()" value="1.0" disabled></td>
 											<td></td>
 										</tr>
 										<tr onmouseenter="setDesc('B', 'A van Deemter parameter used in finding the Reduced Plate Height. Typically has a value of 5.0.')" onmouseleave="setDesc('', '')">
 											<td>B:</td>
-											<td><input class="number" type="number" step="any" id="B_column" onchange="calculatePeaks()" value="5.0"></td>
+											<td><input class="number" type="number" step="any" id="B_column" onchange="calculatePeaks()" value="5.0" disabled></td>
 											<td></td>
 										</tr>
 										<tr onmouseenter="setDesc('C', 'A van Deemter parameter used in finding the Reduced Plate Height. Typically has a value of 0.05.')" onmouseleave="setDesc('', '')">
 											<td>C:</td>
-											<td><input class="number" type="number" step="any" id="C_column" onchange="calculatePeaks()" value="0.05"></td>
+											<td><input class="number" type="number" step="any" id="C_column" onchange="calculatePeaks()" value="0.05" disabled></td>
 											<td></td>
 										</tr>
 										<tr onmouseenter="setDesc('Reduced plate height', 'A dimensionless measure of the efficiency of an HPLC column under a particular set of conditions.')" onmouseleave="setDesc('', '')">
@@ -749,7 +771,7 @@
 	</body>
 	<script>
 		document.onload = load();
-		//document.onload = openMenu_ALL();
+		document.onload = openMenu_ALL();
 		document.onload = setLanguage();
 		document.onload = applyHighlightCode();
 		//document.onload = openMenu('general_properties');
