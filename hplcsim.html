@@ -162,7 +162,7 @@
 										</td>
 										<td style="padding-left:10px;">
 											<input class="export_button" type="button" value="Export Chromatogram" onclick="logExportFileData_Full()">
-											<h3 style="width:50px; height:25px; float:right;">Version:<br>3.0.0</h3>
+											<h3 style="width:50px; height:25px; float:right;">Version:<br>3.0.1</h3>
 											<input class="export_button" type="button" value="Export Selected Compound" onclick="logExportFileData_Selected()">
 										</td>
 									</tr>
@@ -462,32 +462,32 @@
 											<td colspan="3">Flow Velocities:</td>
 										</tr>
 										<tr onmouseenter="setDesc('Flow Velocities', 'The different calculations of flow velocities. Used in calculating column efficiency.<div>-----</div><div>Open Tube: The rate at which the mobile phase would move through the column if it were empty.</div>')" onmouseleave="setDesc('', '')">
-											<td class="tab">-Open Tube:</td>
+											<td class="tab">--- Open Tube:</td>
 											<td id="open_tube_flow_velocity">Loading...</td>
 											<td>cm/s</td>
 										</tr>
 										<tr onmouseenter="setDesc('Flow Velocities', 'The different calculations of flow velocities. Used in calculating column efficiency.<div>-----</div><div>Interstitial: </div>')" onmouseleave="setDesc('', '')">
-											<td class="tab">-Interstitial:</td>
+											<td class="tab">--- Interstitial:</td>
 											<td id="intersitial_flow_velocity">Loading...</td>
 											<td>cm/s</td>
 										</tr>
 										<tr onmouseenter="setDesc('Flow Velocities', 'The different calculations of flow velocities. Used in calculating column efficiency.<div>-----</div><div>Chromatographic: </div>')" onmouseleave="setDesc('', '')">
-											<td class="tab" style="width: 200px;">-Chromatographic:</td>
+											<td class="tab" style="width: 200px;">--- Chromatographic:</td>
 											<td id="chromatographic_flow_velocity">Loading...</td>
 											<td>cm/s</td>
 										</tr>
 										<tr onmouseenter="setDesc('Flow Velocities', 'The different calculations of flow velocities. Used in calculating column efficiency.<div>-----</div><div>Reduced: </div>')" onmouseleave="setDesc('', '')">
-											<td class="tab">-Reduced:</td>
+											<td class="tab">--- Reduced:</td>
 											<td id="reduced_flow_velocity">Loading...</td>
 											<td></td>
 										</tr>
 										<tr onmouseenter="setDesc('HTEP (Height Equivalent to a Theoretical Plate)', '')" onmouseleave="setDesc('', '')">
-											<td>HETP:</td>
+											<td>H (plate height):</td>
 											<td id="HETP_chrom">Loading...</td>
 											<td>cm</td>
 										</tr>
 										<tr onmouseenter="setDesc('Theoretical Plates', 'The number of theoretical plates is the number of efficiency zones. It is dependant on the dimensions of the column and the HETP.')" onmouseleave="setDesc('', '')">
-											<td>Theoretical Plates:</td>
+											<td>Plate number:</td>
 											<td id="theoretical_plates_chrom">Loading...</td>
 											<!-- This was originally 16490 -->
 											<td></td>
@@ -537,12 +537,12 @@
 										</tr>
 										<tr>
 											<td>Signal Offset:</td>
-											<td><input class="number" type="number" step="any" id="signal_offset_general" onchange="calculatePeaks()" value="0.0" disabled></td>
+											<td><input class="number" type="number" step="any" id="signal_offset_general" onchange="calculatePeaks()" value="0.0"></td>
 											<td>munits</td>
 										</tr>
 										<tr>
 											<td>Noise:</td>
-											<td><input class="number" type="number" step="any" id="noise_general" onchange="calculatePeaks()" value="2.0" disabled></td>
+											<td><input class="number" type="number" step="any" id="noise_general" onchange="calculatePeaks()" value="2.0"></td>
 											<td></td>
 										</tr>
 										<tr>
@@ -703,7 +703,8 @@
 								<table id="headerTable">
 									<tr>
 										<th>Compound</th>
-   										<th id="headerTable_k">k&#39;</th>
+   										<!--<th id="headerTable_k">k&#39;</th>-->
+										<th id="headerTable_k">k</th>
   										<th>t<sub>R</sub> (min)</th>
 										<!--<th>sigma (s)</th>-->
 										<th>&#963; (s)</th>

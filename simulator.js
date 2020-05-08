@@ -728,6 +728,7 @@ function hideGradientElutionStuffs(bool){
 
 function resetMenus(){
 	log("Running 'resetMenus()'...");
+	
 	//Mobile Phase Composition
 	select_option('Acetonitrile', 'solvent_b');
 	compoundList = ["phenol", "benzonitrile", "p-chlorophenol", "acetophenone", "nitrobenzene"];
@@ -736,11 +737,33 @@ function resetMenus(){
 	document.getElementById("gradient_radio").checked = false;
 	document.getElementById("solvent_fraction_slider").value = 40;
 	document.getElementById("solvent_fraction_comp").value = 40;
+	
 	//Chromatographic Properties
 	document.getElementById("temperature_slider").value = 40;
 	document.getElementById("temperature_chrom").value = 40;
 	document.getElementById("injection_volume_chrom").value = "5.0";
 	document.getElementById("flow_rate_chrom").value = "2.0";	
+	
+	//General Properties
+	document.getElementById("signal_offset_general").value = 0;
+	document.getElementById("noise_general").value = 2.0;
+	document.getElementById("auto_time_check").checked = true;
+	document.getElementById("initial_time_general").value = 0;
+	document.getElementById("plot_points_general").value = 3000;
+	
+	//Column Properties
+	select_option('Agilent SB-C18', 'stationary_phase');
+	toggleColumnProperties('Agilent SB-C18');
+	document.getElementById("length_column").value = 100.0;
+	document.getElementById("inner_diameter_column").value = 4.6;
+	document.getElementById("particle_size_column").value = 3.0;
+	document.getElementById("interparticle_porosity_column").value = 0.4;
+	document.getElementById("intraparticle_porosity_column").value = 0.4;
+	document.getElementById("A_column").value = 1.0;
+	document.getElementById("B_column").value = 5.0;
+	document.getElementById("C_column").value = 0.05;
+	
+	
 	//compoundList
 	displayTable();
 	applyHighlightCode();
@@ -1010,6 +1033,9 @@ function renderGraph(data) {
 	new_data = [];
 	new_data[0] = aggregateSignal(data);
 	
+	var domainData = aggregateSignal(data);
+	domainData[0].Ct = 0;
+	
 	createDataExportFile_Full(new_data[0]);
 	
 	if (document.getElementById("dataTable").className != ""){
@@ -1021,7 +1047,8 @@ function renderGraph(data) {
 	}
 
 	x.domain(d3.extent(new_data[0], function(d) { return d.t; }));
-	y.domain(d3.extent(new_data[0], function(d) { return d.Ct; }));
+	//y.domain(d3.extent(new_data[0], function(d) { return d.Ct; }));
+	y.domain(d3.extent(domainData, function(d) { return d.Ct; }));
 	//megan.domain([0, 100]);
 
 	g.append("g")
@@ -1135,7 +1162,13 @@ function aggregateSignal(data){
 	log("Running 'aggregateSignal(data)'...");
 	base_data = data[0];
 	max_t = maximum_t(data);
-
+	
+	if(document.getElementById("signal_offset_general").value == ""){ document.getElementById("signal_offset_general").value = 0; }
+	if(document.getElementById("noise_general").value == ""){ document.getElementById("noise_general").value = 0; }
+	
+	var signalOffset = parseFloat(document.getElementById("signal_offset_general").value);
+	var noise = parseFloat(document.getElementById("noise_general").value);
+	
 	step = .01;
 	aggregate_signal = [];
 
@@ -1147,12 +1180,18 @@ function aggregateSignal(data){
 			y_targ = localInterpolation(data[k], x_targ);
 			signal += y_targ;
 		}
+		
+		var noiseValue = Math.random()*noise;
+		
 		aggregate_signal[index] = {
 					"t" : j,
-					"Ct" : signal,
+					"Ct" : signal+signalOffset+noiseValue,
 					"c" : "steelblue"
 		}
 	}
+	
+	//aggregate_signal[0].Ct = 0;
+	
 	return aggregate_signal;
 }
 
@@ -2001,7 +2040,8 @@ function calculatePeaks() {
 	if (document.getElementById("isocratic_radio").checked) {
 		mode = "isocratic";
 		hideGradientElutionStuffs("true");
-		document.getElementById("headerTable_k").innerHTML = "k&#39;";
+		//document.getElementById("headerTable_k").innerHTML = "k&#39;";
+		document.getElementById("headerTable_k").innerHTML = "k";
 	} else {
 		mode = "gradient";
 		hideGradientElutionStuffs("false");
