@@ -1181,7 +1181,7 @@ function aggregateSignal(data){
 			signal += y_targ;
 		}
 		
-		var noiseValue = Math.random()*noise;
+		var noiseValue = (Math.random()*noise)-(noise/2);
 		
 		aggregate_signal[index] = {
 					"t" : j,
@@ -1735,141 +1735,219 @@ function gradientElutionMode(solvent, T, phi_i, phi_f, tD, F, d, L, Et, tG, t0, 
 	var table = [];
 	
 	//var step = .01;
-	var step = parseFloat(((60)/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
+	//var step = parseFloat(((60)/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
 	
 	var tF_max = 0;
 	
-	for(i = 0; i < compoundList.length; i++){
-		var cmpdData = [];
-		var UsT = 0;
-		var W = parseFloat(((Vinj/1000000)*(M[i])).toFixed(15));
-		var cache = "";
-		var compoundName = compoundList[i];
+	var tF = 0.0;
+	if (!document.getElementById("auto_time_check").checked) { tF = (parseFloat(document.getElementById("final_time_general").value))/60; }
+	
+	if (tF <= 0.0) {
+		//time is determined automatically
 		
-		var compound = compoundList[i];
+		var step = parseFloat(((60)/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
 		
-		cache += "compound = " + compound + "\n";
+		for(i = 0; i < compoundList.length; i++){
+			var cmpdData = [];
+			var UsT = 0;
+			var W = parseFloat(((Vinj/1000000)*(M[i])).toFixed(15));
+			var cache = "";
+			var compoundName = compoundList[i];
 		
-		if(solvent == "Methanol"){
-			var lnkw = (calcGradientMeOH[compound][1]*tKelvin)+calcGradientMeOH[compound][0];
-			var S = (calcGradientMeOH[compound][3]*tKelvin)+calcGradientMeOH[compound][2];
-			cache += "lnkw = ("+calcGradientMeOH[compound][1]+"*"+tKelvin+")+"+calcGradientMeOH[compound][0]+" = " + lnkw + "\n";
-			cache += "S = ("+calcGradientMeOH[compound][3]+"*"+tKelvin+")+"+calcGradientMeOH[compound][2]+" = "+S + "\n";
-		} else {
-			var lnkw = (calcGradientACN[compound][1]*tKelvin)+calcGradientACN[compound][0];
-			var S = (calcGradientACN[compound][3]*tKelvin)+calcGradientACN[compound][2];
-			cache += "lnkw = ("+calcGradientACN[compound][1]+"*"+tKelvin+")+"+calcGradientACN[compound][0]+" = " + lnkw + "\n";
-			cache += "S = ("+calcGradientACN[compound][3]+"*"+tKelvin+")+"+calcGradientACN[compound][2]+" = "+S + "\n";
-		}
+			var compound = compoundList[i];
 		
-		var lnk0 = lnkw - (S*(phi_i));
-		cache += "lnk0 = " + lnk0 + "\n";
-		var k0 = Math.exp(lnk0);
-		cache += "k0 = " + k0 + "\n";
+			if(solvent == "Methanol"){
+				var lnkw = (calcGradientMeOH[compound][1]*tKelvin)+calcGradientMeOH[compound][0];
+				var S = (calcGradientMeOH[compound][3]*tKelvin)+calcGradientMeOH[compound][2];
+			} else {
+				var lnkw = (calcGradientACN[compound][1]*tKelvin)+calcGradientACN[compound][0];
+				var S = (calcGradientACN[compound][3]*tKelvin)+calcGradientACN[compound][2];
+			}
+		
+			var lnk0 = lnkw - (S*(phi_i));
+			var k0 = Math.exp(lnk0);
     
-		var b = (S*(phi_f-phi_i)*V0)/(F*tG);
-		cache += "b = " + b + "\n";
+			var b = (S*(phi_f-phi_i)*V0)/(F*tG);
     
-		var step1 = k0-(tD/t0);
-		var step2 = b * step1 + 1;
-		var step3 = (t0/b)*Math.log(step2);
-		var tR = t0 + tD + step3;
-		cache += "tR = " + tR + "\n";
+			var step1 = k0-(tD/t0);
+			var step2 = b * step1 + 1;
+			var step3 = (t0/b)*Math.log(step2);
+			var tR = t0 + tD + step3;
 		
-		var kw = Math.exp(lnkw);
-		//var phi_e = (1/S)*Math.log((S*(deltaPhi/tG)*kw*t0*(k0-tD/t0)+1)/k0);
+			var kw = Math.exp(lnkw);
+			//var phi_e = (1/S)*Math.log((S*(deltaPhi/tG)*kw*t0*(k0-tD/t0)+1)/k0);
 		
-		if((tR-tD-t0) < 0 || (tR-tD-t0) > tG){
-			var phi_e = phi_i;
-		} else {
-			var phi_e = gradientSlope*(tR-tD-t0)+phi_i;
-		}
+			if((tR-tD-t0) < 0 || (tR-tD-t0) > tG){
+				var phi_e = phi_i;
+			} else {
+				var phi_e = gradientSlope*(tR-tD-t0)+phi_i;
+			}
 		
+			var lnke = lnkw - (S*(phi_e));
+			var ke = Math.exp(lnke);
 		
+			var sigma = Math.sqrt(Math.pow((t0*60)*((1+ke)/(Math.sqrt(N))), 2)+Math.pow(tau, 2));
 		
-		//console.log("tR: "+tR);
-		//console.log("phi_e: "+phi_e);
-		//console.log("NEW_phi_e: "+NEW_phi_e);
-		//console.log("--------------------");
+			var t = 0;
+			var j = 0;
+			var check = true;
+			var loops = 0;
+			var tF = 0;
 		
-		//var phi_e = (((phi_f-phi_i)/tG)*tR)+phi_i;
-		cache += "phi_e = " + phi_e + "\n";
-		
-		var lnke = lnkw - (S*(phi_e));
-		cache += "lnke = lnkw - ("+S+"*("+phi_e+")) = " + lnke + "\n";
-		var ke = Math.exp(lnke);
-		cache += "ke = Math.exp("+lnke+") = " + ke + "\n";
-		
-		var sigma = Math.sqrt(Math.pow((t0*60)*((1+ke)/(Math.sqrt(N))), 2)+Math.pow(tau, 2));
-		cache += "sigma = Math.sqrt(Math.pow(("+t0+"*60)*((1+"+ke+")/(Math.sqrt("+N+"))), 2)+Math.pow("+tau+", 2)) = "+sigma;
-		
-		//console.log(cache);
-		
-		var t = 0;
-		var j = 0;
-		var check = true;
-		var loops = 0;
-		var tF = 0;
-		
-		var compoundArray = new Array();
-		compoundArray[0] = compoundList[i];
-		compoundArray[1] = ke.toFixed(4);
-		compoundArray[2] = tR;
-		compoundArray[3] = sigma;
-		compoundArray[4] = Math.exp(lnkw);;
-		compoundArray[5] = S.toFixed(4);
-		tableArray[i] = compoundArray;
+			var compoundArray = new Array();
+			compoundArray[0] = compoundList[i];
+			compoundArray[1] = ke.toFixed(4);
+			compoundArray[2] = tR;
+			compoundArray[3] = sigma;
+			compoundArray[4] = Math.exp(lnkw);;
+			compoundArray[5] = S.toFixed(4);
+			tableArray[i] = compoundArray;
     
-		table[i] = [];
-		table[i][0] = compoundList[i];
+			table[i] = [];
+			table[i][0] = compoundList[i];
 		
-		var finalRun = false;
+			var finalRun = false;
 		
-		//var thisIsATest_peakValue = 0;
-		//var thisIsATest_peakTime = 0;
+			while (t <= tF) {
+				var Ct = 1000000*(W/1000000)/(Math.pow((2*Math.PI), 0.5)*(sigma/60)*(F/(60*1000)))*Math.exp(-Math.pow((t-tR),2)/(2*Math.pow((sigma/60), 2)));
+				if (loops > 10000000) {
+					alert("infinite loop");
+					break;
+				}
+				if (Ct > 0.00001) {
+					check = false;
+				}
+				
+				if(check == false && finalRun == false){
+					//tF += 1;
+					tF += (0.02 * tF);
+					finalRun = true;
+				}
+				
+				cmpdData[j] = {
+					"t" : t,
+					"Ct" : Ct
+				};
+				if (check || Ct > 0.00001) {
+					tF += step;
+				}
+				
+				table[i][j+1]=Ct;
+				t += step;
+				j++;
+				loops++;
+			}
+			if(tF > tF_max){
+				tF_max = tF;
+			}
 		
-		while (t <= tF) {
-			var Ct = 1000000*(W/1000000)/(Math.pow((2*Math.PI), 0.5)*(sigma/60)*(F/(60*1000)))*Math.exp(-Math.pow((t-tR),2)/(2*Math.pow((sigma/60), 2)));
-			if (loops > 10000000) {
-				alert("infinite loop");
-				break;
-			}
-			if (Ct > 0.00001) {
-				check = false;
-			}
-			
-			if(check == false && finalRun == false){
-				//tF += 1;
-				tF += (0.02 * tF);
-				finalRun = true;
-			}
-			
-			cmpdData[j] = {
-				"t" : t,
-				"Ct" : Ct
-			};
-			if (check || Ct > 0.00001) {
-				tF += step;
-			}
-			
-			//if(Ct > thisIsATest_peakValue){
-			//	thisIsATest_peakValue = Ct;
-			//	thisIsATest_peakTime = t;
-			//}
-
-			table[i][j+1]=Ct;
-			t += step;
-			j++;
-			loops++;
+			graphData[i] = cmpdData;
 		}
-		if(tF > tF_max){
-			tF_max = tF;
-		}
-		//console.log("peakValue:\n"+thisIsATest_peakValue);
-		//console.log("peakTime:\n"+thisIsATest_peakTime);
+	} else {
+		//time is set manually
 		
-		graphData[i] = cmpdData;
+		var step = parseFloat(((60)/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
+		
+		for(i = 0; i < compoundList.length; i++){
+			var cmpdData = [];
+			var UsT = 0;
+			var W = parseFloat(((Vinj/1000000)*(M[i])).toFixed(15));
+			var cache = "";
+			var compoundName = compoundList[i];
+		
+			var compound = compoundList[i];
+		
+			if(solvent == "Methanol"){
+				var lnkw = (calcGradientMeOH[compound][1]*tKelvin)+calcGradientMeOH[compound][0];
+				var S = (calcGradientMeOH[compound][3]*tKelvin)+calcGradientMeOH[compound][2];
+			} else {
+				var lnkw = (calcGradientACN[compound][1]*tKelvin)+calcGradientACN[compound][0];
+				var S = (calcGradientACN[compound][3]*tKelvin)+calcGradientACN[compound][2];
+			}
+		
+			var lnk0 = lnkw - (S*(phi_i));
+			var k0 = Math.exp(lnk0);
+    
+			var b = (S*(phi_f-phi_i)*V0)/(F*tG);
+    
+			var step1 = k0-(tD/t0);
+			var step2 = b * step1 + 1;
+			var step3 = (t0/b)*Math.log(step2);
+			var tR = t0 + tD + step3;
+		
+			var kw = Math.exp(lnkw);
+			//var phi_e = (1/S)*Math.log((S*(deltaPhi/tG)*kw*t0*(k0-tD/t0)+1)/k0);
+		
+			if((tR-tD-t0) < 0 || (tR-tD-t0) > tG){
+				var phi_e = phi_i;
+			} else {
+				var phi_e = gradientSlope*(tR-tD-t0)+phi_i;
+			}
+		
+			var lnke = lnkw - (S*(phi_e));
+			var ke = Math.exp(lnke);
+		
+			var sigma = Math.sqrt(Math.pow((t0*60)*((1+ke)/(Math.sqrt(N))), 2)+Math.pow(tau, 2));
+		
+			var t = 0;
+			var j = 0;
+			var check = true;
+			var loops = 0;
+			//var tF = 0;
+		
+			var compoundArray = new Array();
+			compoundArray[0] = compoundList[i];
+			compoundArray[1] = ke.toFixed(4);
+			compoundArray[2] = tR;
+			compoundArray[3] = sigma;
+			compoundArray[4] = Math.exp(lnkw);;
+			compoundArray[5] = S.toFixed(4);
+			tableArray[i] = compoundArray;
+    
+			table[i] = [];
+			table[i][0] = compoundList[i];
+		
+			var finalRun = false;
+		
+			while (t <= tF) {
+				var Ct = 1000000*(W/1000000)/(Math.pow((2*Math.PI), 0.5)*(sigma/60)*(F/(60*1000)))*Math.exp(-Math.pow((t-tR),2)/(2*Math.pow((sigma/60), 2)));
+				if (loops > 10000000) {
+					alert("infinite loop");
+					break;
+				}
+				if (Ct > 0.00001) {
+					check = false;
+				}
+				
+				if(check == false && finalRun == false){
+					//tF += 1;
+					//tF += (0.02 * tF);
+					finalRun = true;
+				}
+				
+				cmpdData[j] = {
+					"t" : t,
+					"Ct" : Ct
+				};
+				if (check || Ct > 0.00001) {
+					//tF += step;
+				}
+				
+				table[i][j+1]=Ct;
+				t += step;
+				j++;
+				loops++;
+			}
+			if(tF > tF_max){
+				tF_max = tF;
+			}
+		
+			graphData[i] = cmpdData;
+		}
+		
 	}
+	
+	
 	
 	var percentB = [];
 		

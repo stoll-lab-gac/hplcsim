@@ -6,14 +6,14 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=windows-1252">
 		<meta http-equiv="Refresh"
-		content="1; url=/hplcsim/3_0_1/hplcsim.html" />
+		content="1; url=/hplcsim/3_0_2/hplcsim.html" />
 	</head>
 	<body>
 		<main>
 			<div class="hplc-resources">
 				<h1 id="page-title">Redirecting to HPLCSim...</h1>
 				<hr>
-				<h4>If you are not automatically redirected, <a href="/hplcsim/3_0_1/hplcsim.html">Click Here</a></h4>
+				<h4>If you are not automatically redirected, <a href="/hplcsim/3_0_2/hplcsim.html">Click Here</a></h4>
 			</div>
 		</main>
     <?php include($_SERVER['DOCUMENT_ROOT'].'/scaffold/footer.php'); ?>
