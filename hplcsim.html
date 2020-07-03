@@ -59,8 +59,8 @@
 							A site dedicated to multi-dimensional separations with an emphasis on the liquid phase.
 						</div>
 
-						<img src="/images/peak.png" alt="peak" class="peak" id="peak" style="left: 28px; z-index: 1; height: 23px; padding-top: 5px; width: 80px; opacity: 1;">
-						<img src="/images/peak2.png" alt="peak" class="peak" id="peak2" style="z-index: -2; opacity: 1; height: 23px; padding-top: 5px; width: 80px; left: -57px;">
+						<img src="/images/peak.png" alt="peak" class="peak" id="peak" "="" style="left: 28px; z-index: 1; height: 23px; padding-top: 5px; width: 80px; opacity: 1;">
+						<img src="/images/peak2.png" alt="peak" class="peak" id="peak2" "="" style="z-index: -2; opacity: 1; height: 23px; padding-top: 5px; width: 80px; left: -57px;">
 						<script>
 							selected_tab = 5;							setPeak(selected_tab);
 							menuSelect(selected_tab);
@@ -145,8 +145,7 @@
 					<main style="position:relative;left: -128px;max-height:700px;min-height:700px;width:1091px;top:-13.4px;">
 						<div id="content" onclick="isMouseOverDropdownMenu();">
 							<div id="header">
-								<!--<table width="940px">-->
-								<table width="1050px">
+								<!--<table width="1050px">
 									<tr>
 										<td>
 											<div id="title" >
@@ -157,12 +156,36 @@
 											<input type="button" value="Reset" onclick="resetMenus()">
 										</td>
 										<td>
-											<a href="../about"><input class="title_button" type="button" value="About"></a>
-											<a href="../whats_new"><input class="title_button" type="button" value="What's New"></a>
+											<a href="../hplcsimabout/about.html"><input class="title_button" type="button" value="About"></a>
+											<a href="../hplcsimabout/whats_new.html"><input class="title_button" type="button" value="What's New"></a>
 										</td>
 										<td style="padding-left:10px;">
 											<input class="export_button" type="button" value="Export Chromatogram" onclick="logExportFileData_Full()">
-											<h3 style="width:50px; height:25px; float:right;">Version:<br>3.0.2</h3>
+											<h3 style="width:50px; height:25px; float:right;">Version:<br>3.0.3</h3>
+											<input class="export_button" type="button" value="Export Selected Compound" onclick="logExportFileData_Selected()">
+										</td>
+									</tr>
+								</table>-->
+								<table width="1050px">
+									<tr>
+										<td style="width:25%">
+											<div id="title">
+												HPLC Simulator
+											</div>
+										</td>
+										<td style="width:8%">
+											<input type="button" value="Reset" onclick="resetMenus()">
+										</td>
+										<td style="width:26%">
+											<a href="../about"><input class="title_button" type="button" value="About"></a>
+											<a href="../whats_new"><input class="title_button" type="button" value="What's New"></a>
+										</td>
+										<td style="width:16%">
+											<a href="../instructor_resources"><input class="title_button" type="button" value="Instructor Resources" style="width:150px"></a>
+										</td>
+										<td>
+											<input class="export_button" type="button" value="Export Chromatogram" onclick="logExportFileData_Full()">
+											<h3 style="width:50px; height:25px; float:right;">Version:<br>3.0.3</h3>
 											<input class="export_button" type="button" value="Export Selected Compound" onclick="logExportFileData_Selected()">
 										</td>
 									</tr>
@@ -557,7 +580,7 @@
 										</tr>
 										<tr>
 											<td>Plot Points:</td>
-											<td><input id="plot_points_general" class="number" type="number" step="any" onchange="calculatePeaks()" value="3000"></td>
+											<td><input id="plot_points_general" class="number" type="number" step="any" onchange="calculatePeaks()" value="6000"></td>
 											<td></td>
 										</tr>
 									</table>
