@@ -59,8 +59,8 @@
 							A site dedicated to multi-dimensional separations with an emphasis on the liquid phase.
 						</div>
 
-						<img src="/images/peak.png" alt="peak" class="peak" id="peak" "="" style="left: 28px; z-index: 1; height: 23px; padding-top: 5px; width: 80px; opacity: 1;">
-						<img src="/images/peak2.png" alt="peak" class="peak" id="peak2" "="" style="z-index: -2; opacity: 1; height: 23px; padding-top: 5px; width: 80px; left: -57px;">
+						<img src="/images/peak.png" alt="peak" class="peak" id="peak" style="left: 28px; z-index: 1; height: 23px; padding-top: 5px; width: 80px; opacity: 1;">
+						<img src="/images/peak2.png" alt="peak" class="peak" id="peak2" style="z-index: -2; opacity: 1; height: 23px; padding-top: 5px; width: 80px; left: -57px;">
 						<script>
 							selected_tab = 5;							setPeak(selected_tab);
 							menuSelect(selected_tab);
@@ -185,7 +185,7 @@
 										</td>
 										<td>
 											<input class="export_button" type="button" value="Export Chromatogram" onclick="logExportFileData_Full()">
-											<h3 style="width:50px; height:25px; float:right;">Version:<br>3.0.3</h3>
+											<h3 style="width:50px; height:25px; float:right;">Version:<br>3.1.0</h3>
 											<input class="export_button" type="button" value="Export Selected Compound" onclick="logExportFileData_Selected()">
 										</td>
 									</tr>
@@ -583,6 +583,21 @@
 											<td><input id="plot_points_general" class="number" type="number" step="any" onchange="calculatePeaks()" value="6000"></td>
 											<td></td>
 										</tr>
+										<tr>
+											<td>Frequency:</td>
+											<td id="plot_points_general_detectorFrequency"></td>
+											<td></td>
+										</tr>
+										<tr>
+											<td colspan="2">
+												<input id="renderGraph_dots_check" type="checkbox" name="renderGraph_dots" onchange="calculatePeaks()">Plot points on graph
+											</td>
+										</tr>
+										<!--<tr>
+											<td colspan="3">
+												<input id="renderGraph_newFunction_check" type="checkbox" name="renderGraph_newFunction" onchange="calculatePeaks()">Use new render function
+											</td>
+										</tr>-->
 									</table>
 								</div>
 								<!--

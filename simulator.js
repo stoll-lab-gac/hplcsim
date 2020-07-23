@@ -749,7 +749,8 @@ function resetMenus(){
 	document.getElementById("noise_general").value = 2.0;
 	document.getElementById("auto_time_check").checked = true;
 	document.getElementById("initial_time_general").value = 0;
-	document.getElementById("plot_points_general").value = 3000;
+	document.getElementById("plot_points_general").value = 6000;
+	document.getElementById("renderGraph_dots_check").checked = false;
 	
 	//Column Properties
 	select_option('Agilent SB-C18', 'stationary_phase');
@@ -763,6 +764,7 @@ function resetMenus(){
 	document.getElementById("B_column").value = 5.0;
 	document.getElementById("C_column").value = 0.05;
 	
+	document.getElementById("dataTable").className = "";
 	
 	//compoundList
 	displayTable();
@@ -989,8 +991,9 @@ function tableID(x,y){
 	return 10 * (y + 1 ) + x
 }
 
-function renderGraph(data) {
+function renderGraph(data, renderGraphDots) {
 	log("Running 'renderGraph(data)'...");
+	console.log("Running 'renderGraph(data)'...")
 	var masterlist = [];
 	//console.log(data);
 	for (i = 0; i < data.length; i++) {
@@ -1034,7 +1037,7 @@ function renderGraph(data) {
 	new_data[0] = aggregateSignal(data);
 	
 	var domainData = aggregateSignal(data);
-	domainData[0].Ct = 0;
+	//domainData[0].Ct = 0;
 	
 	createDataExportFile_Full(new_data[0]);
 	
@@ -1084,8 +1087,12 @@ function renderGraph(data) {
 		.text("I say a lot of things");*/
 
 	for (i = 0; i < new_data.length; i++) {
+		//var line = d3.line()
+		//    .curve(d3.curveBasis)
+		//    .x(function(d) { return x(d.t); })
+		//    .y(function(d) { return y(d.Ct); });
+			
 		var line = d3.line()
-			.curve(d3.curveBasis)
 		    .x(function(d) { return x(d.t); })
 		    .y(function(d) { return y(d.Ct); });
 
@@ -1098,6 +1105,57 @@ function renderGraph(data) {
 		    .attr("stroke-linecap", "round")
 		    .attr("stroke-width", 1.5)
 		    .attr("d", line);
+		
+		if(renderGraphDots){
+			g.append("g")
+			.selectAll("dot")
+			.data(new_data[i])
+			.enter()
+			.append("circle")
+				.attr("cx", function(d) { return x(d.t) })
+				.attr("cy", function(d) { return y(d.Ct); })
+				.attr("r", 1.5)
+				.attr("fill", (i == 0 ? "#007aa2" : "#ff0000"));
+		}
+	}
+}
+
+function renderGraph_new(data, renderGraphDots) {
+	console.log("Running 'renderGraph_new(data, renderGraphDots)'...")
+	var masterlist = [];
+	//console.log(data);
+	for (i = 0; i < data.length; i++) {
+		masterlist = masterlist.concat(data[i]);
+	}
+	//console.log(masterlist);
+
+	d3.select("#graph_svg").remove(); //grab the '#graph_svg' tag and remove 
+
+	document.getElementById("graph").innerHTML = "<svg id='graph_svg' width='1400' height='500'></svg>"; //Create a new SVG with a width of 1400 and height of 500
+	
+	var svg = d3.select("#graph_svg"), //grab the '#graph_svg' tag and bind it to the variable svg
+	    margin = {top: 20, right: 20, bottom: 30, left: 50}, //create a JSON containing the margins
+	    width = 700 - margin.left - margin.right, //create a variable containing the usable width
+	    height = 500 - margin.top - margin.bottom, //create a variable containing the usable height
+	    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")"); //grab the '#graph_svg' tag, append a 'g' tag, assign attribute 'transform'; move the contents of the grouping
+
+	var x = d3.scaleLinear()
+	    .rangeRound([0, width]); //create a variable 'x' to set the scale’s range to the specified two-element array of numbers while also enabling rounding. equivalent to: .range(range).round(true);
+
+	var y = d3.scaleLinear()
+	    .rangeRound([height, 0]); //create a variable 'y' to set the scale’s range to the specified two-element array of numbers while also enabling rounding. equivalent to: .range(range).round(true);
+
+	//var megan = d3.scaleLinear()
+	//    .rangeRound([height, 0]);
+		
+	// Determines the highest retention time
+	tR_max = 0;
+	for (i = 0; i < data.length; i++){
+		tR = document.getElementById(tableID(4,i)).innerHTML;
+		tR = 5;
+		if (tR_max < tR){
+			tR_max = tR;
+		}
 	}
 }
 
@@ -1169,11 +1227,19 @@ function aggregateSignal(data){
 	var signalOffset = parseFloat(document.getElementById("signal_offset_general").value);
 	var noise = parseFloat(document.getElementById("noise_general").value);
 	
-	step = .01;
+	//step = .01;
+	var step = parseFloat(((60)/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
+	
+	document.getElementById("plot_points_general_detectorFrequency").innerHTML = (1/((60/document.getElementById("plot_points_general").value)*60)).toFixed(3) + " Hz";
+	
+	
+	//var timeStart = 0;
+	var timeStart = parseFloat((parseFloat(document.getElementById("initial_time_general").value)/(60)).toFixed(3));
 	aggregate_signal = [];
 
-	for (j = 0; j < max_t ; j += step) {
-		index = Math.round(j/step);
+	var index = 0;
+	for (j = timeStart; j < max_t ; j += step) { //j = 0; j < max_t ; j += step
+		//index = Math.round(j/step);
 		x_targ = j;
 		signal = 0;
 		for (k = 0; k < data.length; k++){
@@ -1188,6 +1254,8 @@ function aggregateSignal(data){
 					"Ct" : signal+signalOffset+noiseValue,
 					"c" : "steelblue"
 		}
+		
+		index += 1;
 	}
 	
 	//aggregate_signal[0].Ct = 0;
@@ -1592,7 +1660,7 @@ function isocraticElutionMode(t0, T, phi, N, tau, Vinj, F, solvent, compoundList
 
 			var W = parseFloat(((Vinj/1000000)*(M[i])).toFixed(15));
 			//W *= 1000000; 
-			var t = 0; //(parseFloat(document.getElementById("initial_time_general").value))/60;
+			var t = (parseFloat(document.getElementById("initial_time_general").value))/60;
 			var j = 0;
 			var check = true;
 			var loops = 0;
@@ -2112,7 +2180,7 @@ function optimize(){
 
 //consolidate calculations
 function calculatePeaks() {
-	
+	if(document.getElementById("plot_points_general").value < 100 || document.getElementById("plot_points_general").value == ""){ document.getElementById("plot_points_general").value = 100; }
 	//Find Elution Mode
 	var mode;
 	if (document.getElementById("isocratic_radio").checked) {
@@ -2146,6 +2214,11 @@ function calculatePeaks() {
 	if(document.getElementById("flow_rate_chrom").value > 8){ document.getElementById("flow_rate_chrom").value = 8; }
 	if(document.getElementById("flow_rate_chrom").value < 0.05){ document.getElementById("flow_rate_chrom").value = 0.05; }
 	
+	if(document.getElementById("length_column").value < 1){ document.getElementById("length_column").value = 1; }
+	
+	if(document.getElementById("inner_diameter_column").value < 1){ document.getElementById("inner_diameter_column").value = 1; }
+	
+	if(document.getElementById("injection_volume_chrom").value < 0.1){ document.getElementById("injection_volume_chrom").value = 0.1; }
 //============================================================================================================================================
 	//Collect inputs from the user interface
 	
@@ -2289,8 +2362,17 @@ function calculatePeaks() {
 	
 //============================================================================================================================================
 	//Render the graph and run final user interface updates
-
-	renderGraph(data);
+	
+	var renderGraphDots = document.getElementById("renderGraph_dots_check").checked;
+	renderGraph(data, renderGraphDots);
+	//var useNewRenderGraphFunction = document.getElementById("renderGraph_newFunction_check").checked;
+	
+	/*if(useNewRenderGraphFunction){
+		renderGraph_new(data, renderGraphDots);
+	} else {
+		renderGraph(data, renderGraphDots);
+	}*/
+	
 	
 	document.getElementById('GenRandExpBtn').disabled = false;
 	
