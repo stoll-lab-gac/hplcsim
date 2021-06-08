@@ -81,76 +81,96 @@ var compoundList = [
 
 var calcGradientACN_Agilent_SBC18 = {
 	//"Compound Name": [ln kw intercept, ln kw slope, S intercept, S slope],
-	"N-benzylformamide": [4.11763685, -0.008591087, 5.724601541, -0.004518391],
-	"benzylalcohol": [4.295870152, -0.008385048, 5.115167829, -0.003542989],
-	"phenol": [7.250245914, -0.016236441, 8.08076412, -0.011393741],
-	"3-phenylpropanol": [6.97931989, -0.011916769, 8.913709247, -0.00977469],
-	"p-chlorophenol": [10.85376712, -0.022819863, 12.93304204, -0.02112975],
-	"benzonitrile": [9.157574281, -0.018693495, 9.933437736, -0.014607944],
-	"nitrobenzene": [10.70905282, -0.021722029, 11.91355275, -0.019092652],
-	"methylbenzoate": [9.736348393, -0.01780428, 10.51106107, -0.013937724],
-	"anisole": [10.61945329, -0.020272691, 11.52448752, -0.01739407],
-	"benzene": [10.44880733, -0.019639539, 10.98273196, -0.016380708],
-	"p-nitrotoluene": [12.64017703, -0.024650001, 14.11051919, -0.022713324],
-	"p-nitrobenzylchloride": [14.60682, -0.029833907, 17.07158392, -0.029903671],
-	"toluene": [12.62091835, -0.023122296, 13.47792307, -0.020736303],
-	"benzophenone": [14.0721551, -0.02548828, 15.87549629, -0.023860401],
-	"bromobenzene": [13.8638574, -0.02595716, 15.08728568, -0.024450099],
-	"naphthalene": [15.6391947, -0.029463036, 17.39259053, -0.029003465],
-	"ethylbenzene": [15.02072892, -0.02735205, 16.45404068, -0.026482538],
-	"p-xylene": [14.62975195, -0.026096353, 15.43623039, -0.023540985],
-	"p-dichlorobenzene": [15.56155354, -0.028722422, 16.84632829, -0.027388727],
-	"propylbenzene": [16.94893948, -0.029923293, 18.03635683, -0.027912591],
-	"n-butylbenzene": [18.16161684, -0.030503468, 18.38213053, -0.025855676],
-	"diethylformamide": [4.023580287, -0.005937485, 11.46793263, -0.012307207],
-	"methylparaben": [11.41113694, -0.022818852, 22.52681112, -0.036664952],
-	"ethylparaben": [11.18981017, -0.021632122, 17.03596058, -0.026971426],
-	"propylparaben": [11.05969711, -0.020133642, 14.18587768, -0.020027039],
-	"butylparaben": [12.13413031, -0.021102928, 14.02639126, -0.018467386],
-	"acetanilide": [6.992337866, -0.013932629, 10.91380487, -0.014891861],
-	//[OLD] "acetophenone": [7.56435145, -0.014076608, 8.205918005, -0.009648801],
-	"acetophenone": [8.396675806, -0.014599995, 10.0447521, -0.011806108],
-	"propiophenone": [9.651028948, -0.015987532, 10.71879342, -0.012507833],
-	"butyrophenone": [12.05524817, -0.01990037, 14.78714778, -0.020121281],
-	"valerophenone": [11.23117729, -0.017049128, 10.74886188, -0.010736961],
-	"hexanophenone": [13.07817957, -0.019755484, 12.38393028, -0.013068071],
-	"heptanophenone": [12.97051906, -0.0182211, 10.86230669, -0.008502883],
-	"octanophenone": [14.38918471, -0.019903341, 11.72366312, -0.008949381],
-	"Ibuprofen": [5.592394582, -0.004346432, -6.93530426, 0.048948557],
-	"Loratidine": [6.568915, -0.000766667, 3.09189, 0.026066667],
-	"Impurity-A": [10.522385, -0.014566667, -3.91414, 0.088933333],
-	"Impurity-B": [9.638725, -0.0115, 1.263735, 0.069766667],
-	"Impurity-C": [6.31166, -0.003066667, 9.61285, 0.007666667],
-	"Impurity-D": [9.67081, -0.010733333, 5.158785, 0.0161],
-	"Impurity-E": [11.10164, -0.012266667, 8.09002, 0.0092],
-	"Impurity-F": [11.8243, -0.015333333, -2.245835, 0.037566667],
-	"Impurity-G": [10.72881, -0.010733333, 0.538315, 0.0299]
+	"N-benzylformamide": [4.11763684964633, -0.00859108668819096, 5.72460154055311, -0.004518391449322835],
+	"benzylalcohol": [4.295870151731668, -0.00838504826707623, 5.11516782884082, -0.0035429892224701012],
+	"phenol": [7.250245913957449, -0.01623644076804236, 8.080764119773358, -0.011393740748934839],
+	"3-phenylpropanol": [6.979319890216979, -0.011916768623047113, 8.913709246999934, -0.00977469046200866],
+	"p-chlorophenol": [10.853767117959531, -0.022819863346957618, 12.933042037683173, -0.021129750042128245],
+	"acetophenone": [8.396675806, -0.01459999476, 10.0447521, -0.01180610814],
+	"benzonitrile": [9.157574281447951, -0.018693495104451376, 9.933437736260569, -0.014607943615296394],
+	"nitrobenzene": [10.709052818652065, -0.021722028876511597, 11.913552746640644, -0.019092652251069955],
+	"methylbenzoate": [9.736348393086557, -0.017804279807352354, 10.511061065621254, -0.013937724488517097],
+	"anisole": [10.619453288436164, -0.02027269140388422, 11.524487520896395, -0.017394070021991195],
+	"benzene": [10.44880732516308, -0.019639538882926806, 10.982731964464346, -0.016380707763880318],
+	"p-nitrotoluene": [12.640177028747386, -0.024650000794250664, 14.110519191618183, -0.0227133244127602],
+	"p-nitrobenzylchloride": [14.606820002699553, -0.029833906766707965, 17.071583915484293, -0.029903671253214692],
+	"toluene": [12.620918352164775, -0.023122296489957304, 13.477923070957644, -0.020736302933891882],
+	"benzophenone": [14.072155096078763, -0.025488280205364526, 15.875496292470416, -0.023860401325815152],
+	"bromobenzene": [13.8638573956341, -0.02595715959089104, 15.087285684478196, -0.024450098570551106],
+	"naphthalene": [15.63919469704874, -0.029463036485079655, 17.392590529166682, -0.029003464987497615],
+	"ethylbenzene": [15.020728922213326, -0.027352050407686294, 16.45404067792924, -0.026482537881368524],
+	"p-xylene": [14.62975194741648, -0.02609635317889557, 15.43623038724321, -0.023540985427180604],
+	"p-dichlorobenzene": [15.561553538993556, -0.028722422384016594, 16.846328292929112, -0.027388726937070666],
+	"propylbenzene": [16.948939478253603, -0.029923292573128975, 18.036356827939073, -0.027912591078851634],
+	"n-butylbenzene": [18.161616836431968, -0.030503467927069025, 18.38213053057011, -0.025855676201241597],
+	"diethylformamide": [4.02358028702793, -0.00593748531320223, 11.4679326302866, -0.0123072072560952],
+	"methylparaben": [11.4111369378345, -0.0228188521038433, 22.526811115202, -0.0366649524457222],
+	"ethylparaben": [11.1898101697198, -0.0216321215335735, 17.0359605776335, -0.0269714258248205],
+	"propylparaben": [11.0596971062141, -0.020133642293226, 14.1858776754127, -0.0200270391872307],
+	"butylparaben": [12.1341303147334, -0.0211029280202196, 14.026391259171, -0.018467385725791],
+	"acetanilide": [6.99233786611718, -0.0139326286293655, 10.9138048720276, -0.014891861475092],
+	"propiophenone": [9.65102894789204, -0.015987532340238,  10.7187934245166, -0.012507833154392],
+	"butyrophenone": [12.0552481653964, -0.0199003704613709, 14.7871477768746, -0.0201212808687109],
+	"valerophenone": [11.2311772882595, -0.0170491283515628, 10.7488618780099, -0.0107369614592026],
+	"hexanophenone": [13.0781795720922, -0.0197554842203633, 12.3839302756758, -0.0130680713075359],
+	"heptanophenone": [12.9705190560471, -0.0182211003263966, 10.8623066945769, -0.00850288263012924],
+	"octanophenone": [14.3891847086718, -0.0199033409824707, 11.7236631163352, -0.00894938100296847],
+	"ibuprofen": [5.59239458233024, -0.00434643221635735, -6.93530425991638, 0.0489485565782194],
+	"Loratidine": [6.46, 0.000, 18.75, -0.026],
+	"Impurity-A": [11.2, -0.017, 55.14, -0.105],
+	"Impurity-B": [9.7, -0.012, 43.51, -0.069],
+	"Impurity-C": [6.24, -0.003, 9.51, 0.008],
+	"Impurity-D": [3.19, 0.011, 5.38, 0.015],
+	"Impurity-E": [3.55, 0.013, 8.14, 0.009],
+	"Impurity-F": [2.62, 0.015, -2.09, 0.037],
+	"Impurity-G": [4.36, 0.010, 0.72, 0.029],
 }
 
 var calcGradientMeOH_Agilent_SBC18 = {
 	//"Compound Name": [ln kw intercept, ln kw slope, S intercept, S slope],
-	"N-benzylformamide": [9.164256974, -0.020561387, 11.01755243, -0.017627025],
-	"benzylalcohol": [9.3682918, -0.020443977, 10.71933535, -0.01729306],
-	"phenol": [10.52863545, -0.024096647, 11.83088922, -0.020815068],
-	"3-phenylpropanol": [13.99004661, -0.02860382, 14.86979646, -0.024560712],
-	"p-chlorophenol": [15.86173991, -0.034865022, 16.61089216, -0.030667729],
-	"acetophenone": [10.653179, -0.021314144, 12.32607291, -0.019996316],
-	"benzonitrile": [10.51274764, -0.021664003, 12.53801444, -0.020854165],
-	"nitrobenzene": [12.07770668, -0.025014754, 12.82503344, -0.021807386],
-	"methylbenzoate": [13.82002004, -0.027372586, 14.76275706, -0.024727422],
-	"anisole": [13.10323316, -0.026162704, 13.23530032, -0.022293188],
-	"benzene": [12.79279455, -0.025133622, 12.89520868, -0.021890024],
-	"p-nitrotoluene": [14.78352971, -0.029673985, 15.03158476, -0.025339654],
-	"p-nitrobenzylchloride": [16.36497081, -0.0340879, 17.11625186, -0.030611884],
-	"toluene": [15.67880354, -0.030163538, 15.06006072, -0.025233838],
-	"benzophenone": [18.60152294, -0.03594301, 19.63472281, -0.033341266],
-	"bromobenzene": [17.7125163, -0.035008064, 17.70340522, -0.031615758],
-	"naphthalene": [20.30788956, -0.040659427, 20.02083287, -0.036503631],
-	"ethylbenzene": [19.09416943, -0.036900482, 18.50962957, -0.032252615],
-	"p-xylene": [18.60112905, -0.035232525, 17.15440901, -0.028311195],
-	"p-dichlorobenzene": [19.82780565, -0.038510356, 19.46621767, -0.034304037],
-	"propylbenzene": [21.66724134, -0.040779941, 20.28349365, -0.033992127],
-	"n-butylbenzene": [24.29235972, -0.045139192, 22.21729734, -0.036714258]
+	"N-benzylformamide": [9.164256973698459, -0.02056138653509061, 11.017552429310824, -0.017627024734002957],
+	"benzylalcohol": [9.368291799905602, -0.02044397690961204, 10.719335353513642, -0.017293059939322706],
+	"phenol": [10.528635454669072, -0.024096647274333242, 11.830889215104005, -0.020815067582978557],
+	"3-phenylpropanol": [13.990046610542905, -0.028603819813134486, 14.869796455088817, -0.024560711558855575],
+	"p-chlorophenol": [15.861739909834881, -0.03486502200878007, 16.61089215982821, -0.030667729059069244],
+	"acetophenone": [10.653179001828002, -0.02131414397680926, 12.326072909876794, -0.019996315953535758],
+	"benzonitrile": [10.51274763619913, -0.02166400338685396, 12.538014443255712, -0.02085416530130655],
+	"nitrobenzene": [12.077706680960972, -0.025014753882566368, 12.825033442420875, -0.021807386141678032],
+	"methylbenzoate": [13.820020039954208, -0.02737258643594428, 14.762757063401498, -0.02472742162094264],
+	"anisole": [13.103233159526095, -0.026162704070098193, 13.235300319411905, -0.022293188047843478],
+	"benzene": [12.79279454930435, -0.025133621563273766, 12.89520867762737, -0.02189002373674944],
+	"p-nitrotoluene": [14.783529711252328, -0.029673985457580394, 15.031584762786096, -0.025339654409184665],
+	"p-nitrobenzylchloride": [16.364970805591096, -0.03408790047687219, 17.116251860081324, -0.03061188374616741],
+	"toluene": [15.67880353961861, -0.030163537531225547, 15.060060720664186, -0.025233838160978087],
+	"benzophenone": [18.601522937006184, -0.03594300992712139, 19.634722807368355, -0.03334126588775872],
+	"bromobenzene": [17.712516295303878, -0.03500806434412767, 17.70340522317306, -0.031615757661614736],
+	"naphthalene": [20.307889560692914, -0.04065942707536027, 20.02083287112345, -0.03650363138267144],
+	"ethylbenzene": [19.094169428831844, -0.03690048224162992, 18.509629573953802, -0.03225261521523469],
+	"p-xylene": [18.601129054735626, -0.03523252467484119, 17.15440900790893, -0.028311194595588108],
+	"p-dichlorobenzene": [19.827805654558052, -0.03851035621541407, 19.46621766710542, -0.0343040373662159],
+	"propylbenzene": [21.667241339921787, -0.04077994058619559, 20.28349365146609, -0.03399212706819865],
+	"n-butylbenzene": [24.29235971858094, -0.0451391923516342, 22.217297337226874, -0.03671425777979378],
+	"diethylformamide": [4.02358028702793, -0.00593748531320223, 11.4679326302866, -0.0123072072560952],
+	"methylparaben": [11.4111369378345, -0.0228188521038433, 22.526811115202, -0.0366649524457222],
+	"ethylparaben": [11.1898101697198, -0.0216321215335735, 17.0359605776335, -0.0269714258248205],
+	"propylparaben": [11.0596971062141, -0.020133642293226, 14.1858776754127, -0.0200270391872307],
+	"butylparaben": [12.1341303147334, -0.0211029280202196, 14.026391259171, -0.018467385725791],
+	"acetanilide": [6.99233786611718, -0.0139326286293655, 10.9138048720276, -0.014891861475092],
+	"propiophenone": [9.65102894789204, -0.015987532340238,  10.7187934245166, -0.012507833154392],
+	"butyrophenone": [12.0552481653964, -0.0199003704613709, 14.7871477768746, -0.0201212808687109],
+	"valerophenone": [11.2311772882595, -0.0170491283515628, 10.7488618780099, -0.0107369614592026],
+	"hexanophenone": [13.0781795720922, -0.0197554842203633, 12.3839302756758, -0.0130680713075359],
+	"heptanophenone": [12.9705190560471, -0.0182211003263966, 10.8623066945769, -0.00850288263012924],
+	"octanophenone": [14.3891847086718, -0.0199033409824707, 11.7236631163352, -0.00894938100296847],
+	"ibuprofen": [5.59239458233024, -0.00434643221635735, -6.93530425991638, 0.0489485565782194],
+	"Loratidine": [6.46, 0.000, 18.75, -0.026],
+	"Impurity-A": [11.2, -0.017, 55.14, -0.105],
+	"Impurity-B": [9.7, -0.012, 43.51, -0.069],
+	"Impurity-C": [6.24, -0.003, 9.51, 0.008],
+	"Impurity-D": [3.19, 0.011, 5.38, 0.015],
+	"Impurity-E": [3.55, 0.013, 8.14, 0.009],
+	"Impurity-F": [2.62, 0.015, -2.09, 0.037],
+	"Impurity-G": [4.36, 0.010, 0.72, 0.029],
 }
 
 var calcGradientACN_Agilent_SBC8 = {
@@ -275,47 +295,6 @@ function readdImpurities(compounds){
 	return compounds;
 }*/
 
-function updateCompoundsList_keepIfIncluded(mobilePhase){
-	if(mobilePhase == "MeOH"){ var compounds = Object.keys(calcGradientMeOH); } else { var compounds = Object.keys(calcGradientACN); }
-	
-	var removedCompounds = [];
-	
-	console.log(compoundList);
-	
-	compoundListNew = [];
-	for(indx = 0; indx < compoundList.length; indx++){
-		if(compounds.includes(compoundList[indx])){
-			compoundListNew[compoundListNew.length] = compoundList[indx];
-		} else {
-			console.log("    Removed "+compoundList[indx]);
-			removedCompounds[removedCompounds.length] = compoundList[indx];
-		}
-	}
-	compoundList = compoundListNew;
-	console.log(compoundList);
-	
-	var alertText_removedCompounds = "";
-	if(removedCompounds.length > 0){
-		if(removedCompounds.length == 1){
-			alertText_removedCompounds += "For current conditions, no data exists for the following compound:\n\n";
-			alertText_removedCompounds += removedCompounds[0];
-			alertText_removedCompounds += "\n\nThis compound has been removed from the list.";
-		} else {
-			alertText_removedCompounds = "For current conditions, no data exists for the following compounds:\n\n";
-			for(indx = 0; indx < removedCompounds.length; indx++){
-				alertText_removedCompounds += removedCompounds[indx];
-				if(indx+1 < removedCompounds.length){ alertText_removedCompounds += ", "; }
-				if(indx+2 == removedCompounds.length){ alertText_removedCompounds += "and "; }
-			}
-			alertText_removedCompounds += "\n\nThese compounds have been removed from the list.";
-		}
-	}
-	
-	updateCompoundsTable(mobilePhase);
-	
-	return alertText_removedCompounds
-}
-
 function updateCompoundsList(compound){
 	var elementID = "compoundsTable_"+compound;
 	console.log(elementID);
@@ -363,7 +342,7 @@ function updateCompoundsTable(mobilePhase){
 		HTMLCache += '</td>';
 		HTMLCache += '<td style="text-align:left; ' + borderCSS + '">';
 		
-		HTMLCache += '<input class="number" type="number" step="1" id="concentration_' + compound + '" value="' + concentration + '" onchange="calculatePeaks();" />';
+		HTMLCache += '<input class="number" type="number" step="0.01" id="concentration_' + compound + '" value="' + concentration + '" onchange="calculatePeaks();" />';
 		HTMLCache += '</td>';
 		HTMLCache += '</tr>';
 	}
@@ -524,7 +503,7 @@ function setLanguage(){
 		wordJSON.menu.manageCompounds = "Manage Compounds";
 		wordJSON.menu.mobilePhaseComposition = "Mobile Phase Composition";
 		wordJSON.menu.chromatographicProperties = "Chromatographic Properties";
-		wordJSON.menu.generalProperties = "General Properties (Beta)";
+		wordJSON.menu.generalProperties = "General Properties";
 		wordJSON.menu.columnProperties = "Column Properties";
 	} else if (document.getElementById("french_radio").checked) {
 		//Selected Language is french
@@ -533,7 +512,7 @@ function setLanguage(){
 		wordJSON.menu.manageCompounds = "Manage Compounds";
 		wordJSON.menu.mobilePhaseComposition = "Mobile Phase Composition";
 		wordJSON.menu.chromatographicProperties = "Chromatographic Properties";
-		wordJSON.menu.generalProperties = "General Properties (Beta)";
+		wordJSON.menu.generalProperties = "General Properties";
 		wordJSON.menu.columnProperties = "Column Properties";
 	} else {
 		//Selected Language is english
@@ -542,7 +521,7 @@ function setLanguage(){
 		wordJSON.menu.manageCompounds = "Manage Compounds";
 		wordJSON.menu.mobilePhaseComposition = "Mobile Phase Composition";
 		wordJSON.menu.chromatographicProperties = "Chromatographic Properties";
-		wordJSON.menu.generalProperties = "General Properties (Beta)";
+		wordJSON.menu.generalProperties = "General Properties";
 		wordJSON.menu.columnProperties = "Column Properties";
 	}
 	updateWords(wordJSON);
@@ -783,13 +762,16 @@ function resetMenus(){
 	
 	//General Properties
 	document.getElementById("signal_offset_general").value = 0;
-	document.getElementById("noise_general").value = 2.0;
+	document.getElementById("noise_general").value = 0;
 	document.getElementById("auto_time_check").checked = true;
 	document.getElementById("initial_time_general").value = 0;
 	document.getElementById("plot_points_general").value = 6000;
+	document.getElementById("detectorFrequency_general").value = 2;
 	document.getElementById("renderGraph_dots_check").checked = false;
 	
 	//Column Properties
+	select_option('Agilent SB-C18', 'stationary_phase');
+	toggleColumnProperties('Agilent SB-C18');
 	document.getElementById("length_column").value = 100.0;
 	document.getElementById("inner_diameter_column").value = 4.6;
 	document.getElementById("particle_size_column").value = 3.0;
@@ -800,7 +782,7 @@ function resetMenus(){
 	document.getElementById("C_column").value = 0.05;
 	
 	document.getElementById("dataTable").className = "";
-
+	
 	//compoundList
 	displayTable();
 	applyHighlightCode();
@@ -808,9 +790,6 @@ function resetMenus(){
 	//refreshNowloadedCompounds();
 	//Apply Changes
 	calculatePeaks();
-
-	select_option('Agilent SB-C18', 'stationary_phase');
-	toggleColumnProperties('Agilent SB-C18');
 }
 
 function closeAllOpenDropdownMenus(exception){
@@ -1031,7 +1010,7 @@ function tableID(x,y){
 
 function renderGraph(data, renderGraphDots) {
 	log("Running 'renderGraph(data)'...");
-	console.log("Running 'renderGraph(data)'...")
+	//console.log("Running 'renderGraph(data)'...")
 	var masterlist = [];
 	//console.log(data);
 	for (i = 0; i < data.length; i++) {
@@ -1073,6 +1052,8 @@ function renderGraph(data, renderGraphDots) {
 		// Second signal: individual signal (activated when highlighted).
 	new_data = [];
 	new_data[0] = aggregateSignal(data);
+	
+	document.getElementById("detectorFrequency_general_numPoints").innerHTML = new_data[0].length;
 	
 	var domainData = aggregateSignal(data);
 	//domainData[0].Ct = 0;
@@ -1254,6 +1235,21 @@ function localInterpolation(data,x0){
 	}
 }
 
+function getDetectorTimeStep(){
+	var detectorFrequency_min = 0.1;
+	var detectorFrequency_max = -1;
+	
+	var detectorFrequency = parseFloat(document.getElementById("detectorFrequency_general").value).toFixed(5);
+	if((detectorFrequency_min != -1) && (detectorFrequency < detectorFrequency_min)){
+		document.getElementById("detectorFrequency_general").value = detectorFrequency_min; detectorFrequency = detectorFrequency_min;
+	} else if((detectorFrequency_max != -1) && (detectorFrequency > detectorFrequency_max)){
+		document.getElementById("detectorFrequency_general").value = detectorFrequency_max; detectorFrequency = detectorFrequency_max;
+	}
+	var step = ((1/detectorFrequency)/60);
+	
+	return step;
+}
+
 function aggregateSignal(data){
 	log("Running 'aggregateSignal(data)'...");
 	base_data = data[0];
@@ -1266,10 +1262,12 @@ function aggregateSignal(data){
 	var noise = parseFloat(document.getElementById("noise_general").value);
 	
 	//step = .01;
-	var step = parseFloat(((60)/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
+	//var step = parseFloat(((60)/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
+	//var detectorFrequency = parseFloat(document.getElementById("detectorFrequency_general").value).toFixed(5);
+	//var step = ((1/detectorFrequency)/60);
+	var step = getDetectorTimeStep();
 	
-	document.getElementById("plot_points_general_detectorFrequency").innerHTML = (1/((60/document.getElementById("plot_points_general").value)*60)).toFixed(3) + " Hz";
-	
+	//document.getElementById("plot_points_general_detectorFrequency").innerHTML = (1/((60/document.getElementById("plot_points_general").value)*60)).toFixed(3) + " Hz";
 	
 	//var timeStart = 0;
 	var timeStart = parseFloat((parseFloat(document.getElementById("initial_time_general").value)/(60)).toFixed(3));
@@ -1592,12 +1590,20 @@ function isocraticElutionMode(t0, T, phi, N, tau, Vinj, F, solvent, compoundList
 
 	if (tF <= 0.0) {
 		//time is determined automatically
-		//var step = parseFloat((30/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
-		var step = parseFloat(((60)/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
+		//var step = parseFloat((30/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3)); // OLD STEP SIZE EQUATION USING PLOT POINTS
+		//var step = parseFloat(((60)/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3)); // NEW STEP SIZE EQUATION USING PLOT POINTS
+		//console.log("step = "+step);
+		
+		// New Step Size Equation Using Detector Frequency
+		//var detectorFrequency = parseFloat(document.getElementById("detectorFrequency_general").value).toFixed(5);
+		//var step = ((1/detectorFrequency)/60);
+		var step = getDetectorTimeStep();
+		//console.log("detectorFrequency = "+detectorFrequency+" Hz");
+		//console.log("step = "+(step*60)+" seconds");
+		
 		//step = .01;
 		for (i = 0; i < compoundName.length; i++) {
 			var cmpdData = [];
-			console.log(compoundName[i]);
  
 			var k = calcKprime(t0, T, phi, compoundName[i], solvent)[2];
 			var tR = (t0/60)*(1+k);
@@ -1606,27 +1612,22 @@ function isocraticElutionMode(t0, T, phi, N, tau, Vinj, F, solvent, compoundList
 			
 			var sigma = isocraticSigma(tR, N, tau, Vinj, F, UsT);
 
-			var conc = Number(document.getElementById("concentration_"+compoundName[i]).value);
-
-			console.log("conc = "+conc);
-
-			//var W = parseFloat(((Vinj/1000000)*(M[i])).toFixed(15));
-			var W = parseFloat(((Vinj/1000000)*(conc)).toFixed(15));
+			var W = parseFloat(((Vinj/1000000)*(M[i])).toFixed(15));
 			//W *= 1000000; 
 			//var t = 0;
-			var t = tR - (8 * (sigma / 60));
-
-			if (t < 0) {
-				t = 0;
-			}
+			//var t = (tR-(8*(sigma/60)));
+			//t = Number((Math.floor(t/step)*step).toFixed(5));
+			var t = Number((Math.floor((tR-(8*(sigma/60)))/step)*step).toFixed(5)); if (t < 0) { t = 0; }
+			var tF = Number((Math.ceil((tR+(8*(sigma/60)))/step)*step).toFixed(5));
+			//console.log("t = "+t); console.log("tF = "+tF); console.log(" ");
 
 			var j = 0;
-			var check = true;
-			var check2 = true;
-			var loops = 0;
+			//var check = true;
+			//var check2 = true;
+			//var loops = 0;
 			var infinite_loop_breaker = false;
 			//var tF = 0;
-			var tF = t;
+			
 
 			var compoundArray = new Array();
 			compoundArray[0] = compoundName[i];
@@ -1639,40 +1640,45 @@ function isocraticElutionMode(t0, T, phi, N, tau, Vinj, F, solvent, compoundList
 
 			table[i] = [];
 			table[i][0] = compoundName[i];
-
+			
+			if(tF > max_final_time){
+				max_final_time = tF;
+			}
+			
 			while (t <= tF) {
 				var Ct = 1000000*(W/1000000)/(Math.pow((2*Math.PI), 0.5)*(sigma/60)*(F/(60*1000)))*Math.exp(-Math.pow((t-tR),2)/(2*Math.pow((sigma/60), 2)));
-				if (loops > 10000000) {
+				
+				cmpdData[j] = {
+					"t" : t,
+					"Ct" : Ct
+				};
+				
+				table[i][j+1]=Ct;
+				t += step;
+				j++;
+				//loops++;
+				
+				/*if (loops > 10000000) {
 					//alert("infinite loop");
 					//alert(compoundName[i]+" did not elute!");
 					console.log(compoundName[i]+" did not elute!");
 					infinite_loop_breaker = true;
 					break;
-				}
-				if (Ct > 0.01) {
-					check = false;
-				}
-				cmpdData[j] = {
-					"t" : t,
-					"Ct" : Ct
-				};
-				if (check || Ct > 0.01) {
-					tF += step;
-				}
+				}*/
 				
-				if(check == false && Ct <= 0.01 && check2 == true){
+				/*if (Ct > 0.01) {
+					check = false;
+				}*/
+				
+				/*if (check || Ct > 0.01) {
+					tF += step;
+				}*/
+				
+				/*if(check == false && Ct <= 0.01 && check2 == true){
 					tF += (0.02 * tF);
 					check2 = false;
-				}
+				}*/
 				
-				if(tF > max_final_time){
-					max_final_time = tF;
-				}
-				
-				table[i][j+1]=Ct;
-				t += step;
-				j++;
-				loops++;
 			}
 			//console.log("tF = "+tF);
 			//console.log("[automatic] loops = "+loops);
@@ -1696,8 +1702,12 @@ function isocraticElutionMode(t0, T, phi, N, tau, Vinj, F, solvent, compoundList
 		resolution_maxTime = (max_final_time*60)+0;
 	} else {
 		//time is set manually
-		var step = parseFloat(((60)/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
+		//var step = parseFloat(((60)/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
 		//var step = parseFloat((30/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
+		
+		//var detectorFrequency = parseFloat(document.getElementById("detectorFrequency_general").value).toFixed(5);
+		//var step = ((1/detectorFrequency)/60);
+		var step = getDetectorTimeStep();
 		
 		for (i = 0; i < compoundName.length; i++) {
 			var cmpdData = [];
@@ -1709,15 +1719,12 @@ function isocraticElutionMode(t0, T, phi, N, tau, Vinj, F, solvent, compoundList
 			
 			var sigma = isocraticSigma(tR, N, tau, Vinj, F, UsT);
 
-			var conc = Number(document.getElementById("concentration_"+compoundName[i]).value);
-
-			//var W = parseFloat(((Vinj/1000000)*(M[i])).toFixed(15));
-			var W = parseFloat(((Vinj/1000000)*(conc)).toFixed(15));
+			var W = parseFloat(((Vinj/1000000)*(M[i])).toFixed(15));
 			//W *= 1000000; 
 			var t = (parseFloat(document.getElementById("initial_time_general").value))/60;
 			var j = 0;
-			var check = true;
-			var loops = 0;
+			//var check = true;
+			//var loops = 0;
 			var infinite_loop_breaker = false;
 			var running = true;
 			//var tF = 0;
@@ -1737,7 +1744,13 @@ function isocraticElutionMode(t0, T, phi, N, tau, Vinj, F, solvent, compoundList
 			while (t <= tF && running) {
 				//console.log("t = "+t)
 				var Ct = 1000000*(W/1000000)/(Math.pow((2*Math.PI), 0.5)*(sigma/60)*(F/(60*1000)))*Math.exp(-Math.pow((t-tR),2)/(2*Math.pow((sigma/60), 2)));
-				if (loops > 10000000) {
+				
+				cmpdData[j] = {
+					"t" : t,
+					"Ct" : Ct
+				};
+				
+				/*if (loops > 10000000) {
 					//alert("infinite loop");
 					//alert(compoundName[i]+" did not elute!");
 					console.log(compoundName[i]+" did not elute!");
@@ -1747,20 +1760,17 @@ function isocraticElutionMode(t0, T, phi, N, tau, Vinj, F, solvent, compoundList
 				if (Ct > 0.01) {
 					check = false;
 				}
-				cmpdData[j] = {
-					"t" : t,
-					"Ct" : Ct
-				};
+				
 				if (check || Ct > 0.01) {
 					//running = true;
 				} else {
 					//running = false;
-				}
+				} */
 				
 				table[i][j+1]=Ct;
 				t += step;
 				j++;
-				loops++;
+				//loops++;
 			}
 			//console.log("[manual] loops = "+loops);
 			//graphData[i] = cmpdData;
@@ -1777,9 +1787,8 @@ function isocraticElutionMode(t0, T, phi, N, tau, Vinj, F, solvent, compoundList
 	}
 	//console.log("----------");
 	tableArray = tableArray.sort(compareSecondColumn);
-	displayTable(tableArray);
 	updateTable(tableArray);
-	//calcResolution(phi,T,resolution_maxTime,tableArray);
+	calcResolution(phi,T,resolution_maxTime,tableArray);
 	graphData = updateGraphData(compoundName, tableArray, graphData);
 	return graphData;
 }
@@ -1868,16 +1877,16 @@ function gradientElutionMode(solvent, T, phi_i, phi_f, tD, F, d, L, Et, tG, t0, 
 	if (tF <= 0.0) {
 		//time is determined automatically
 		
-		var step = parseFloat(((60)/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
+		//var step = parseFloat(((60)/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
+		
+		//var detectorFrequency = parseFloat(document.getElementById("detectorFrequency_general").value).toFixed(5);
+		//var step = ((1/detectorFrequency)/60);
+		var step = getDetectorTimeStep();
 		
 		for(i = 0; i < compoundList.length; i++){
 			var cmpdData = [];
 			var UsT = 0;
-
-			var conc = Number(document.getElementById("concentration_"+compoundList[i]).value);
-
-			//var W = parseFloat(((Vinj/1000000)*(M[i])).toFixed(15));
-			var W = parseFloat(((Vinj/1000000)*(conc)).toFixed(15));
+			var W = parseFloat(((Vinj/1000000)*(M[i])).toFixed(15));
 			var cache = "";
 			var compoundName = compoundList[i];
 		
@@ -1915,116 +1924,16 @@ function gradientElutionMode(solvent, T, phi_i, phi_f, tD, F, d, L, Et, tG, t0, 
 		
 			var sigma = Math.sqrt(Math.pow((t0*60)*((1+ke)/(Math.sqrt(N))), 2)+Math.pow(tau, 2));
 		
-			var t = 0;
+			//var t = 0;
 			//var t = tR - (8 * (sigma / 60));
+			
+			var t = Number((Math.floor((tR-(8*(sigma/60)))/step)*step).toFixed(5)); if(t < 0) { t = 0; }
+			var tF = Number((Math.ceil((tR+(8*(sigma/60)))/step)*step).toFixed(5));
+			//console.log("t = "+t); console.log("tF = "+tF); console.log(" ");
+			
 			var j = 0;
-			var check = true;
-			var loops = 0;
-			var tF = 0;
-		
-			var compoundArray = new Array();
-			compoundArray[0] = compoundList[i];
-			compoundArray[1] = ke.toFixed(4);
-			compoundArray[2] = tR;
-			compoundArray[3] = sigma;
-			compoundArray[4] = Math.exp(lnkw);;
-			compoundArray[5] = S.toFixed(4);
-			tableArray[i] = compoundArray;
-    
-			table[i] = [];
-			table[i][0] = compoundList[i];
-		
-			var finalRun = false;
-		
-			while (t <= tF) {
-				var Ct = 1000000*(W/1000000)/(Math.pow((2*Math.PI), 0.5)*(sigma/60)*(F/(60*1000)))*Math.exp(-Math.pow((t-tR),2)/(2*Math.pow((sigma/60), 2)));
-				if (loops > 10000000) {
-					alert("infinite loop");
-					break;
-				}
-				if (Ct > 0.00001) {
-					check = false;
-				}
-				
-				if(check == false && finalRun == false){
-					//tF += 1;
-					tF += (0.02 * tF);
-					finalRun = true;
-				}
-				
-				cmpdData[j] = {
-					"t" : t,
-					"Ct" : Ct
-				};
-				if (check || Ct > 0.00001) {
-					tF += step;
-				}
-				
-				table[i][j+1]=Ct;
-				t += step;
-				j++;
-				loops++;
-			}
-			if(tF > tF_max){
-				tF_max = tF;
-			}
-		
-			graphData[i] = cmpdData;
-		}
-	} else {
-		//time is set manually
-		
-		var step = parseFloat(((60)/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
-		
-		for(i = 0; i < compoundList.length; i++){
-			var cmpdData = [];
-			var UsT = 0;
-
-			var conc = Number(document.getElementById("concentration_"+compoundList[i]).value);
-
-			//var W = parseFloat(((Vinj/1000000)*(M[i])).toFixed(15));
-			var W = parseFloat(((Vinj/1000000)*(conc)).toFixed(15));
-			var cache = "";
-			var compoundName = compoundList[i];
-		
-			var compound = compoundList[i];
-		
-			if(solvent == "Methanol"){
-				var lnkw = (calcGradientMeOH[compound][1]*tKelvin)+calcGradientMeOH[compound][0];
-				var S = (calcGradientMeOH[compound][3]*tKelvin)+calcGradientMeOH[compound][2];
-			} else {
-				var lnkw = (calcGradientACN[compound][1]*tKelvin)+calcGradientACN[compound][0];
-				var S = (calcGradientACN[compound][3]*tKelvin)+calcGradientACN[compound][2];
-			}
-		
-			var lnk0 = lnkw - (S*(phi_i));
-			var k0 = Math.exp(lnk0);
-    
-			var b = (S*(phi_f-phi_i)*V0)/(F*tG);
-    
-			var step1 = k0-(tD/t0);
-			var step2 = b * step1 + 1;
-			var step3 = (t0/b)*Math.log(step2);
-			var tR = t0 + tD + step3;
-		
-			var kw = Math.exp(lnkw);
-			//var phi_e = (1/S)*Math.log((S*(deltaPhi/tG)*kw*t0*(k0-tD/t0)+1)/k0);
-		
-			if((tR-tD-t0) < 0 || (tR-tD-t0) > tG){
-				var phi_e = phi_i;
-			} else {
-				var phi_e = gradientSlope*(tR-tD-t0)+phi_i;
-			}
-		
-			var lnke = lnkw - (S*(phi_e));
-			var ke = Math.exp(lnke);
-		
-			var sigma = Math.sqrt(Math.pow((t0*60)*((1+ke)/(Math.sqrt(N))), 2)+Math.pow(tau, 2));
-		
-			var t = 0;
-			var j = 0;
-			var check = true;
-			var loops = 0;
+			//var check = true;
+			//var loops = 0;
 			//var tF = 0;
 		
 			var compoundArray = new Array();
@@ -2043,7 +1952,121 @@ function gradientElutionMode(solvent, T, phi_i, phi_f, tD, F, d, L, Et, tG, t0, 
 		
 			while (t <= tF) {
 				var Ct = 1000000*(W/1000000)/(Math.pow((2*Math.PI), 0.5)*(sigma/60)*(F/(60*1000)))*Math.exp(-Math.pow((t-tR),2)/(2*Math.pow((sigma/60), 2)));
-				if (loops > 10000000) {
+				
+				cmpdData[j] = {
+					"t" : t,
+					"Ct" : Ct
+				};
+				
+				/*if (loops > 10000000) {
+					alert("infinite loop");
+					break;
+				}
+				if (Ct > 0.00001) {
+					check = false;
+				}
+				
+				if(check == false && finalRun == false){
+					//tF += 1;
+					tF += (0.02 * tF);
+					finalRun = true;
+				}
+				
+				if (check || Ct > 0.00001) {
+					tF += step;
+				}*/
+				
+				table[i][j+1]=Ct;
+				t += step;
+				j++;
+				//loops++;
+			}
+			if(tF > tF_max){
+				tF_max = tF;
+			}
+		
+			graphData[i] = cmpdData;
+		}
+	} else {
+		//time is set manually
+		
+		//var step = parseFloat(((60)/parseFloat(document.getElementById("plot_points_general").value)).toFixed(3));
+		
+		//var detectorFrequency = parseFloat(document.getElementById("detectorFrequency_general").value).toFixed(5);
+		//var step = ((1/detectorFrequency)/60);
+		var step = getDetectorTimeStep();
+		
+		for(i = 0; i < compoundList.length; i++){
+			var cmpdData = [];
+			var UsT = 0;
+			var W = parseFloat(((Vinj/1000000)*(M[i])).toFixed(15));
+			var cache = "";
+			var compoundName = compoundList[i];
+		
+			var compound = compoundList[i];
+		
+			if(solvent == "Methanol"){
+				var lnkw = (calcGradientMeOH[compound][1]*tKelvin)+calcGradientMeOH[compound][0];
+				var S = (calcGradientMeOH[compound][3]*tKelvin)+calcGradientMeOH[compound][2];
+			} else {
+				var lnkw = (calcGradientACN[compound][1]*tKelvin)+calcGradientACN[compound][0];
+				var S = (calcGradientACN[compound][3]*tKelvin)+calcGradientACN[compound][2];
+			}
+		
+			var lnk0 = lnkw - (S*(phi_i));
+			var k0 = Math.exp(lnk0);
+    
+			var b = (S*(phi_f-phi_i)*V0)/(F*tG);
+    
+			var step1 = k0-(tD/t0);
+			var step2 = b * step1 + 1;
+			var step3 = (t0/b)*Math.log(step2);
+			var tR = t0 + tD + step3;
+		
+			var kw = Math.exp(lnkw);
+			//var phi_e = (1/S)*Math.log((S*(deltaPhi/tG)*kw*t0*(k0-tD/t0)+1)/k0);
+		
+			if((tR-tD-t0) < 0 || (tR-tD-t0) > tG){
+				var phi_e = phi_i;
+			} else {
+				var phi_e = gradientSlope*(tR-tD-t0)+phi_i;
+			}
+		
+			var lnke = lnkw - (S*(phi_e));
+			var ke = Math.exp(lnke);
+		
+			var sigma = Math.sqrt(Math.pow((t0*60)*((1+ke)/(Math.sqrt(N))), 2)+Math.pow(tau, 2));
+		
+			//var t = 0;
+			var t = (parseFloat(document.getElementById("initial_time_general").value))/60;
+			var j = 0;
+			//var check = true;
+			//var loops = 0;
+			//var tF = 0;
+		
+			var compoundArray = new Array();
+			compoundArray[0] = compoundList[i];
+			compoundArray[1] = ke.toFixed(4);
+			compoundArray[2] = tR;
+			compoundArray[3] = sigma;
+			compoundArray[4] = Math.exp(lnkw);;
+			compoundArray[5] = S.toFixed(4);
+			tableArray[i] = compoundArray;
+    
+			table[i] = [];
+			table[i][0] = compoundList[i];
+		
+			var finalRun = false;
+		
+			while (t <= tF) {
+				var Ct = 1000000*(W/1000000)/(Math.pow((2*Math.PI), 0.5)*(sigma/60)*(F/(60*1000)))*Math.exp(-Math.pow((t-tR),2)/(2*Math.pow((sigma/60), 2)));
+				
+				cmpdData[j] = {
+					"t" : t,
+					"Ct" : Ct
+				};
+				
+				/*if (loops > 10000000) {
 					alert("infinite loop");
 					break;
 				}
@@ -2057,18 +2080,15 @@ function gradientElutionMode(solvent, T, phi_i, phi_f, tD, F, d, L, Et, tG, t0, 
 					finalRun = true;
 				}
 				
-				cmpdData[j] = {
-					"t" : t,
-					"Ct" : Ct
-				};
+				
 				if (check || Ct > 0.00001) {
 					//tF += step;
-				}
+				} */
 				
 				table[i][j+1]=Ct;
 				t += step;
 				j++;
-				loops++;
+				//loops++;
 			}
 			if(tF > tF_max){
 				tF_max = tF;
@@ -2102,7 +2122,6 @@ function gradientElutionMode(solvent, T, phi_i, phi_f, tD, F, d, L, Et, tG, t0, 
 	//console.log(percentB);
 	
 	tableArray = tableArray.sort(compareSecondColumn);
-	displayTable(tableArray);
 	updateTable(tableArray);
 	return graphData;
 }
@@ -2245,6 +2264,10 @@ function optimize(){
 
 //consolidate calculations
 function calculatePeaks() {
+	
+	//var calculatePeaks_Start = new Date();
+	//var calculatePeaks_Start = performance.now();
+	
 	if(document.getElementById("plot_points_general").value < 100 || document.getElementById("plot_points_general").value == ""){ document.getElementById("plot_points_general").value = 100; }
 	//Find Elution Mode
 	var mode;
@@ -2288,14 +2311,6 @@ function calculatePeaks() {
 	//Collect inputs from the user interface
 	
 	var solvent = document.getElementById("solvent_b_text").innerHTML; //Organic Modifier
-	
-	if(solvent == "Acetonitrile"){
-		var alertText_removedCompounds = updateCompoundsList_keepIfIncluded("ACN");
-	} else {
-		var alertText_removedCompounds = updateCompoundsList_keepIfIncluded("MeOH");
-	}
-	
-	console.log(compoundList);
 	
 	var d = checkIfValid("d", document.getElementById('inner_diameter_column').value);	//*column diameter
 	var L = checkIfValid("L", document.getElementById('length_column').value);	//*column length
@@ -2465,10 +2480,84 @@ function calculatePeaks() {
 	} else {
 		//document.getElementById("now_loaded").disabled = false;
 	}
-	console.log("--------------------------------------------------");
 	
-	if(alertText_removedCompounds != ""){ alert(alertText_removedCompounds); }
+	//var calculatePeaks_End = new Date();
+	//var calculatePeaks_End = performance.now();
+	
+	//var calculatePeaks_Duration = (calculatePeaks_End.getTime() - calculatePeaks_Start.getTime());
+	//var calculatePeaks_Duration = (calculatePeaks_End - calculatePeaks_Start);
+	
+	//console.log("calculatePeaks runtime = "+calculatePeaks_Duration+" milliseconds"); console.log(" ");
+	//console.log(calculatePeaks_Duration);
 } 
+
+function measureCalcDuration(numRepeats){
+	//Without points
+	console.log("Running 'Without points'...");
+	document.getElementById("renderGraph_dots_check").checked = false;
+	var durationArray_withoutPoints = []; var durationSum_withoutPoints = 0;
+	for(var i = 0; i < numRepeats; i++){
+		//console.log(""+(i+1)+"/"+numRepeats);
+		
+		var calculatePeaks_Start = performance.now();
+		calculatePeaks();
+		var calculatePeaks_End = performance.now();
+		
+		durationArray_withoutPoints[i] = (calculatePeaks_End - calculatePeaks_Start);
+		durationSum_withoutPoints += (calculatePeaks_End - calculatePeaks_Start);
+	}
+	console.log(durationArray_withoutPoints); console.log(" ");
+	
+	//With points
+	console.log("Running 'With points'...");
+	document.getElementById("renderGraph_dots_check").checked = true;
+	var durationArray_withPoints = []; var durationSum_withPoints = 0;
+	for(var i = 0; i < numRepeats; i++){
+		//console.log(""+(i+1)+"/"+numRepeats);
+		
+		var calculatePeaks_Start = performance.now();
+		calculatePeaks();
+		var calculatePeaks_End = performance.now();
+		
+		durationArray_withPoints[i] = (calculatePeaks_End - calculatePeaks_Start);
+		durationSum_withPoints += (calculatePeaks_End - calculatePeaks_Start);
+	}
+	console.log(durationArray_withPoints); console.log(" ");
+	
+	console.log(" ");
+	
+	console.log("Without points Avg = "+average(durationArray_withoutPoints)+" milliseconds");
+	console.log("Without points StDev = "+standardDeviation(durationArray_withoutPoints)+" milliseconds");
+	console.log(" ");
+	console.log("With points Avg = "+average(durationArray_withPoints)+" milliseconds");
+	console.log("With points StDev = "+standardDeviation(durationArray_withPoints)+" milliseconds");
+	
+	
+}
+
+function standardDeviation(values){
+  var avg = average(values);
+  
+  var squareDiffs = values.map(function(value){
+    var diff = value - avg;
+    var sqrDiff = diff * diff;
+    return sqrDiff;
+  });
+  
+  var avgSquareDiff = average(squareDiffs);
+
+  var stdDev = Math.sqrt(avgSquareDiff);
+  return stdDev;
+}
+
+function average(data){
+  var sum = data.reduce(function(sum, value){
+    return sum + value;
+  }, 0);
+
+  var avg = sum / data.length;
+  return avg;
+}
 
 function load() {
 	
