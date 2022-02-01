@@ -84,7 +84,6 @@ body:
         - Laptop
         - Smartphone
         - Tablet
-    render: markdown
   validations:
     required: true
 - type: markdown
@@ -99,7 +98,6 @@ body:
         - Dell Laptop
         - iPhone 6
         - Galaxy S9
-    render: markdown
   validations:
     required: true
 - type: markdown
@@ -114,7 +112,6 @@ body:
         - macOS 10.0
         - iOS 8.1
         - Android 12
-    render: markdown
   validations:
     required: true
 - type: markdown
@@ -129,7 +126,6 @@ body:
         - Firefox
         - Safari
         - Smart Device Stock
-    render: markdown
   validations:
     required: true
 - type: markdown
@@ -141,7 +137,6 @@ body:
     description: |
       example:
         - 97.0.4692.99 (Official Build) (64-bit)
-    render: markdown
   validations:
     required: true
 - type: markdown
