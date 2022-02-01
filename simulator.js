@@ -386,7 +386,8 @@ function shuffleArray(array) {
 }
 
 function log(msg){
-	var debugLog = document.getElementById("showDebuggingLog").checked;
+	//var debugLog = document.getElementById("showDebuggingLog").checked;
+	var debugLog = false;
 	if(debugLog == true){
 		var logCache = "";
 		var t = getCurrentTime();
@@ -485,6 +486,7 @@ function addCustom(){
 }
 
 function setLanguage(){
+	/*
 	var wordJSON = {};
 	wordJSON.menu = {};
 	if (document.getElementById("german_radio").checked) {
@@ -526,6 +528,7 @@ function setLanguage(){
 	}
 	updateWords(wordJSON);
 	//console.log(JSON.stringify(wordJSON));
+	*/
 }
 
 function updateWords(wordJSON){
@@ -726,15 +729,15 @@ function hideGradientElutionStuffs(bool){
 	log("Running 'hideGradientElutionStuffs("+bool+")'...");
 	//True = Isocratic Mode; False = Gradient Mode
 	if(bool == "true"){
-		document.getElementById("Solvent_B_Fraction_text").hidden = false;
-		document.getElementById("Solvent_B_Fraction_td").hidden = false;
+		//document.getElementById("Solvent_B_Fraction_text").hidden = false;
+		//document.getElementById("Solvent_B_Fraction_td").hidden = false;
 		document.getElementById("Gradient_Settings_Table").hidden = true;
 		document.getElementById("Gradient_Settings_Table_AddRow").hidden = true;
 		document.getElementById("Gradient_Settings_Table_RemoveRow").hidden = true;
 		document.getElementById("Gradient_PreColumn_Volume").hidden = true;
 	} else if(bool == "false"){
-		document.getElementById("Solvent_B_Fraction_text").hidden = true;
-		document.getElementById("Solvent_B_Fraction_td").hidden = true;
+		//document.getElementById("Solvent_B_Fraction_text").hidden = true;
+		//document.getElementById("Solvent_B_Fraction_td").hidden = true;
 		document.getElementById("Gradient_Settings_Table").hidden = false;
 		document.getElementById("Gradient_Settings_Table_AddRow").hidden = false;
 		document.getElementById("Gradient_Settings_Table_RemoveRow").hidden = false;
@@ -746,7 +749,8 @@ function resetMenus(){
 	log("Running 'resetMenus()'...");
 	
 	//Mobile Phase Composition
-	select_option('Acetonitrile', 'solvent_b');
+	//select_option('Acetonitrile', 'solvent_b');
+	document.getElementById("solvent_b").value = "Acetonitrile";
 	compoundList = ["phenol", "benzonitrile", "p-chlorophenol", "acetophenone", "nitrobenzene"];
 	updateCompoundsTable("ACN");
 	document.getElementById("isocratic_radio").checked = true;
@@ -770,7 +774,8 @@ function resetMenus(){
 	document.getElementById("renderGraph_dots_check").checked = false;
 	
 	//Column Properties
-	select_option('Agilent SB-C18', 'stationary_phase');
+	//select_option('Agilent SB-C18', 'stationary_phase');
+	document.getElementById("stationary_phase").value = "Agilent SB-C18";
 	toggleColumnProperties('Agilent SB-C18');
 	document.getElementById("length_column").value = 100.0;
 	document.getElementById("inner_diameter_column").value = 4.6;
@@ -853,6 +858,7 @@ function enableEdit() {
 
 function openMenu(id) {
 	log("Running 'openMenu("+id+")'...");
+	/*
 	var dropdowns = document.getElementsByClassName("menu_section");
 	var i;
 	for (i = 0; i < dropdowns.length; i++) {
@@ -864,6 +870,12 @@ function openMenu(id) {
 	  }
 	}
 	document.getElementById(id).classList.toggle("show");
+	*/
+	if(document.getElementById(id).style.display == "none"){
+		document.getElementById(id).style.display = "grid";
+	} else {
+		document.getElementById(id).style.display = "none";
+	}
 }
 
 function openMenu_ALL(){ //Added by Thomas Lauer on 08/30/2017
@@ -930,14 +942,15 @@ function toggleColumnProperties(input){ //Added by Thomas Lauer on 08/30/2017
 	//Check if the value of 'input' is a string.
 	if(typeof input == "string"){
 		
-		select_option('Acetonitrile', 'solvent_b');
+		//select_option('Acetonitrile', 'solvent_b');
+		document.getElementById("solvent_b").value = "Acetonitrile";
 		
 		if(input == "Agilent SB-C18"){
 			calcGradientACN = calcGradientACN_Agilent_SBC18;
 			calcGradientMeOH = calcGradientMeOH_Agilent_SBC18;
 			document.getElementById("temperature_slider").disabled = false;
 			document.getElementById("temperature_chrom").disabled = false;
-			document.getElementById("temperature_disabled_text").hidden = true;
+			//document.getElementById("temperature_disabled_text").hidden = true;
 			//document.getElementById("temperature_input_rowOne").hidden = false;
 			//document.getElementById("temperature_input_rowTwo").hidden = false;
 		} else if(input == "Agilent SB-C8") {
@@ -947,7 +960,7 @@ function toggleColumnProperties(input){ //Added by Thomas Lauer on 08/30/2017
 			document.getElementById("temperature_chrom").disabled = true;
 			document.getElementById("temperature_slider").value = 40;
 			document.getElementById("temperature_chrom").value = 40;
-			document.getElementById("temperature_disabled_text").hidden = false;
+			//document.getElementById("temperature_disabled_text").hidden = false;
 			//document.getElementById("temperature_input_rowOne").hidden = true;
 			//document.getElementById("temperature_input_rowTwo").hidden = true;
 		}
@@ -1020,12 +1033,17 @@ function renderGraph(data, renderGraphDots) {
 
 	d3.select("#graph_svg").remove(); //grab the '#graph_svg' tag and remove 
 
-	document.getElementById("graph").innerHTML = "<svg id='graph_svg' width='1400' height='500'></svg>"; //Create a new SVG with a width of 1400 and height of 500
+	//document.getElementById("graph").innerHTML = "<svg id='graph_svg' width='1400' height='500'></svg>"; //Create a new SVG with a width of 1400 and height of 500
+	
+	var div_width = document.getElementById("graph").offsetWidth;
+	var div_height = document.getElementById("graph").offsetHeight;
+
+	document.getElementById("graph").innerHTML = "<svg id='graph_svg' width='"+div_width+"' height='"+div_height+"'></svg>"; //Create a new SVG
 	
 	var svg = d3.select("#graph_svg"), //grab the '#graph_svg' tag and bind it to the variable svg
 	    margin = {top: 20, right: 20, bottom: 30, left: 50}, //create a JSON containing the margins
-	    width = 700 - margin.left - margin.right, //create a variable containing the usable width
-	    height = 500 - margin.top - margin.bottom, //create a variable containing the usable height
+	    width = div_width - margin.left - margin.right, //create a variable containing the usable width
+	    height = div_height - margin.top - margin.bottom, //create a variable containing the usable height
 	    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")"); //grab the '#graph_svg' tag, append a 'g' tag, assign attribute 'transform'; move the contents of the grouping
 
 	var x = d3.scaleLinear()
@@ -2310,7 +2328,8 @@ function calculatePeaks() {
 //============================================================================================================================================
 	//Collect inputs from the user interface
 	
-	var solvent = document.getElementById("solvent_b_text").innerHTML; //Organic Modifier
+	//var solvent = document.getElementById("solvent_b_text").innerHTML; //Organic Modifier
+	var solvent = document.getElementById("solvent_b").value;
 	
 	var d = checkIfValid("d", document.getElementById('inner_diameter_column').value);	//*column diameter
 	var L = checkIfValid("L", document.getElementById('length_column').value);	//*column length
@@ -2462,16 +2481,16 @@ function calculatePeaks() {
 	}*/
 	
 	
-	document.getElementById('GenRandExpBtn').disabled = false;
+	//document.getElementById('GenRandExpBtn').disabled = false;
 	
 	//refreshPreloadedCompounds();
 	//refreshNowloadedCompounds();
 	
 	if(compoundList.length == Object.keys(calcGradientACN).length){
-		document.getElementById("loadAllCompounds_button").disabled = true;
+		//document.getElementById("loadAllCompounds_button").disabled = true;
 		//document.getElementById("preloaded").disabled = true;
 	} else {
-		document.getElementById("loadAllCompounds_button").disabled = false;
+		//document.getElementById("loadAllCompounds_button").disabled = false;
 		//document.getElementById("preloaded").disabled = false;
 	}
 	
