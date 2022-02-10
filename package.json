@@ -1,6 +1,9 @@
 {
   "name": "hplcsim",
   "version": "5.0.0",
+  "description": "Multi-Dimensional Separations' 1D-LC Simulator",
+  "author": "Thomas J. Lauer",
+  "license": "CC BY-NC-SA 4.0",
   "homepage": "./",
   "private": true,
   "dependencies": {
