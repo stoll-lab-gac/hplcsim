@@ -20,7 +20,7 @@ function App({state, dispatch}) {
 					<input class="export_button" type="button" value="Export Chromatogram" onclick="logExportFileData_Full()" />
 					<input class="export_button" type="button" value="Export Selected Compound" onclick="logExportFileData_Selected()" />
 				</div>
-				<span id="versionDisplay">Version:<br />4.0.0</span>
+				<span id="versionDisplay">Version:<br />5.0.0</span>
       </div>
       <div id="params">
         <CollapsableDiv title='Manage Compounds'>
