@@ -2,8 +2,10 @@
 import { CollapsableDiv } from './CollapsableDiv';
 import { MenuMobilePhase } from './MenuMobilePhase';
 
+import { useCallback } from 'react';
+
 function App({state, dispatch}) {
-  
+
   function handleInputChange(name, value, dimension) {
     console.log(`${name}: ${value}`);
     let updatedCondition = {};
@@ -83,6 +85,8 @@ function App({state, dispatch}) {
     else throw Error(`unknown dimension ${dimension}`);
   }
 
+  const statusUpdater = useCallback((status) => dispatch({type: 'set-status', payload: status}), [dispatch]);
+
   return (
     <div id="content">
       <div id="header_title">
@@ -109,15 +113,8 @@ function App({state, dispatch}) {
         <CollapsableDiv title='Mobile Phase Composition'>
           <fieldset>
             <MenuMobilePhase
-              useGradient={state.firstDimInputs.useGradient}
-              samplePhi={state.firstDimInputs.phiSample}
-              phi0={state.firstDimInputs.phi0}
-              phif={state.firstDimInputs.phiFinal}
-              tg={state.firstDimInputs.gradientTime}
-              solventAs={['Buffer, 3.2 pH']}
               solventBs={['ACN', 'MeOH']}
-              selectedSolventA={0}
-              selectedSolventB={state.firstDimInputs.mobileType}
+              selectedSolventB={0}
               onChange={(name, value) => handleInputChange(name, value, 1)}
             />
           </fieldset>
