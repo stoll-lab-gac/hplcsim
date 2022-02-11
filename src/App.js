@@ -4,13 +4,17 @@ import { MenuMobilePhase } from './MenuMobilePhase';
 
 import { useCallback } from 'react';
 
-function App({state, dispatch}) {
+export function App({state, dispatch}) {
 
+  //*
   function handleInputChange(name, value, dimension) {
     console.log(`${name}: ${value}`);
     let updatedCondition = {};
     switch(name) {
       // mobile phase
+      case 'solvent-A':
+        updatedCondition = {mobileA: value};
+        break;
       case 'solvent-B':
         updatedCondition = {mobileType: value};
         break;
@@ -113,8 +117,10 @@ function App({state, dispatch}) {
         <CollapsableDiv title='Mobile Phase Composition'>
           <fieldset>
             <MenuMobilePhase
+              solventAs={['Water','Buffer, 3.2 pH']}
               solventBs={['ACN', 'MeOH']}
-              selectedSolventB={0}
+              selectedSolventA={state.firstDimInputs.mobileA}
+              selectedSolventB={state.firstDimInputs.mobileType}
               onChange={(name, value) => handleInputChange(name, value, 1)}
             />
           </fieldset>
@@ -130,6 +136,6 @@ function App({state, dispatch}) {
       <div id="tableDiv">tableDiv</div>
     </div>
   );
-}
 
-export default App;
+  //*/
+}

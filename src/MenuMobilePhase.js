@@ -33,7 +33,9 @@ MenuMobilePhase.EVENTS = {
  */ 
 export function MenuMobilePhase(
   {
+    solventAs,
     solventBs,
+    selectedSolventA,
     selectedSolventB,
     onChange
   }) {
@@ -119,12 +121,24 @@ export function MenuMobilePhase(
   );
   */
 
+  const solventAOptions = solventAs.map((value)=>
+    <option value={value} key={value}>{value}</option>
+  );
+  
   const solventBOptions = solventBs.map((value)=>
     <option value={value} key={value}>{value}</option>
   );
 
   return(
     <>
+      <span>Solvent A </span>
+      <select
+        value={solventAs[selectedSolventA]}
+        onChange={(e) => onChange('solvent-A', e.target.value)}
+      >
+        {solventAOptions}
+      </select>
+      <br />
       <span>Solvent B </span>
       <select
         value={solventBs[selectedSolventB]}
