@@ -1,7 +1,88 @@
 //import { useCallback } from 'react';
 import { CollapsableDiv } from './CollapsableDiv';
+import { MenuMobilePhase } from './MenuMobilePhase';
 
 function App({state, dispatch}) {
+  
+  function handleInputChange(name, value, dimension) {
+    console.log(`${name}: ${value}`);
+    let updatedCondition = {};
+    switch(name) {
+      // mobile phase
+      case 'solvent-B':
+        updatedCondition = {mobileType: value};
+        break;
+      case 'phi-sample':
+        updatedCondition = {phiSample: value};
+        break;
+      case 'phi-initial':
+        updatedCondition = {phi0: value};
+        break;
+      case 'phi-final':
+        updatedCondition = {phiFinal: value};
+        break;
+      case 'gradient-time':
+        updatedCondition = {gradientTime: value};
+        break;
+      case 'isocratic-radio':
+        if(value !== 'on') return;
+        updatedCondition = {
+          useGradient: false,
+          phiFinal: dimension === 1 ? state.firstDimInputs.phi0 : state.secondDimInputs.phi0,
+          gradientTime: 0
+        };
+        break;
+      case 'gradient-radio':
+        if(value !== 'on') return;
+        updatedCondition = {
+          useGradient: true,
+          phiFinal: dimension === 1 ? state.firstDimInputs.phi0 : state.secondDimInputs.phi0,
+          gradientTime: 5
+        };
+        break;
+      // stationary phase
+      case 'selected-column':
+        updatedCondition = {selectedColumn: value}
+        break;
+      case 'length':
+        updatedCondition = {L: value}
+        break;
+      case 'diameter':
+        updatedCondition = {rc: value}
+        break;
+      case 'particle-size':
+        updatedCondition = {particleSize: value}
+        break;
+      case 'epsiloni':
+        updatedCondition = {epsiloni: value}
+        break;
+      case 'epsilone':
+        updatedCondition = {epsilone: value}
+        break;
+      // chroma parameters
+      case 'flow-rate':
+        updatedCondition = {flowRate: value}
+        break;
+      case 'injection-volume':
+        updatedCondition = {injectionVolume: value}
+        break;
+      case 'delay-vol-inj':
+        updatedCondition = {delayVolFromInj: value}
+        break;
+      case 'delay-vol-col':
+        updatedCondition = {delayVolToCol: value}
+        break;
+      
+      default:
+        throw Error(`unhandled input change ${name}`);
+    }
+    if(dimension === 1)
+      dispatch({type: 'edit-first-inputs', payload: updatedCondition});
+    else if(dimension === 2)
+      dispatch({type: 'edit-second-inputs', payload: updatedCondition});
+    else throw Error(`unknown dimension ${dimension}`);
+  }
+
   return (
     <div id="content">
       <div id="header_title">
@@ -26,6 +107,20 @@ function App({state, dispatch}) {
         <CollapsableDiv title='Manage Compounds'>
         </CollapsableDiv>
         <CollapsableDiv title='Mobile Phase Composition'>
+          <fieldset>
+            <MenuMobilePhase
+              useGradient={state.firstDimInputs.useGradient}
+              samplePhi={state.firstDimInputs.phiSample}
+              phi0={state.firstDimInputs.phi0}
+              phif={state.firstDimInputs.phiFinal}
+              tg={state.firstDimInputs.gradientTime}
+              solventAs={['Buffer, 3.2 pH']}
+              solventBs={['ACN', 'MeOH']}
+              selectedSolventA={0}
+              selectedSolventB={state.firstDimInputs.mobileType}
+              onChange={(name, value) => handleInputChange(name, value, 1)}
+            />
+          </fieldset>
         </CollapsableDiv>
         <CollapsableDiv title='Chromatographic Properties'>
         </CollapsableDiv>
