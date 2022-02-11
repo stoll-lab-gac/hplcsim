@@ -1,10 +1,9 @@
-
-//import { LabeledInput } from './LabeledInput';
+import { LabeledInput } from './LabeledInput';
 /*
 * for info on number formattting codes used in this code, see
 * https://github.com/d3/d3-format#locale_format
 */
-//import { format } from 'd3-format';
+import { format } from 'd3-format';
 
 MenuMobilePhase.EVENTS = {
   SOLVENT_A_CHANGE: 'solvent-A',
@@ -21,7 +20,6 @@ MenuMobilePhase.EVENTS = {
  * display component for mobile phase params
  * @param {object} props
  * @param {boolean} props.useGradient
- * @param {?number} [props.samplePhi=null] sample phi [0-1] or undefined for message about previous dimension
  * @param {number} props.phi0 initial phi [0-1]
  * @param {number} props.phif final phi [0-1]
  * @param {number} props.tg
@@ -33,13 +31,16 @@ MenuMobilePhase.EVENTS = {
  */ 
 export function MenuMobilePhase(
   {
+    useGradient,
+    phi0,
+    phif,
+    tg,
     solventAs,
     solventBs,
     selectedSolventA,
     selectedSolventB,
     onChange
   }) {
-  /*
 
   const beta = (phif-phi0) / tg;
 
@@ -71,64 +72,6 @@ export function MenuMobilePhase(
     <option value={value} key={value}>{value}</option>
   );
 
-  return (
-    <>
-      <span>Solvent A </span>
-      <select
-        value={solventAs[selectedSolventA]}
-        onChange={(e) => onChange('solvent-A', e.target.value)}
-      >
-        {solventAOptions}
-      </select>
-      <br />
-      <span>Solvent B </span>
-      <select
-        value={solventBs[selectedSolventB]}
-        onChange={(e) => onChange('solvent-B', e.target.value)}
-      >
-        {solventBOptions}
-      </select>
-      <br />
-      <label>
-        <input type='radio'
-          checked={!useGradient}
-          onChange={(e) => onChange('isocratic-radio', e.target.value)} />
-        Isocratic
-      </label>
-      <label>
-        <input type='radio'
-          checked={useGradient}
-          onChange={(e) => onChange('gradient-radio', e.target.value)} />
-        Gradient
-      </label>
-      {samplePhi !== null &&
-        <LabeledInput
-          label='Sample Phi'
-          unit='%'
-          value={samplePhi * 100}
-          onChange={val => onChange('phi-sample', val / 100)}
-          verify={a => a >= 0.0 && a <= 100} />
-      }
-      {!samplePhi && samplePhi !== 0 && <p>Sample Phi determined by phi elute in 1D</p>}
-      <LabeledInput
-        label={useGradient ? 'Phi Initial' : 'Mobile Phi'}
-        unit='%'
-        value={phi0 * 100}
-        onChange={val => onChange('phi-initial', val / 100)}
-        verify={a => a >= 0.0 && a <= 100} />
-      {useGradient && gradientModeMenu}
-    </>
-  );
-  */
-
-  const solventAOptions = solventAs.map((value)=>
-    <option value={value} key={value}>{value}</option>
-  );
-  
-  const solventBOptions = solventBs.map((value)=>
-    <option value={value} key={value}>{value}</option>
-  );
-
   return(
     <>
       <span>Solvent A </span>
@@ -146,6 +89,28 @@ export function MenuMobilePhase(
       >
         {solventBOptions}
       </select>
+      <br />
+      <br />
+      <label>
+        <input type='radio'
+          checked={!useGradient}
+          onChange={(e) => onChange('isocratic-radio', e.target.value)} />
+        Isocratic
+      </label>
+      <label>
+        <input type='radio'
+          checked={useGradient}
+          onChange={(e) => onChange('gradient-radio', e.target.value)} />
+        Gradient
+      </label>
+      <br /><br />
+      <LabeledInput
+        label={useGradient ? 'Phi Initial' : 'Mobile Phi'}
+        unit='%'
+        value={phi0 * 100}
+        onChange={val => onChange('phi-initial', val / 100)}
+        verify={a => a >= 0.0 && a <= 100} />
+      {useGradient && gradientModeMenu}
     </>
   );
 }

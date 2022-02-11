@@ -13,13 +13,10 @@ export function App({state, dispatch}) {
     switch(name) {
       // mobile phase
       case 'solvent-A':
-        updatedCondition = {mobileA: value};
+        updatedCondition = {solventA: value};
         break;
       case 'solvent-B':
-        updatedCondition = {mobileType: value};
-        break;
-      case 'phi-sample':
-        updatedCondition = {phiSample: value};
+        updatedCondition = {solventB: value};
         break;
       case 'phi-initial':
         updatedCondition = {phi0: value};
@@ -34,7 +31,7 @@ export function App({state, dispatch}) {
         if(value !== 'on') return;
         updatedCondition = {
           useGradient: false,
-          phiFinal: dimension === 1 ? state.firstDimInputs.phi0 : state.secondDimInputs.phi0,
+          phiFinal: state.phi0,
           gradientTime: 0
         };
         break;
@@ -42,7 +39,7 @@ export function App({state, dispatch}) {
         if(value !== 'on') return;
         updatedCondition = {
           useGradient: true,
-          phiFinal: dimension === 1 ? state.firstDimInputs.phi0 : state.secondDimInputs.phi0,
+          phiFinal: state.phi0,
           gradientTime: 5
         };
         break;
@@ -83,7 +80,7 @@ export function App({state, dispatch}) {
         throw Error(`unhandled input change ${name}`);
     }
     if(dimension === 1)
-      dispatch({type: 'edit-first-inputs', payload: updatedCondition});
+      dispatch({type: 'edit-inputs', payload: updatedCondition});
     else if(dimension === 2)
       dispatch({type: 'edit-second-inputs', payload: updatedCondition});
     else throw Error(`unknown dimension ${dimension}`);
@@ -117,10 +114,14 @@ export function App({state, dispatch}) {
         <CollapsableDiv title='Mobile Phase Composition'>
           <fieldset>
             <MenuMobilePhase
+              useGradient={state.useGradient}
+              phi0={state.phi0}
+              phif={state.phiFinal}
+              tg={state.gradientTime}
               solventAs={['Water','Buffer, 3.2 pH']}
-              solventBs={['ACN', 'MeOH']}
-              selectedSolventA={state.firstDimInputs.mobileA}
-              selectedSolventB={state.firstDimInputs.mobileType}
+              solventBs={['Acetonitrile', 'Methanol']}
+              selectedSolventA={state.solventA}
+              selectedSolventB={state.solventB}
               onChange={(name, value) => handleInputChange(name, value, 1)}
             />
           </fieldset>
