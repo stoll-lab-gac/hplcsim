@@ -1,7 +1,7 @@
 var compoundParameters = {
-    "Agilent SB-C18": {
-        "Acetonitrile": {
-            "N-benzylformamide":{"lnkw_intercept":4.11763684964633,"lnkw_slope":-0.00859108668819096,"S_intercept":5.72460154055311,"S_slope":-0.004518391449322835},
+	"Agilent SB-C18": {
+    "Acetonitrile": {
+      "N-benzylformamide":{"lnkw_intercept":4.11763684964633,"lnkw_slope":-0.00859108668819096,"S_intercept":5.72460154055311,"S_slope":-0.004518391449322835},
 			"benzylalcohol":{"lnkw_intercept":4.295870151731668,"lnkw_slope":-0.00838504826707623,"S_intercept":5.11516782884082,"S_slope":-0.0035429892224701012},
 			"phenol":{"lnkw_intercept":7.250245913957449,"lnkw_slope":-0.01623644076804236,"S_intercept":8.080764119773358,"S_slope":-0.011393740748934839},
 			"3-phenylpropanol":{"lnkw_intercept":6.979319890216979,"lnkw_slope":-0.011916768623047113,"S_intercept":8.913709246999934,"S_slope":-0.00977469046200866},
@@ -44,7 +44,7 @@ var compoundParameters = {
 			"Impurity-E":{"lnkw_intercept":3.55,"lnkw_slope":0.013,"S_intercept":8.14,"S_slope":0.009},
 			"Impurity-F":{"lnkw_intercept":2.62,"lnkw_slope":0.015,"S_intercept":-2.09,"S_slope":0.037},
 			"Impurity-G":{"lnkw_intercept":4.36,"lnkw_slope":0.01,"S_intercept":0.72,"S_slope":0.029},
-        },
+    },
 		"Methanol": {
 			"N-benzylformamide":{"lnkw_intercept":9.164256973698459,"lnkw_slope":-0.02056138653509061,"S_intercept":11.017552429310824,"S_slope":-0.017627024734002957},
 			"benzylalcohol":{"lnkw_intercept":9.368291799905602,"lnkw_slope":-0.02044397690961204,"S_intercept":10.719335353513642,"S_slope":-0.017293059939322706},
@@ -90,8 +90,8 @@ var compoundParameters = {
 			"Impurity-F":{"lnkw_intercept":2.62,"lnkw_slope":0.015,"S_intercept":-2.09,"S_slope":0.037},
 			"Impurity-G":{"lnkw_intercept":4.36,"lnkw_slope":0.01,"S_intercept":0.72,"S_slope":0.029},
 		}
-    },
-    "Agilent SB-C8": {}
+  },
+  "Agilent SB-C8": {}
 };
 
 var M = [
