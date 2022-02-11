@@ -156,3 +156,7 @@
 #content #scrollTable {
     overflow-y: scroll;
 }
+
+.hidden {
+    display: none;
+}
