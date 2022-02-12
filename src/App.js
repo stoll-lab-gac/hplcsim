@@ -124,8 +124,8 @@ export function App({state, dispatch}) {
               phi0={state.phi0}
               phif={state.phiFinal}
               tg={state.gradientTime}
-              solventAs={['Water','Buffer, 3.2 pH']}
-              solventBs={['Acetonitrile', 'Methanol']}
+              solventAs={state.solventAs}
+              solventBs={state.solventBs}
               selectedSolventA={state.solventA}
               selectedSolventB={state.solventB}
               onChange={(name, value) => handleInputChange(name, value)}

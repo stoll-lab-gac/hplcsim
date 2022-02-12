@@ -7,6 +7,8 @@ import { App } from './App'
 function init(){
 
   const state = {
+    solventAs: ['Water','Buffer, 3.2 pH'],
+    solventBs: ['Acetonitrile', 'Methanol'],
     solventA: 'Water',
     solventB: 'Acetonitrile',      // ACN or MeOH
     useGradient: false,     // to use gradient or not
