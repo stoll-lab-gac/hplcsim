@@ -2,6 +2,7 @@ import { InputNumber } from '../Inputs/InputNumber';
 import { InputSlider } from '../Inputs/InputSlider';
 import { InputSelect } from '../Inputs/InputSelect';
 
+import { OutputNumber } from '../Outputs/OutputNumber';
 
 /*
 * for info on number formattting codes used in this code, see
@@ -71,7 +72,11 @@ export function MenuMobilePhase(
         verify={a => a >= 0.01}
         onChange={val=>onChange('gradient-time', val)}
         step={0.1} />
-      <p>Gradient Slope (ß): {format('.4f')(beta)}</p>
+      <OutputNumber
+        label='Gradient Slope (ß)'
+        unit='%B / min'
+        value={format('.4f')(beta)}
+        />
     </>
   );
 
