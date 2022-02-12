@@ -2,6 +2,7 @@
 import { CollapsableDiv } from './CollapsableDiv';
 import { MenuMobilePhase } from './MenuMobilePhase';
 import { MenuChromatographic } from './MenuChromatographic';
+import { MenuColumn } from './MenuColumn';
 
 import { useCallback } from 'react';
 
@@ -63,7 +64,7 @@ export function App({state, dispatch}) {
       case 'length':
         updatedCondition = {length: value}
         break;
-      case 'diameter':
+      case 'inner-diameter':
         updatedCondition = {innerDiameter: value}
         break;
       case 'particle-size':
@@ -144,6 +145,21 @@ export function App({state, dispatch}) {
         <CollapsableDiv title='General Properties'>
         </CollapsableDiv>
         <CollapsableDiv title='Column Properties'>
+          <fieldset>
+            <MenuColumn
+              columns={state.columns}
+              selectedColumn={state.selectedColumn}
+              length={state.length}
+              innerDiameter={state.innerDiameter}
+              particleSize={state.particleSize}
+              epsilonI={state.epsilonI}
+              epsilonE={state.epsilonE}
+              vanDeemterA={state.vanDeemterA}
+              vanDeemterB={state.vanDeemterB}
+              vanDeemterC={state.vanDeemterC}
+              onChange={(name, value) => handleInputChange(name, value)}
+            />
+          </fieldset>
         </CollapsableDiv>
       </div>
       <div id="graph">graph</div>

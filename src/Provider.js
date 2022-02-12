@@ -17,7 +17,8 @@ function init(){
     injectionVolume: 5,     // injection volume (microliters)
     flowRate: 2.0,          // flow rate (mL/min)
     
-    column: 'Agilent SB-C18',
+    columns: ['Agilent SB-C18'],
+    selectedColumn: 'Agilent SB-C18',
     length: 100.0,
     innerDiameter: 4.6,
     particleSize: 3.0,
