@@ -13,6 +13,8 @@
 
     justify-items: center; /* Center Horizontally */
     align-items: center; /* Center Vertically */
+
+    --fontSize: 12px;
 }
 
 #content #header_title {

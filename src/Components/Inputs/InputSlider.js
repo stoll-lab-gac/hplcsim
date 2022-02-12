@@ -75,10 +75,10 @@ export function InputSlider({
   const className = (valid ? "InputSliderValid" : "InputSliderInvalid") + ` label-${inputType} slider`;
 
   let returnLabel = (<><span style={{ gridArea: 'a', textAlign: 'center'}}></span></>);
-  if(label){ returnLabel = (<><span style={{ gridArea: 'a', textAlign: 'center'}}><label htmlFor={label}>{label} </label></span></>); }
+  if(label){ returnLabel = (<><span style={{ gridArea: 'a', textAlign: 'center', fontSize: 'var(--fontSize)'}}><label htmlFor={label}>{label} </label></span></>); }
 
   let returnUnit = (<><span style={{ gridArea: 'd'}}></span></>);
-  if(unit){ returnUnit = (<><span style={{ gridArea: 'd'}}>{unit}</span></>); }
+  if(unit){ returnUnit = (<><span style={{ gridArea: 'd', fontSize: 'var(--fontSize)'}}>{unit}</span></>); }
 
   return (
     <div className='InputSlider' style={

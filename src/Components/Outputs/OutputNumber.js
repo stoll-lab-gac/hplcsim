@@ -3,10 +3,10 @@ import { format } from 'd3-format';
 export function OutputNumber({ label, unit, formatting, value }){
 
   let returnLabel = (<><span style={{ gridArea: 'a', textAlign: 'center'}}></span></>);
-  if(label){ returnLabel = (<><span style={{ gridArea: 'a', textAlign: 'center'}}><label htmlFor={label}>{label} </label></span></>); }
+  if(label){ returnLabel = (<><span style={{ gridArea: 'a', textAlign: 'center', fontSize: 'var(--fontSize)'}}><label htmlFor={label}>{label} </label></span></>); }
 
   let returnUnit = (<><span style={{ gridArea: 'c'}}></span></>);
-  if(unit){ returnUnit = (<><span style={{ gridArea: 'c'}}>{unit}</span></>); }
+  if(unit){ returnUnit = (<><span style={{ gridArea: 'c', fontSize: 'var(--fontSize)'}}>{unit}</span></>); }
 
   return (
     <div className='InputNumber' style={
@@ -22,7 +22,7 @@ export function OutputNumber({ label, unit, formatting, value }){
         marginBottom: '5px'
       }}>
       {label && returnLabel}
-      <span style={{ gridArea: 'b', width: '90%'}}>{value ? (formatting ? format(formatting)(value) : value) : "Loading..."}</span>
+      <span style={{ gridArea: 'b', width: '90%', fontSize: 'var(--fontSize)'}}>{value ? (formatting ? format(formatting)(value) : value) : "Loading..."}</span>
       {unit && returnUnit}
     </div>
   )
