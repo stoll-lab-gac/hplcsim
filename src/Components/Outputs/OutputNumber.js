@@ -1,4 +1,6 @@
-export function OutputNumber({ label, unit, value }){
+import { format } from 'd3-format';
+
+export function OutputNumber({ label, unit, formatting, value }){
 
   let returnLabel = (<><span style={{ gridArea: 'a', textAlign: 'center'}}></span></>);
   if(label){ returnLabel = (<><span style={{ gridArea: 'a', textAlign: 'center'}}><label htmlFor={label}>{label} </label></span></>); }
@@ -20,7 +22,7 @@ export function OutputNumber({ label, unit, value }){
         marginBottom: '5px'
       }}>
       {label && returnLabel}
-      <span style={{ gridArea: 'b', width: '90%'}}>{value}</span>
+      <span style={{ gridArea: 'b', width: '90%'}}>{value ? (formatting ? format(formatting)(value) : value) : "Loading..."}</span>
       {unit && returnUnit}
     </div>
   )
