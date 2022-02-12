@@ -49,6 +49,15 @@ export function InputSlider({
     setValid(verify(value))
   }, [value, inputType, verify]);
 
+  // submit if valid and a new value
+  const submit = () => { const newValue = inputType === 'number' ? Number(field) : field; if (valid && field !== value){ onChange(newValue); } }
+  
+  // submit on leave focus
+  const handleOnBlur = () => { submit(); }
+  
+  // submit on enter key released
+  const handleOnKeyUp = (e) => { if (e.key === 'Enter'){ submit(); } }
+
   // validate input, update field, pass to onChange if valid
   const handleOnChange = (event) => {
     // text in the input box
@@ -60,12 +69,8 @@ export function InputSlider({
       if (!isNaN(newValue) && isFinite(newValue)) { setValid(verify(newValue)); } else { setValid(false); }
     } else if (inputType === 'text') { const valid = verify(valueField); setValid(valid); }
   };
-  // submit if valid and a new value
-  const submit = () => { const newValue = inputType === 'number' ? Number(field) : field; if (valid && field !== value){ onChange(newValue); } }
-  // submit on leave focus
-  const handleOnBlur = () => { submit(); }
-  // submit on enter key released
-  const handleOnKeyUp = (e) => { if (e.key === 'Enter'){ submit(); } }
+
+  const handleOnMouseUp = () => { submit(); }
 
   const className = (valid ? "InputSliderValid" : "InputSliderInvalid") + ` label-${inputType} slider`;
 
@@ -100,8 +105,9 @@ export function InputSlider({
         step={step}
         onBlur={handleOnBlur}
         onKeyUp={handleOnKeyUp}
-        onChange={handleOnChange} />
-      <input style={{ gridArea: 'c'}}
+        onChange={handleOnChange}
+        onMouseUp={handleOnMouseUp} />
+      <input style={{ gridArea: 'c', width: '90%'}}
         disabled={disabled}
         autoComplete='off'
         className={className}
