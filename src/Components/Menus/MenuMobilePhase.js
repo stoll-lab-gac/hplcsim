@@ -46,18 +46,21 @@ export function MenuMobilePhase(
     onChange
   }) {
 
+  if(phif < phi0){ phif = phi0; }
+
   const beta = (phif-phi0) / tg;
 
   const gradientModeMenu = (
     <>
       <br />
       <InputSlider
-        label='Phi Final'
-        unit='%'
-        min={0}
+        label='Final Solvent B Fraction'
+        unit='% v/v'
+        min={phi0 * 100}
         max={100}
         value={phif*100}
         verify={a => a >= phi0 && a <= 100}
+        disabled={phi0==1}
         onChange={(val)=>onChange('phi-final', val/100)}  />
       {phi0 > phif && <p style={{color: 'red', fontWeight: 'bold'}}>Phi Initial is greater than Phi Final!</p>}
       <br />
@@ -98,20 +101,22 @@ export function MenuMobilePhase(
         marginBottom: '5px'
         }}>
         <input style={{width: '100%'}}
+          id='isocraticRadio'
           type='radio'
           checked={!useGradient}
           onChange={(e) => onChange('isocratic-radio', e.target.value)} />
-        <label>Isocratic Elution Mode</label>
+        <label for="isocraticRadio">Isocratic Elution Mode</label>
         <input style={{width: '100%'}}
+          id='gradientRadio'
           type='radio'
           checked={useGradient}
           onChange={(e) => onChange('gradient-radio', e.target.value)} />
-        <label>Gradient Elution Mode</label>
+        <label for="gradientRadio">Gradient Elution Mode</label>
       </div>
       <br />
       <InputSlider
-        label={useGradient ? 'Phi Initial' : 'Mobile Phi'}
-        unit='%'
+        label={useGradient ? 'Initial Solvent B Fraction' : 'Solvent B Fraction'}
+        unit='% v/v'
         min={0}
         max={100}
         value={phi0 * 100}
