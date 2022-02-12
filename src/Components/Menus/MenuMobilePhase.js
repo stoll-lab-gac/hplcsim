@@ -1,5 +1,7 @@
 import { InputNumber } from '../Inputs/InputNumber';
 import { InputSlider } from '../Inputs/InputSlider';
+import { InputSelect } from '../Inputs/InputSelect';
+
 
 /*
 * for info on number formattting codes used in this code, see
@@ -70,32 +72,21 @@ export function MenuMobilePhase(
     </>
   );
 
-  const solventAOptions = solventAs.map((value)=>
-    <option value={value} key={value}>{value}</option>
-  );
-
-  const solventBOptions = solventBs.map((value)=>
-    <option value={value} key={value}>{value}</option>
-  );
-
   return(
     <>
-      <span>Solvent A </span>
-      <select
-        value={solventAs[selectedSolventA]}
+      <InputSelect
+        label='Solvent A'
+        values={solventAs}
+        selectedValue={selectedSolventA}
         onChange={(e) => onChange('solvent-A', e.target.value)}
-      >
-        {solventAOptions}
-      </select>
+      />
       <br />
-      <span>Solvent B </span>
-      <select
-        value={solventBs[selectedSolventB]}
+      <InputSelect
+        label='Solvent B'
+        values={solventBs}
+        selectedValue={selectedSolventB}
         onChange={(e) => onChange('solvent-B', e.target.value)}
-      >
-        {solventBOptions}
-      </select>
-      <br />
+      />
       <br />
       <label>
         <input type='radio'

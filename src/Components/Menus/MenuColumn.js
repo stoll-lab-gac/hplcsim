@@ -1,4 +1,5 @@
 import { InputNumber } from '../Inputs/InputNumber';
+import { InputSelect } from '../Inputs/InputSelect';
 //import { format } from 'd3-format';
 
 
@@ -16,20 +17,14 @@ export function MenuColumn({
   onChange
 }) {
 
-  const columnOptions = columns.map((value)=>
-    <option value={value} key={value}>{value}</option>
-  );
-
   return (
     <>
-      <span>Stationary Phase </span>
-      <select
-        value={columns[selectedColumn]}
+      <InputSelect
+        label='Stationary Phase'
+        values={columns}
+        selectedValue={selectedColumn}
         onChange={(e) => onChange('selected-column', e.target.value)}
-        >
-        {columnOptions}
-      </select>
-      <br />
+      />
       <br />
       <InputNumber
         label='Length'
