@@ -19,6 +19,7 @@ export function InputSelect({
         gridTemplateAreas: "'a b b'",
         gridTemplateColumns: '1fr 1fr 1fr',
         gridTemplateRows: 'auto',
+        alignItems: 'center',
         height: '100%',
         width: '100%',
         marginBottom: '5px'

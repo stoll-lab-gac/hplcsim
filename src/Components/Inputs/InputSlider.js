@@ -83,6 +83,7 @@ export function InputSlider({
         gridTemplateAreas: "'a b b' 'a c d'",
         gridTemplateColumns: '1fr 1fr 1fr',
         gridTemplateRows: 'auto auto',
+        alignItems: 'center',
         height: '100%',
         width: '100%',
         marginBottom: '5px'
