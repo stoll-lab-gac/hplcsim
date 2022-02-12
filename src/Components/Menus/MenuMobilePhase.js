@@ -1,4 +1,6 @@
 import { InputNumber } from '../Inputs/InputNumber';
+import { InputSlider } from '../Inputs/InputSlider';
+
 /*
 * for info on number formattting codes used in this code, see
 * https://github.com/d3/d3-format#locale_format
@@ -46,13 +48,17 @@ export function MenuMobilePhase(
 
   const gradientModeMenu = (
     <>
-      <InputNumber
+      <br />
+      <InputSlider
         label='Phi Final'
         unit='%'
+        min={0}
+        max={100}
         value={phif*100}
         verify={a => a >= phi0 && a <= 100}
         onChange={(val)=>onChange('phi-final', val/100)}  />
       {phi0 > phif && <p style={{color: 'red', fontWeight: 'bold'}}>Phi Initial is greater than Phi Final!</p>}
+      <br />
       <InputNumber
         label='Gradient Time'
         unit='min'
@@ -104,9 +110,11 @@ export function MenuMobilePhase(
         Gradient
       </label>
       <br /><br />
-      <InputNumber
+      <InputSlider
         label={useGradient ? 'Phi Initial' : 'Mobile Phi'}
         unit='%'
+        min={0}
+        max={100}
         value={phi0 * 100}
         onChange={val => onChange('phi-initial', val / 100)}
         verify={a => a >= 0.0 && a <= 100} />

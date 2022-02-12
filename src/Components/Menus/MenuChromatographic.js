@@ -1,4 +1,5 @@
 import { InputNumber } from '../Inputs/InputNumber';
+import { InputSlider } from '../Inputs/InputSlider';
 //import { format } from 'd3-format';
 
 
@@ -11,9 +12,11 @@ export function MenuChromatographic({
 
   return (
     <>
-    <InputNumber
+    <InputSlider
         label='Temperature'
         unit='°C'
+        min={10}
+        max={150}
         value={temperature}
         verify={a => a >= 10 && a <= 150}
         onChange={(val)=>onChange('temperature', val)}  />
