@@ -20,7 +20,7 @@ const defaultVerify = a => a > 0;
  * @param {boolean} props.disabled whether or not the input can be changed
  */
 
-export function LabeledInput({ value, label, unit, onChange, step = 1, verify = defaultVerify, inputType = 'number', disabled=false}) {
+export function InputNumber({ value, label, unit, onChange, step = 1, verify = defaultVerify, inputType = 'number', disabled=false}) {
   // precision to avoid floating point weirdness
   const PRECISION = 12;
 
@@ -81,10 +81,10 @@ export function LabeledInput({ value, label, unit, onChange, step = 1, verify = 
       submit();
   }
 
-  const className = (valid ? "LabeledInputValid" : "LabeledInputInvalid") + ` label-${inputType}`;
+  const className = (valid ? "InputNumberValid" : "InputNumberInvalid") + ` label-${inputType}`;
 
   return (
-    <div className='LabeledInput'>
+    <div className='InputNumber'>
       {label && <><label htmlFor={label}>{label} </label><br /></>}
       <input
         disabled={disabled}
