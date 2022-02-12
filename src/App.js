@@ -1,10 +1,10 @@
 //import { useCallback } from 'react';
-import { CollapsableDiv } from './CollapsableDiv';
-import { MenuMobilePhase } from './MenuMobilePhase';
-import { MenuChromatographic } from './MenuChromatographic';
-import { MenuColumn } from './MenuColumn';
+import { Menu } from './Components/Menus/Menu';
+import { MenuMobilePhase } from './Components/Menus/MenuMobilePhase';
+import { MenuChromatographic } from './Components/Menus/MenuChromatographic';
+import { MenuColumn } from './Components/Menus/MenuColumn';
 
-import { useCallback } from 'react';
+//import { useCallback } from 'react';
 
 export function App({state, dispatch}) {
 
@@ -92,7 +92,7 @@ export function App({state, dispatch}) {
     dispatch({type: 'edit-inputs', payload: updatedCondition});
   }
 
-  const statusUpdater = useCallback((status) => dispatch({type: 'set-status', payload: status}), [dispatch]);
+  //const statusUpdater = useCallback((status) => dispatch({type: 'set-status', payload: status}), [dispatch]);
 
   return (
     <div id="content">
@@ -115,9 +115,9 @@ export function App({state, dispatch}) {
 				<span id="versionDisplay">Version:<br />5.0.0</span>
       </div>
       <div id="params">
-        <CollapsableDiv title='Manage Compounds'>
-        </CollapsableDiv>
-        <CollapsableDiv title='Mobile Phase Composition'>
+        <Menu title='Manage Compounds'>
+        </Menu>
+        <Menu title='Mobile Phase Composition'>
           <fieldset>
             <MenuMobilePhase
               useGradient={state.useGradient}
@@ -131,8 +131,8 @@ export function App({state, dispatch}) {
               onChange={(name, value) => handleInputChange(name, value)}
             />
           </fieldset>
-        </CollapsableDiv>
-        <CollapsableDiv title='Chromatographic Properties'>
+        </Menu>
+        <Menu title='Chromatographic Properties'>
           <fieldset>
             <MenuChromatographic
               temperature={state.temperature}
@@ -141,10 +141,10 @@ export function App({state, dispatch}) {
               onChange={(name, value) => handleInputChange(name, value)}
             />
           </fieldset>
-        </CollapsableDiv>
-        <CollapsableDiv title='General Properties'>
-        </CollapsableDiv>
-        <CollapsableDiv title='Column Properties'>
+        </Menu>
+        <Menu title='General Properties'>
+        </Menu>
+        <Menu title='Column Properties'>
           <fieldset>
             <MenuColumn
               columns={state.columns}
@@ -160,7 +160,7 @@ export function App({state, dispatch}) {
               onChange={(name, value) => handleInputChange(name, value)}
             />
           </fieldset>
-        </CollapsableDiv>
+        </Menu>
       </div>
       <div id="graph">graph</div>
       <div id="tableDiv">tableDiv</div>

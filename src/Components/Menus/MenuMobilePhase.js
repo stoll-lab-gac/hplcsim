@@ -1,4 +1,4 @@
-import { LabeledInput } from './LabeledInput';
+import { LabeledInput } from '../Inputs/LabeledInput';
 /*
 * for info on number formattting codes used in this code, see
 * https://github.com/d3/d3-format#locale_format

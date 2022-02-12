@@ -1,5 +1,5 @@
-import { LabeledInput } from './LabeledInput';
-import { format } from 'd3-format';
+import { LabeledInput } from '../Inputs/LabeledInput';
+//import { format } from 'd3-format';
 
 
 export function MenuColumn({

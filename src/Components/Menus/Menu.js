@@ -8,7 +8,7 @@ import React, { useState } from 'react';
  * except very expensive divs that change constantly even when closed
  * @returns {JSX.Element} rendering
  */
-export function CollapsableDiv({ title, children, keep = true }) {
+export function Menu({ title, children, keep = true }) {
   const [visible, setVisible] = useState(true);
 
   /* toggle visibilty state */
