@@ -24,7 +24,7 @@ export function InputSelect({
         width: '100%',
         marginBottom: '5px'
       }}>
-      <span style={{ gridArea: 'a', textAlign: 'center', fontSize: 'var(--fontSize)'}}>{label} </span>
+      <span style={{ gridArea: 'a', textAlign: 'center', fontSize: 'var(--fontSize)', fontWeight: 'bold'}}>{label} </span>
       <select style={{ gridArea: 'b', width: '95%'}}
         value={values[selectedValue]}
         onChange={onChange}

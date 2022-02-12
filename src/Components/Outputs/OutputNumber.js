@@ -3,7 +3,7 @@ import { format } from 'd3-format';
 export function OutputNumber({ label, unit, formatting, value }){
 
   let returnLabel = (<><span style={{ gridArea: 'a', textAlign: 'center'}}></span></>);
-  if(label){ returnLabel = (<><span style={{ gridArea: 'a', textAlign: 'center', fontSize: 'var(--fontSize)'}}><label htmlFor={label}>{label} </label></span></>); }
+  if(label){ returnLabel = (<><span style={{ gridArea: 'a', textAlign: 'center', fontSize: 'var(--fontSize)', fontWeight: 'bold'}}><label htmlFor={label}>{label} </label></span></>); }
 
   let returnUnit = (<><span style={{ gridArea: 'c'}}></span></>);
   if(unit){ returnUnit = (<><span style={{ gridArea: 'c', fontSize: 'var(--fontSize)'}}>{unit}</span></>); }
