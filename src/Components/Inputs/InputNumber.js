@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -20,7 +19,16 @@ const defaultVerify = a => a > 0;
  * @param {boolean} props.disabled whether or not the input can be changed
  */
 
-export function InputNumber({ value, label, unit, onChange, step = 1, verify = defaultVerify, inputType = 'number', disabled=false}) {
+export function InputNumber({
+  value,
+  label,
+  unit,
+  onChange,
+  step = 1,
+  verify = defaultVerify,
+  inputType = 'number',
+  disabled=false
+}) {
   // precision to avoid floating point weirdness
   const PRECISION = 12;
 
@@ -42,51 +50,42 @@ export function InputNumber({ value, label, unit, onChange, step = 1, verify = d
   // validate input, update field, pass to onChange if valid
   const handleOnChange = (event) => {
     // text in the input box
-    const valueField = event.target.value;
-    setField(valueField);
-
-    if (inputType === 'number') {
-      // validate
+    const valueField = event.target.value; setField(valueField);
+    if (inputType === 'number') { // validate
       // parse to number (avoid floating point error with tructation)
       const newValue = Number(Number(valueField).toFixed(PRECISION));
-      // !isNan means value is NOT Not a Number, meaning it is a number
-      // safety check in case valueField is just an int
-      if (!isNaN(newValue) && isFinite(newValue)) {
-        setValid(verify(newValue));
-      } else {
-        setValid(false);
-      }
-    }
-
-    else if (inputType === 'text') {
-      const valid = verify(valueField);
-      setValid(valid);
-    }
+      // !isNan means value is NOT Not a Number, meaning it is a number safety check in case valueField is just an int
+      if (!isNaN(newValue) && isFinite(newValue)) { setValid(verify(newValue)); } else { setValid(false); }
+    } else if (inputType === 'text') { const valid = verify(valueField); setValid(valid); }
   };
-
   // submit if valid and a new value
-  const submit = () => {
-    const newValue = inputType === 'number' ? Number(field) : field;
-    if (valid && field !== value) 
-      onChange(newValue);
-  }
-
+  const submit = () => { const newValue = inputType === 'number' ? Number(field) : field; if (valid && field !== value){ onChange(newValue); } }
   // submit on leave focus
-  const handleOnBlur = () => {
-    submit();
-  }
-
-  const handleOnKeyUp = (e) => {
-    if (e.key === 'Enter')
-      submit();
-  }
+  const handleOnBlur = () => { submit(); }
+  // submit on enter key released
+  const handleOnKeyUp = (e) => { if (e.key === 'Enter'){ submit(); } }
 
   const className = (valid ? "InputNumberValid" : "InputNumberInvalid") + ` label-${inputType}`;
 
+  let returnLabel = (<><span style={{ gridArea: 'a', textAlign: 'center'}}></span></>);
+  if(label){ returnLabel = (<><span style={{ gridArea: 'a', textAlign: 'center'}}><label htmlFor={label}>{label} </label></span></>); }
+
+  let returnUnit = (<><span style={{ gridArea: 'c'}}></span></>);
+  if(unit){ returnUnit = (<><span style={{ gridArea: 'c'}}>{unit}</span></>); }
+
   return (
-    <div className='InputNumber'>
-      {label && <><label htmlFor={label}>{label} </label><br /></>}
-      <input
+    <div className='InputNumber' style={
+      { 
+        display: 'grid', 
+        // a b c
+        gridTemplateAreas: "'a b c'",
+        gridTemplateColumns: '1fr 1fr 1fr',
+        gridTemplateRows: 'auto',
+        height: '100%',
+        width: '100%'
+      }}>
+      {label && returnLabel}
+      <input style={{ gridArea: 'b'}}
         disabled={disabled}
         autoComplete='off'
         className={className}
@@ -96,7 +95,7 @@ export function InputNumber({ value, label, unit, onChange, step = 1, verify = d
         onBlur={handleOnBlur}
         onKeyUp={handleOnKeyUp}
         onChange={handleOnChange} />
-      {unit && <span> {unit}</span>}
+      {unit && returnUnit}
     </div>
   );
 }
