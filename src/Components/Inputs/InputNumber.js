@@ -87,7 +87,7 @@ export function InputNumber({
         marginBottom: '5px'
       }}>
       {label && returnLabel}
-      <input style={{ gridArea: 'b'}}
+      <input style={{ gridArea: 'b', width: '90%'}}
         disabled={disabled}
         autoComplete='off'
         className={className}
