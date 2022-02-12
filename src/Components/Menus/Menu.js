@@ -18,7 +18,7 @@ export function Menu({ title, children, keep = true }) {
 
   return (
     <>
-      <div onClick={onClick} className="menu_button">{title}</div>
+      <div onClick={onClick} className="menu_button" style={{textAlign: 'center'}}>{title}</div>
       <div className={visible ? "hidden" : ""}>
         {(!keep && !visible) ? null : children}
       </div>
