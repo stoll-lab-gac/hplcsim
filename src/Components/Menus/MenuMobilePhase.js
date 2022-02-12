@@ -60,7 +60,7 @@ export function MenuMobilePhase(
         max={100}
         value={phif*100}
         verify={a => a >= phi0 && a <= 100}
-        disabled={phi0==1}
+        disabled={phi0===1}
         onChange={(val)=>onChange('phi-final', val/100)}  />
       {phi0 > phif && <p style={{color: 'red', fontWeight: 'bold'}}>Phi Initial is greater than Phi Final!</p>}
       <br />
