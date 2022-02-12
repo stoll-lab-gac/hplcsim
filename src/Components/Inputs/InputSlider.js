@@ -87,7 +87,7 @@ export function InputSlider({
         width: '100%'
       }}>
       {label && returnLabel}
-      <input style={{ gridArea: 'b'}}
+      <input style={{ gridArea: 'b', width: '95%'}}
         disabled={disabled}
         autoComplete='off'
         className={className}
