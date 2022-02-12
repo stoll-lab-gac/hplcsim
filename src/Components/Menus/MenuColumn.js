@@ -1,7 +1,7 @@
 import { InputNumber } from '../Inputs/InputNumber';
 import { InputSelect } from '../Inputs/InputSelect';
-//import { format } from 'd3-format';
 
+import { OutputNumber } from '../Outputs/OutputNumber';
 
 export function MenuColumn({
   columns,
@@ -14,6 +14,10 @@ export function MenuColumn({
   vanDeemterA,
   vanDeemterB,
   vanDeemterC,
+  totalPorosity,
+  voidVolume,
+  voidTime,
+  reducedPlateHeight,
   onChange
 }) {
 
@@ -56,6 +60,24 @@ export function MenuColumn({
         value={epsilonE}
         verify={a => a >= 0 && a <= 1}
         onChange={(val)=>onChange('epsilone', val)}  />
+      <OutputNumber
+        label='Total Porosity'
+        formatting='.4f'
+        value={totalPorosity}
+        />
+      <br />
+      <OutputNumber
+        label='Void Volume'
+        unit='mL'
+        formatting='.4f'
+        value={voidVolume}
+        />
+      <OutputNumber
+        label='Void Time'
+        unit='s'
+        formatting='.4f'
+        value={voidTime}
+        />
       <br />
       <InputNumber
         label='VanDeemter A'
@@ -75,7 +97,11 @@ export function MenuColumn({
         value={vanDeemterC}
         verify={a => a >= 0.01 && a <= 10}
         onChange={(val)=>onChange('vanDeemter-C', val)}  />
-      <br />
+      <OutputNumber
+        label='Reduced Plate Height'
+        formatting='.4f'
+        value={reducedPlateHeight}
+        />
     </>
   );
 }
