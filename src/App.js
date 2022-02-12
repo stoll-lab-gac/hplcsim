@@ -1,13 +1,14 @@
 //import { useCallback } from 'react';
 import { CollapsableDiv } from './CollapsableDiv';
 import { MenuMobilePhase } from './MenuMobilePhase';
+import { MenuChromatographic } from './MenuChromatographic';
 
 import { useCallback } from 'react';
 
 export function App({state, dispatch}) {
 
   //*
-  function handleInputChange(name, value, dimension) {
+  function handleInputChange(name, value) {
     console.log(`${name}: ${value}`);
     let updatedCondition = {};
     switch(name) {
@@ -17,15 +18,6 @@ export function App({state, dispatch}) {
         break;
       case 'solvent-B':
         updatedCondition = {solventB: value};
-        break;
-      case 'phi-initial':
-        updatedCondition = {phi0: value};
-        break;
-      case 'phi-final':
-        updatedCondition = {phiFinal: value};
-        break;
-      case 'gradient-time':
-        updatedCondition = {gradientTime: value};
         break;
       case 'isocratic-radio':
         if(value !== 'on') return;
@@ -43,47 +35,60 @@ export function App({state, dispatch}) {
           gradientTime: 5
         };
         break;
+      case 'phi-initial':
+        updatedCondition = {phi0: value};
+        break;
+      case 'phi-final':
+        updatedCondition = {phiFinal: value};
+        break;
+      case 'gradient-time':
+        updatedCondition = {gradientTime: value};
+        break;
+      
+      // chroma parameters
+      case 'temperature':
+        updatedCondition = {temperature: value}
+        break;
+      case 'injection-volume':
+        updatedCondition = {injectionVolume: value}
+        break;
+      case 'flow-rate':
+        updatedCondition = {flowRate: value}
+        break;
+      
       // stationary phase
       case 'selected-column':
-        updatedCondition = {selectedColumn: value}
+        updatedCondition = {column: value}
         break;
       case 'length':
-        updatedCondition = {L: value}
+        updatedCondition = {length: value}
         break;
       case 'diameter':
-        updatedCondition = {rc: value}
+        updatedCondition = {innerDiameter: value}
         break;
       case 'particle-size':
         updatedCondition = {particleSize: value}
         break;
       case 'epsiloni':
-        updatedCondition = {epsiloni: value}
+        updatedCondition = {epsilonI: value}
         break;
       case 'epsilone':
-        updatedCondition = {epsilone: value}
+        updatedCondition = {epsilonE: value}
         break;
-      // chroma parameters
-      case 'flow-rate':
-        updatedCondition = {flowRate: value}
+      case 'vanDeemter-A':
+        updatedCondition = {vanDeemterA: value}
         break;
-      case 'injection-volume':
-        updatedCondition = {injectionVolume: value}
+      case 'vanDeemter-B':
+        updatedCondition = {vanDeemterB: value}
         break;
-      case 'delay-vol-inj':
-        updatedCondition = {delayVolFromInj: value}
-        break;
-      case 'delay-vol-col':
-        updatedCondition = {delayVolToCol: value}
+      case 'vanDeemter-C':
+        updatedCondition = {vanDeemterC: value}
         break;
       
       default:
         throw Error(`unhandled input change ${name}`);
     }
-    if(dimension === 1)
-      dispatch({type: 'edit-inputs', payload: updatedCondition});
-    else if(dimension === 2)
-      dispatch({type: 'edit-second-inputs', payload: updatedCondition});
-    else throw Error(`unknown dimension ${dimension}`);
+    dispatch({type: 'edit-inputs', payload: updatedCondition});
   }
 
   const statusUpdater = useCallback((status) => dispatch({type: 'set-status', payload: status}), [dispatch]);
@@ -122,11 +127,19 @@ export function App({state, dispatch}) {
               solventBs={['Acetonitrile', 'Methanol']}
               selectedSolventA={state.solventA}
               selectedSolventB={state.solventB}
-              onChange={(name, value) => handleInputChange(name, value, 1)}
+              onChange={(name, value) => handleInputChange(name, value)}
             />
           </fieldset>
         </CollapsableDiv>
         <CollapsableDiv title='Chromatographic Properties'>
+          <fieldset>
+            <MenuChromatographic
+              temperature={state.temperature}
+              injectionVolume={state.injectionVolume}
+              flowRate={state.flowRate}
+              onChange={(name, value) => handleInputChange(name, value)}
+            />
+          </fieldset>
         </CollapsableDiv>
         <CollapsableDiv title='General Properties'>
         </CollapsableDiv>

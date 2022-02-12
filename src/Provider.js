@@ -8,20 +8,24 @@ function init(){
   const state = {
     solventA: 'Water',
     solventB: 'Acetonitrile',      // ACN or MeOH
+    useGradient: false,     // to use gradient or not
+    phi0: 0.4,              // initial phi [0-1] 
+    phiFinal: 0.4,          // final phi [0-1]
+    gradientTime: 5.0,      // gradient time (min)
+
+    temperature: 40,
     injectionVolume: 5,     // injection volume (microliters)
     flowRate: 2.0,          // flow rate (mL/min)
     
-    phi0: 0.4,              // initial phi [0-1] 
-    useGradient: false,     // to use gradient or not
-    phiFinal: 0.4,          // final phi [0-1]
-    gradientTime: 5.0,      // gradient time (min)
-    deadVolume: 10,         // volume of mobile phase in column (mL)
-    deadTime: 5,            // time for mobile phase to go through column (min)
-    delayTimeToCol: 5,      // time from pump to head of column, aka gradient delay (min)
-    delayTimeFromInj: 0,    // extra-column time (min)
-    delayVolToCol: 200,     // volume from pump to head of column (µL)
-    delayVolFromInj: 0,     // extra-column volume (µL)
-    dphi: 0                 // change in organic, calculated
+    column: 'Agilent SB-C18',
+    length: 100.0,
+    innerDiameter: 4.6,
+    particleSize: 3.0,
+    epsilonI: 0.4,
+    epsilonE: 0.4,
+    vanDeemterA: 1.0,
+    vanDeemterB: 5.0,
+    vanDeemterC: 0.05
   };
 
   // get calculated values
@@ -53,12 +57,6 @@ function reducer(state, action){
       return init();
     }
 
-    case 'reset-conditions': {
-      const firstDimInputs = init().firstDimInputs;
-      const secondDimInputs = init().secondDimInputs;
-      return {...state, firstDimInputs, secondDimInputs};
-    }
-
     default:
       throw Error(`unhandled action type: ${action.type}`);
   }
@@ -66,11 +64,5 @@ function reducer(state, action){
 
 export function Provider() {
   const [state, dispatch] = useReducer(reducer, {}, init);
-
-  
-  return (
-    <>
-      <App state={state} dispatch={dispatch} />
-    </>
-  );
+  return(<><App state={state} dispatch={dispatch} /></>);
 }
