@@ -84,10 +84,11 @@ export function InputSlider({
         gridTemplateColumns: '1fr 1fr 1fr',
         gridTemplateRows: 'auto auto',
         height: '100%',
-        width: '100%'
+        width: '100%',
+        marginBottom: '5px'
       }}>
       {label && returnLabel}
-      <input style={{ gridArea: 'b', width: '95%'}}
+      <input style={{ gridArea: 'b', width: '95%', marginBottom: '5px'}}
         disabled={disabled}
         autoComplete='off'
         className={className}

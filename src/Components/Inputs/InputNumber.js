@@ -82,7 +82,8 @@ export function InputNumber({
         gridTemplateColumns: '1fr 1fr 1fr',
         gridTemplateRows: 'auto',
         height: '100%',
-        width: '100%'
+        width: '100%',
+        marginBottom: '5px'
       }}>
       {label && returnLabel}
       <input style={{ gridArea: 'b'}}
