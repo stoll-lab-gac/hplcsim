@@ -80,7 +80,6 @@ export function MenuMobilePhase(
         selectedValue={selectedSolventA}
         onChange={(e) => onChange('solvent-A', e.target.value)}
       />
-      <br />
       <InputSelect
         label='Solvent B'
         values={solventBs}
@@ -88,19 +87,27 @@ export function MenuMobilePhase(
         onChange={(e) => onChange('solvent-B', e.target.value)}
       />
       <br />
-      <label>
-        <input type='radio'
+      <div style={{
+        display: 'grid',
+        gridTemplateAreas: "'a b' 'c d'",
+        gridTemplateColumns: '1fr 2fr',
+        gridTemplateRows: 'auto auto',
+        height: '100%',
+        width: '100%',
+        marginBottom: '5px'
+        }}>
+        <input style={{width: '100%'}}
+          type='radio'
           checked={!useGradient}
           onChange={(e) => onChange('isocratic-radio', e.target.value)} />
-        Isocratic
-      </label>
-      <label>
-        <input type='radio'
+        <label>Isocratic Elution Mode</label>
+        <input style={{width: '100%'}}
+          type='radio'
           checked={useGradient}
           onChange={(e) => onChange('gradient-radio', e.target.value)} />
-        Gradient
-      </label>
-      <br /><br />
+        <label>Gradient Elution Mode</label>
+      </div>
+      <br />
       <InputSlider
         label={useGradient ? 'Phi Initial' : 'Mobile Phi'}
         unit='%'
