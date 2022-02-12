@@ -95,7 +95,13 @@ export function App({state, dispatch}) {
   //const statusUpdater = useCallback((status) => dispatch({type: 'set-status', payload: status}), [dispatch]);
 
   return (
-    <div id="content">
+    <div id="content" style={{
+      width: '1148px',
+      height: '690px',
+      backgroundColor: '#fff',
+      marginLeft: '386px',
+      marginTop: '142px'
+      }}>
       <div id="header_title">
 				<div id="title">HPLC Simulator</div>
         <input id="resetBtn" type="button" value="Reset" onclick="resetMenus()" />
