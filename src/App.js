@@ -94,9 +94,15 @@ export function App({state, dispatch}) {
 
   //const statusUpdater = useCallback((status) => dispatch({type: 'set-status', payload: status}), [dispatch]);
 
+  // Porosity
   state.epsilonT = useMemo(() => hplcSim.calcEpsilonTotal(state.epsilonE, state.epsilonI), [state.epsilonE, state.epsilonI]);
+
+  // Void volume / void time
   state.voidVolume = useMemo(() => hplcSim.calcVoidVolume(state.innerDiameter, state.length, state.epsilonT), [state.innerDiameter, state.length, state.epsilonT]);
   state.voidTime = useMemo(() => hplcSim.calcVoidTime(state.voidVolume, state.flowRate), [state.voidVolume, state.flowRate]);
+
+  // Flow velocity
+  state.columnCrossArea = useMemo(() => hplcSim.calcCrossSectionalArea(state.innerDiameter), [state.innerDiameter]);
 
   return (
     <div id="content" style={{
