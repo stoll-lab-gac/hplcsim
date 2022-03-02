@@ -3,10 +3,21 @@ import { Menu } from './Components/Menus/Menu';
 import { MenuMobilePhase } from './Components/Menus/MenuMobilePhase';
 import { MenuChromatographic } from './Components/Menus/MenuChromatographic';
 import { MenuColumn } from './Components/Menus/MenuColumn';
+import { useEffect } from 'react';
+
+import * as hplcSim from './calculations.js';
 
 //import { useCallback } from 'react';
 
 export function App({state, dispatch}) {
+
+  useEffect(() => {
+    //console.log("Calculating state.epsilonT");
+    state.epsilonT = hplcSim.calcEpsilonTotal(state.epsilonE, state.epsilonI);
+    console.log("epsilonT: "+state.epsilonT);
+  }, [state.epsilonE, state.epsilonI]);
+
+  //useEffect(() => { console.debug(state); }, [state]);
 
   //*
   function handleInputChange(name, value) {
