@@ -1,7 +1,5 @@
-//import { useReducer, useEffect } from 'react';
 import { useReducer } from 'react';
 import { App } from './App'
-//import { Alert } from 'react-st-modal';
 //import { version } from '../package.json';
 
 function init(){
@@ -41,23 +39,7 @@ function init(){
     flowVelocity_chromatographic: 0,
     flowVelocity_reduced: 0,
   };
-
   const state = {...stateInputs, ...stateOutputs};
-  //const calculated = getCalculatedValues(state, stateInputs);
-
-  // get calculated values
-  //const firstCalculated = getCalculatedValues(defaults.firstDimInputs);
-  //const secondCalculated = getCalculatedValues(defaults.secondDimInputs);
-  //const firstConditions = { ...defaults.firstDimInputs, ...firstCalculated };
-  //const secondConditions = { ...defaults.secondDimInputs, ...secondCalculated };
-
-  // if there are other processing to be done merge them here
-  //const updated = {
-  //  ...defaults,
-  //  firstDimInputs: firstConditions,
-  //  secondDimInputs: secondConditions
-  //};
-
   return state;
 }
 
