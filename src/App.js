@@ -3,7 +3,9 @@ import { Menu } from './Components/Menus/Menu';
 import { MenuMobilePhase } from './Components/Menus/MenuMobilePhase';
 import { MenuChromatographic } from './Components/Menus/MenuChromatographic';
 import { MenuColumn } from './Components/Menus/MenuColumn';
-import { useEffect } from 'react';
+import { useMemo } from 'react';
+
+import * as hplcSim from './calculations';
 
 export function App({state, dispatch}) {
 
@@ -91,6 +93,9 @@ export function App({state, dispatch}) {
   }
 
   //const statusUpdater = useCallback((status) => dispatch({type: 'set-status', payload: status}), [dispatch]);
+
+  state.epsilonT = useMemo(() => hplcSim.calcEpsilonTotal(state.epsilonE, state.epsilonI), [state.epsilonE, state.epsilonI]);
+  state.voidVolume = useMemo(() => hplcSim.calcVoidVolume(state.innerDiameter, state.length, state.epsilonT), [state.innerDiameter, state.length, state.epsilonT]);
 
   return (
     <div id="content" style={{
