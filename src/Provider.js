@@ -4,8 +4,6 @@ import { App } from './App'
 //import { Alert } from 'react-st-modal';
 //import { version } from '../package.json';
 
-import { getCalculatedValues } from './calculations.js';
-
 function init(){
 
   const stateInputs = {
@@ -45,7 +43,7 @@ function init(){
   };
 
   const state = {...stateInputs, ...stateOutputs};
-  const calculated = getCalculatedValues(state, stateInputs);
+  //const calculated = getCalculatedValues(state, stateInputs);
 
   // get calculated values
   //const firstCalculated = getCalculatedValues(defaults.firstDimInputs);
@@ -60,7 +58,7 @@ function init(){
   //  secondDimInputs: secondConditions
   //};
 
-  return {...state, ...calculated};
+  return state;
 }
 
 function reducer(state, action){
