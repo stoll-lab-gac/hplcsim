@@ -96,6 +96,7 @@ export function App({state, dispatch}) {
 
   state.epsilonT = useMemo(() => hplcSim.calcEpsilonTotal(state.epsilonE, state.epsilonI), [state.epsilonE, state.epsilonI]);
   state.voidVolume = useMemo(() => hplcSim.calcVoidVolume(state.innerDiameter, state.length, state.epsilonT), [state.innerDiameter, state.length, state.epsilonT]);
+  state.voidTime = useMemo(() => hplcSim.calcVoidTime(state.voidVolume, state.flowRate), [state.voidVolume, state.flowRate]);
 
   return (
     <div id="content" style={{
@@ -168,6 +169,7 @@ export function App({state, dispatch}) {
               vanDeemterB={state.vanDeemterB}
               vanDeemterC={state.vanDeemterC}
               voidVolume={state.voidVolume}
+              voidTime={state.voidTime}
               onChange={(name, value) => handleInputChange(name, value)}
             />
           </fieldset>
