@@ -47,7 +47,8 @@ function init(){
 function reducer(state, action){
   switch(action.type){
     case 'edit-inputs': {
-      const conditions = {...state, ...action.payload}; console.log(conditions);
+      const conditions = {...state, ...action.payload};
+      console.log(conditions);
       return conditions;
     }
 
