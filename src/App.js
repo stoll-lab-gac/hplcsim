@@ -5,21 +5,8 @@ import { MenuChromatographic } from './Components/Menus/MenuChromatographic';
 import { MenuColumn } from './Components/Menus/MenuColumn';
 import { useEffect } from 'react';
 
-import * as hplcSim from './calculations.js';
-
-//import { useCallback } from 'react';
-
 export function App({state, dispatch}) {
 
-  useEffect(() => {
-    //console.log("Calculating state.epsilonT");
-    state.epsilonT = hplcSim.calcEpsilonTotal(state.epsilonE, state.epsilonI);
-    console.log("epsilonT: "+state.epsilonT);
-  }, [state.epsilonE, state.epsilonI]);
-
-  //useEffect(() => { console.debug(state); }, [state]);
-
-  //*
   function handleInputChange(name, value) {
     console.log(`${name}: ${value}`);
     let updatedCondition = {};
@@ -171,9 +158,11 @@ export function App({state, dispatch}) {
               particleSize={state.particleSize}
               epsilonI={state.epsilonI}
               epsilonE={state.epsilonE}
+              epsilonT={state.epsilonT}
               vanDeemterA={state.vanDeemterA}
               vanDeemterB={state.vanDeemterB}
               vanDeemterC={state.vanDeemterC}
+              voidVolume={state.voidVolume}
               onChange={(name, value) => handleInputChange(name, value)}
             />
           </fieldset>
@@ -183,6 +172,4 @@ export function App({state, dispatch}) {
       <div id="tableDiv">tableDiv</div>
     </div>
   );
-
-  //*/
 }
