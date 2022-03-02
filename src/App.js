@@ -10,7 +10,7 @@ import * as hplcSim from './calculations';
 export function App({state, dispatch}) {
 
   function handleInputChange(name, value) {
-    console.log(`${name}: ${value}`);
+    console.debug(`${name}: ${value}`);
     let updatedCondition = {};
     switch(name) {
       // mobile phase
