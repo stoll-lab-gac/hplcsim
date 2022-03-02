@@ -6,7 +6,7 @@ import { App } from './App'
 
 function init(){
 
-  const state = {
+  const stateInputs = {
     solventAs: ['Water','Buffer, 3.2 pH'],
     solventBs: ['Acetonitrile', 'Methanol'],
     solventA: 'Water',
@@ -31,6 +31,18 @@ function init(){
     vanDeemterB: 5.0,
     vanDeemterC: 0.05
   };
+
+  const stateOutputs = {
+    epsilonT: 0,
+    voidVolume: 0,
+    voidTime: 0,
+    flowVelocity_openTube: 0,
+    flowVelocity_intersitial: 0,
+    flowVelocity_chromatographic: 0,
+    flowVelocity_reduced: 0,
+  };
+
+  const state = {...stateInputs, ...stateOutputs};
 
   // get calculated values
   //const firstCalculated = getCalculatedValues(defaults.firstDimInputs);
