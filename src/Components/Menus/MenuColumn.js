@@ -14,7 +14,7 @@ export function MenuColumn({
   vanDeemterA,
   vanDeemterB,
   vanDeemterC,
-  totalPorosity,
+  epsilonT,
   voidVolume,
   voidTime,
   reducedPlateHeight,
@@ -63,7 +63,7 @@ export function MenuColumn({
       <OutputNumber
         label='Total Porosity'
         formatting='.4f'
-        value={totalPorosity}
+        value={epsilonT}
         />
       <br />
       <OutputNumber
