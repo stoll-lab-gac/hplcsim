@@ -4,6 +4,8 @@ import { App } from './App'
 //import { Alert } from 'react-st-modal';
 //import { version } from '../package.json';
 
+import { getCalculatedValues } from './calculations.js';
+
 function init(){
 
   const stateInputs = {
@@ -43,6 +45,7 @@ function init(){
   };
 
   const state = {...stateInputs, ...stateOutputs};
+  const calculated = getCalculatedValues(state, stateInputs);
 
   // get calculated values
   //const firstCalculated = getCalculatedValues(defaults.firstDimInputs);
@@ -57,16 +60,20 @@ function init(){
   //  secondDimInputs: secondConditions
   //};
 
-  return state;
+  return {...state, ...calculated};
 }
 
 function reducer(state, action){
   switch(action.type){
     case 'edit-inputs': {
       const conditions = {...state, ...action.payload};
-      //const calculated = getCalculatedValues(conditions);
+      const calculated = getCalculatedValues(state, conditions);
       //const newConditions = {...conditions, ...calculated};
-      return {...state, ...conditions};
+      return {...state, ...calculated};
+    }
+
+    case 'update': {
+      return state;
     }
 
     case 'reset': {
