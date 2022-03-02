@@ -122,7 +122,7 @@ export function App({state, dispatch}) {
 					<input class="export_button" type="button" value="Export Chromatogram" onclick="logExportFileData_Full()" />
 					<input class="export_button" type="button" value="Export Selected Compound" onclick="logExportFileData_Selected()" />
 				</div>
-				<span id="versionDisplay">Version:<br />5.0.0</span>
+				<span id="versionDisplay">Version:<br />v{process.env.REACT_APP_VERSION}</span>
       </div>
       <div id="params">
         <Menu title='Manage Compounds'>
