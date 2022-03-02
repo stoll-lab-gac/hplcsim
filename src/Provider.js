@@ -34,6 +34,7 @@ function init(){
     epsilonT: 0,
     voidVolume: 0,
     voidTime: 0,
+    columnCrossArea: 0,
     flowVelocity_openTube: 0,
     flowVelocity_intersitial: 0,
     flowVelocity_chromatographic: 0,
