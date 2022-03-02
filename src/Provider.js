@@ -64,11 +64,8 @@ function init(){
 function reducer(state, action){
   switch(action.type){
     case 'edit-inputs': {
-      const conditions = {...state, ...action.payload};
-      //const calculated = getCalculatedValues(state, conditions);
-      //const newConditions = {...conditions, ...calculated};
-      return {...state, ...conditions};
-      //return {...state, ...calculated};
+      const conditions = {...state, ...action.payload}; console.log(conditions);
+      return conditions;
     }
 
     case 'update': {
