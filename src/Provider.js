@@ -39,6 +39,7 @@ function init(){
     flowVelocity_intersitial: 0,
     flowVelocity_chromatographic: 0,
     flowVelocity_reduced: 0,
+    diffusionCoefficient: 0,
   };
   const state = {...stateInputs, ...stateOutputs};
   return state;
