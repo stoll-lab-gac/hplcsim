@@ -1,4 +1,4 @@
-const debugging = false;
+const debugging = true;
 
 /**
  * calculate total porosity
@@ -32,4 +32,30 @@ export function calcCrossSectionalArea(innerDiameter_mm) {
   const crossSectionalArea = Math.PI * Math.pow(innerDiameter_cm, 2);
   if(debugging) console.debug(`crossSectionalArea: ${crossSectionalArea} cm^2`);
   return crossSectionalArea;
+}
+
+export function calcFlowVelocityOpenTube(flowRate_mL_min, columnCrossArea_cm2) {
+  const flowRate_mL_sec = flowRate_mL_min / 60;
+  const flowVelocity_openTube = flowRate_mL_sec / columnCrossArea_cm2;
+  if(debugging) console.debug(`flowVelocity_openTube: ${flowVelocity_openTube} cm/s`);
+  return flowVelocity_openTube;
+}
+
+export function calcFlowVelocityIntersitial(flowVelocity_openTube, epsilonE) {
+  const flowVelocity_intersitial = flowVelocity_openTube / epsilonE;
+  if(debugging) console.debug(`flowVelocity_intersitial: ${flowVelocity_intersitial} cm/s`);
+  return flowVelocity_intersitial;
+}
+
+export function calcFlowVelocityChromatographic(flowVelocity_openTube, epsilonT) {
+  const flowVelocity_chromatographic = flowVelocity_openTube / epsilonT;
+  if(debugging) console.debug(`flowVelocity_chromatographic: ${flowVelocity_chromatographic} cm/s`);
+  return flowVelocity_chromatographic;
+}
+
+export function calcFlowVelocityReduced(flowVelocity_intersitial, particleSize_um, diffusionCoefficient) {
+  const particleSize_cm = particleSize_um / 10000;
+  const flowVelocity_reduced = (flowVelocity_intersitial*particleSize_cm)/diffusionCoefficient;
+  if(debugging) console.debug(`flowVelocity_reduced: ${flowVelocity_reduced}`);
+  return flowVelocity_reduced;
 }

@@ -103,6 +103,10 @@ export function App({state, dispatch}) {
 
   // Flow velocity
   state.columnCrossArea = useMemo(() => hplcSim.calcCrossSectionalArea(state.innerDiameter), [state.innerDiameter]);
+  state.flowVelocity_openTube = useMemo(() => hplcSim.calcFlowVelocityOpenTube(state.flowRate, state.columnCrossArea), [state.flowRate, state.columnCrossArea]);
+  state.flowVelocity_intersitial = useMemo(() => hplcSim.calcFlowVelocityIntersitial(state.flowVelocity_openTube, state.epsilonE), [state.flowVelocity_openTube, state.epsilonE]);
+  state.flowVelocity_chromatographic = useMemo(() => hplcSim.calcFlowVelocityChromatographic(state.flowVelocity_openTube, state.epsilonT), [state.flowVelocity_openTube, state.epsilonT]);
+  state.flowVelocity_reduced = useMemo(() => hplcSim.calcFlowVelocityReduced(state.flowVelocity_intersitial, state.particleSize, state.diffusionCoefficient), [state.flowVelocity_intersitial, state.particleSize, state.diffusionCoefficient]);
 
   return (
     <div id="content" style={{
