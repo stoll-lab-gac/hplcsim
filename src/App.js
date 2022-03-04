@@ -158,6 +158,10 @@ export function App({state, dispatch}) {
               temperature={state.temperature}
               injectionVolume={state.injectionVolume}
               flowRate={state.flowRate}
+              fVel_OpenTube={state.flowVelocity_openTube}
+              fVel_Interstitial={state.flowVelocity_intersitial}
+              fVel_Chromatographic={state.flowVelocity_chromatographic}
+              fVel_Reduced={state.flowVelocity_reduced}
               onChange={(name, value) => handleInputChange(name, value)}
             />
           </fieldset>
