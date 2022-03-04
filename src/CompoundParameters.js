@@ -1,4 +1,4 @@
-/*
+//*
 let compoundParameters = {
 	"Agilent SB-C18": {
     "Acetonitrile": {
