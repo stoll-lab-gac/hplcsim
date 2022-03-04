@@ -29,7 +29,8 @@ export function calcVoidTime(voidVolume_mL, flowRate_mL_min) {
 
 export function calcCrossSectionalArea(innerDiameter_mm) {
   const innerDiameter_cm = innerDiameter_mm / 10;
-  const crossSectionalArea = Math.PI * Math.pow(innerDiameter_cm, 2);
+  // Is there supposed to be a "Divided by 4" in the next line? I don't think so, but it matched HPLC Sim v4.0.0 - TL
+  const crossSectionalArea = (Math.PI * Math.pow(innerDiameter_cm, 2))/4;
   if(debugging) console.debug(`crossSectionalArea: ${crossSectionalArea} cm^2`);
   return crossSectionalArea;
 }
