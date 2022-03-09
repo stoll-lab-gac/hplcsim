@@ -1,9 +1,8 @@
 export function InputButtonLink({
-  id,
-  value,
-  className,
-  onClick,
   href,
+  value,
+  id="",
+  className="",
   disabled=false
 }) {
 
@@ -15,7 +14,6 @@ export function InputButtonLink({
         id={id}
         className={className}
         value={value}
-        onClick={onClick}
         disabled={disabled}
       />
     </a>
