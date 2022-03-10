@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
-    "jsdoc": "~3.6.10"
+    "jsdoc": "~3.6.10",
+    "jsdoc-to-markdown": "^7.1.1"
   }
 }
