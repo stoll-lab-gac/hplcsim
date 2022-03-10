@@ -5,6 +5,8 @@ import { MenuChromatographic } from './Components/Menus/MenuChromatographic';
 import { MenuColumn } from './Components/Menus/MenuColumn';
 import { useMemo } from 'react';
 
+import * as chromaCore from '@stoll-lab-gac/chroma-core'
+
 import * as hplcSim from './calculations';
 
 export function App({state, dispatch}) {
@@ -95,7 +97,7 @@ export function App({state, dispatch}) {
   //const statusUpdater = useCallback((status) => dispatch({type: 'set-status', payload: status}), [dispatch]);
 
   // Porosity
-  state.epsilonT = useMemo(() => hplcSim.calcEpsilonTotal(state.epsilonE, state.epsilonI), [state.epsilonE, state.epsilonI]);
+  state.epsilonT = useMemo(() => chromaCore.calcEpsilonTotal(state.epsilonE, state.epsilonI), [state.epsilonE, state.epsilonI]);
 
   // Void volume / void time
   state.voidVolume = useMemo(() => hplcSim.calcVoidVolume(state.innerDiameter, state.length, state.epsilonT), [state.innerDiameter, state.length, state.epsilonT]);
