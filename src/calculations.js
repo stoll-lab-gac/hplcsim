@@ -1,10 +1,13 @@
 const debugging = true;
 
 /**
- * calculate total porosity
- * @param {number} epsilonE interstitual porosity
- * @param {number} epsilonI internal porosity
- * @returns total porosity
+ * Calculate the fraction of the volume in the column that is occupied by eluent, both outside and inside the stationary phase particles.
+ * @summary Calculate Total Porosity (Eq. 3)
+ * @param {number} epsilonE Interparticle (External) Porosity
+ * @param {number} epsilonI Intraparticle (Internal) Porosity
+ * @returns {number} Total Porosity
+ * @author Thomas J. Lauer
+ * @since 09 March 2022
  */
 export function calcEpsilonTotal(epsilonE, epsilonI) {
   const epsilonT = epsilonE + epsilonI * (1 - epsilonE);
@@ -12,16 +15,37 @@ export function calcEpsilonTotal(epsilonE, epsilonI) {
   return epsilonT;
 }
 
-export function calcVoidVolume(innerDiameter_mm, length_mm, epsilonT) {
-  const innerDiameter_cm = innerDiameter_mm / 10;
-  const length_cm = length_mm / 10;
+/**
+ * Calculate the volume in the column that is accessible to the mobile phase (the space between the particles and within them).
+ * @summary Calculate Void Volume (Eq. 4)
+ * @param {number} innerDiameter Column Inner-Diameter [mm]
+ * @param {number} length Column Length [mm]
+ * @param {number} epsilonT Total Porosity
+ * @returns {number} Void Volume [mL]
+ * @see {@link calcEpsilonTotal calcEpsilonTotal(epsilonE, epsilonI)}
+ * @author Thomas J. Lauer
+ * @since 09 March 2022
+ */
+export function calcVoidVolume(innerDiameter, length, epsilonT) {
+  const innerDiameter_cm = innerDiameter / 10;
+  const length_cm = length / 10;
   const voidVolume = Math.PI*Math.pow((innerDiameter_cm/2),2)*length_cm*epsilonT;
   if(debugging) console.debug(`voidVolume: ${voidVolume} mL`);
   return voidVolume;
 }
 
-export function calcVoidTime(voidVolume_mL, flowRate_mL_min) {
-  const voidTime_min = voidVolume_mL / flowRate_mL_min;
+/**
+ * Calculate the time required for an entirely unretained solute to pass through the column.
+ * @summary Calculate Void Time (Eq. 5)
+ * @param {number} voidVolume Void Volume [mL]
+ * @param {number} flowRate Flow Rate [mL/min]
+ * @returns {number} Void Time [s]
+ * @see {@link calcVoidVolume calcVoidVolume(innerDiameter, length, epsilonT)}
+ * @author Thomas J. Lauer
+ * @since 09 March 2022
+ */
+export function calcVoidTime(voidVolume, flowRate) {
+  const voidTime_min = voidVolume / flowRate;
   const voidTime_sec = voidTime_min * 60;
   if(debugging) console.debug(`voidTime: ${voidTime_sec} s`);
   return voidTime_sec;
