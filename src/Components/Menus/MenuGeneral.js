@@ -14,7 +14,7 @@ export function MenuGeneral({
         value={eluentViscosity}
         />
       <OutputNumber
-        label='Avg. Diffusion Coeff.'
+        label='Avg. Diffusion Coefficient'
         unit='cm²/s'
         formatting='.4e'
         value={diffusionCoefficient}
