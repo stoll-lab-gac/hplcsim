@@ -200,6 +200,9 @@ export function App({state, dispatch}) {
               fVel_Interstitial={state.flowVelocity_intersitial}
               fVel_Chromatographic={state.flowVelocity_chromatographic}
               fVel_Reduced={state.flowVelocity_reduced}
+              plateHeight={state.HETP}
+              plateNumber={state.theoreticalPlateNumber}
+              backpressure={state.backPressure}
               onChange={(name, value) => handleInputChange(name, value)}
             />
           </fieldset>
