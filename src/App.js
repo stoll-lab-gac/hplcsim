@@ -9,6 +9,14 @@ import * as chromaCore from '@stoll-lab-gac/chroma-core'
 
 import * as hplcSim from './calculations';
 
+function calcEluentViscosity(phi, temperature, solventB) {
+  if(solventB === "Methanol") {
+    return chromaCore.calcViscosityMethanolWater(phi, temperature);
+  } else {
+    return chromaCore.calcViscosityAcetonitrileWater(phi, temperature);
+  }
+}
+
 export function App({state, dispatch}) {
 
   function handleInputChange(name, value) {
@@ -109,6 +117,10 @@ export function App({state, dispatch}) {
   state.flowVelocity_intersitial = useMemo(() => hplcSim.calcFlowVelocityIntersitial(state.flowVelocity_openTube, state.epsilonE), [state.flowVelocity_openTube, state.epsilonE]);
   state.flowVelocity_chromatographic = useMemo(() => hplcSim.calcFlowVelocityChromatographic(state.flowVelocity_openTube, state.epsilonT), [state.flowVelocity_openTube, state.epsilonT]);
   state.flowVelocity_reduced = useMemo(() => hplcSim.calcFlowVelocityReduced(state.flowVelocity_intersitial, state.particleSize, state.diffusionCoefficient), [state.flowVelocity_intersitial, state.particleSize, state.diffusionCoefficient]);
+
+  // Eluent Viscosity
+  state.eluentViscosity = useMemo(() => calcEluentViscosity((state.phi0+state.phiFinal)/2,state.temperature,state.solventB), [state.phi0, state.phiFinal, state.temperature,state.solventB]);
+  
 
   return (
     <div id="content" style={{
