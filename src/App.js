@@ -231,6 +231,7 @@ export function App({state, dispatch}) {
               vanDeemterC={state.vanDeemterC}
               voidVolume={state.voidVolume}
               voidTime={state.voidTime}
+              reducedPlateHeight={state.reducedPlateHeight}
               onChange={(name, value) => handleInputChange(name, value)}
             />
           </fieldset>
