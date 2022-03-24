@@ -8,11 +8,25 @@ import { useMemo } from 'react';
 
 const chromaCore = require('@stoll-lab-gac/chroma-core');
 
-function calcEluentViscosity(phi, temperature, solventB) {
-  if(solventB === "Methanol") {
-    return chromaCore.calcViscosityMethanolWater(phi, temperature);
+function calcEluentViscosity(phi0, phiFinal, gradientTime, temperature, solventB) {
+  if(phi0 === phiFinal) {
+    if(solventB === "Methanol") {
+      return chromaCore.calcViscosityMethanolWater(phi0, temperature);
+    } else {
+      return chromaCore.calcViscosityAcetonitrileWater(phi0, temperature);
+    }
   } else {
-    return chromaCore.calcViscosityAcetonitrileWater(phi, temperature);
+    let eluentViscosity = 0;
+    let count = 0;
+    for(let phi = phi0; phi <= phiFinal; phi+=0.01) {
+      if(solventB === "Methanol") {
+        eluentViscosity += chromaCore.calcViscosityMethanolWater(phi, temperature);
+      } else {
+        eluentViscosity += chromaCore.calcViscosityAcetonitrileWater(phi, temperature);
+      }
+      count += 1;
+    }
+    return eluentViscosity / count;
   }
 }
 
@@ -111,16 +125,14 @@ export function App({state, dispatch}) {
 
   //const statusUpdater = useCallback((status) => dispatch({type: 'set-status', payload: status}), [dispatch]);
 
-  const phiAverage = (state.phi0+state.phiFinal)/2;
-
   // Layer 0
   state.mOrg = useMemo(() => calcMorg(state.solventB), [state.solventB]);
-  state.solventAssociationParameter = useMemo(() => chromaCore.calcSolventAssociationParameter(phiAverage, state.xOrg), [phiAverage, state.xOrg]);
-  state.solventMolecularWeight = useMemo(() => chromaCore.calcSolventMolecularWeight(phiAverage, state.mOrg), [phiAverage, state.mOrg]);
+  state.solventAssociationParameter = useMemo(() => chromaCore.calcSolventAssociationParameter(((state.phi0+state.phiFinal)/2), state.xOrg), [state.phi0, state.phiFinal, state.xOrg]);
+  state.solventMolecularWeight = useMemo(() => chromaCore.calcSolventMolecularWeight(((state.phi0+state.phiFinal)/2), state.mOrg), [state.phi0, state.phiFinal, state.mOrg]);
 
   // Layer 1
   state.epsilonT = useMemo(() => chromaCore.calcEpsilonTotal(state.epsilonE, state.epsilonI), [state.epsilonE, state.epsilonI]);
-  state.eluentViscosity = useMemo(() => calcEluentViscosity((state.phi0+state.phiFinal)/2,state.temperature,state.solventB), [state.phi0, state.phiFinal, state.temperature,state.solventB]);
+  state.eluentViscosity = useMemo(() => calcEluentViscosity(state.phi0,state.phiFinal,state.gradientTime,state.temperature,state.solventB), [state.phi0,state.phiFinal,state.gradientTime,state.temperature,state.solventB]);
   state.columnCrossArea = useMemo(() => chromaCore.calcCrossSectionalArea(state.innerDiameter), [state.innerDiameter]);
 
   // Layer 2
