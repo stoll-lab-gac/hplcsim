@@ -102,6 +102,13 @@ function reducer(state, action){
       return conditions;
     }
 
+    case 'edit-concentration': {
+      const newState = state;
+      newState.compoundParameters[action.payload.selectedColumn][action.payload.solventB][action.payload.compound].M = action.payload.conc;
+      console.log(newState);
+      return newState;
+    }
+
     case 'update': {
       return state;
     }

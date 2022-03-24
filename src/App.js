@@ -1,5 +1,6 @@
 //import { useCallback } from 'react';
 import { Menu } from './Components/Menus/Menu';
+import { MenuCompounds } from './Components/Menus/MenuCompounds';
 import { MenuMobilePhase } from './Components/Menus/MenuMobilePhase';
 import { MenuChromatographic } from './Components/Menus/MenuChromatographic';
 import { MenuGeneral } from './Components/Menus/MenuGeneral';
@@ -123,6 +124,18 @@ export function App({state, dispatch}) {
     dispatch({type: 'edit-inputs', payload: updatedCondition});
   }
 
+  function onChangeConcentration(selectedColumn, solventB, compound, conc){
+    dispatch({
+      type: 'edit-concentration',
+      payload: {
+        "selectedColumn": selectedColumn,
+        "solventB": solventB,
+        "compound": compound,
+        "conc": conc
+      }
+    });
+  }
+
   //const statusUpdater = useCallback((status) => dispatch({type: 'set-status', payload: status}), [dispatch]);
 
   // Layer 0
@@ -186,6 +199,13 @@ export function App({state, dispatch}) {
       </div>
       <div id="params">
         <Menu title='Manage Compounds'>
+          <fieldset>
+            <MenuCompounds
+              compounds={state.compoundParameters[state.selectedColumn][state.solventB]}
+              compoundList={state.compoundList}
+              onChangeConcentration={(compound, conc) => onChangeConcentration(state.selectedColumn, state.solventB, compound, conc)}
+            />
+          </fieldset>
         </Menu>
         <Menu title='Mobile Phase Composition'>
           <fieldset>
