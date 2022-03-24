@@ -2,6 +2,7 @@
 import { Menu } from './Components/Menus/Menu';
 import { MenuMobilePhase } from './Components/Menus/MenuMobilePhase';
 import { MenuChromatographic } from './Components/Menus/MenuChromatographic';
+import { MenuGeneral } from './Components/Menus/MenuGeneral';
 import { MenuColumn } from './Components/Menus/MenuColumn';
 import { useMemo } from 'react';
 
@@ -204,6 +205,12 @@ export function App({state, dispatch}) {
           </fieldset>
         </Menu>
         <Menu title='General Properties'>
+          <fieldset>
+            <MenuGeneral
+              eluentViscosity={state.eluentViscosity}
+              diffusionCoefficient={state.diffusionCoefficient}
+            />
+          </fieldset>
         </Menu>
         <Menu title='Column Properties'>
           <fieldset>
