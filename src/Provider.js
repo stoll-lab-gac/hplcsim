@@ -60,20 +60,31 @@ function init(){
     epsilonE: 0.4,
     vanDeemterA: 1.0,
     vanDeemterB: 5.0,
-    vanDeemterC: 0.05
+    vanDeemterC: 0.05,
+
+    volumeMolar: 200,
+
+    xOrg: 1.9,
+    mOrg: 41.05,
   };
 
   const stateOutputs = {
     epsilonT: 0,
     voidVolume: 0,
     voidTime: 0,
+    eluentViscosity: 0,
+    solventAssociationParameter: 0,
+    solventMolecularWeight: 0,
+    diffusionCoefficient: 0.000011689,
     columnCrossArea: 0,
     flowVelocity_openTube: 0,
     flowVelocity_intersitial: 0,
     flowVelocity_chromatographic: 0,
     flowVelocity_reduced: 0,
-    eluentViscosity: 0,
-    diffusionCoefficient: 0.000011689,
+    backPressure: 0,
+    reducedPlateHeight: 0,
+    HETP: 0,
+    theoreticalPlateNumber: 0,
   };
 
   const state = {...stateCompounds, ...stateInputs, ...stateOutputs};

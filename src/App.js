@@ -5,15 +5,21 @@ import { MenuChromatographic } from './Components/Menus/MenuChromatographic';
 import { MenuColumn } from './Components/Menus/MenuColumn';
 import { useMemo } from 'react';
 
-import * as chromaCore from '@stoll-lab-gac/chroma-core'
-
-import * as hplcSim from './calculations';
+const chromaCore = require('@stoll-lab-gac/chroma-core');
 
 function calcEluentViscosity(phi, temperature, solventB) {
   if(solventB === "Methanol") {
     return chromaCore.calcViscosityMethanolWater(phi, temperature);
   } else {
     return chromaCore.calcViscosityAcetonitrileWater(phi, temperature);
+  }
+}
+
+function calcMorg(solventB) {
+  if (solventB === "Methanol") {
+    return 32.04; /*Methanol*/
+  } else {
+    return 41.05; /*Acetonitrile*/
   }
 }
 
@@ -104,23 +110,40 @@ export function App({state, dispatch}) {
 
   //const statusUpdater = useCallback((status) => dispatch({type: 'set-status', payload: status}), [dispatch]);
 
-  // Porosity
+  const phiAverage = (state.phi0+state.phiFinal)/2;
+
+  // Layer 0
+  state.mOrg = useMemo(() => calcMorg(state.solventB), [state.solventB]);
+  state.solventAssociationParameter = useMemo(() => chromaCore.calcSolventAssociationParameter(phiAverage, state.xOrg), [phiAverage, state.xOrg]);
+  state.solventMolecularWeight = useMemo(() => chromaCore.calcSolventMolecularWeight(phiAverage, state.mOrg), [phiAverage, state.mOrg]);
+
+  // Layer 1
   state.epsilonT = useMemo(() => chromaCore.calcEpsilonTotal(state.epsilonE, state.epsilonI), [state.epsilonE, state.epsilonI]);
-
-  // Void volume / void time
-  state.voidVolume = useMemo(() => hplcSim.calcVoidVolume(state.innerDiameter, state.length, state.epsilonT), [state.innerDiameter, state.length, state.epsilonT]);
-  state.voidTime = useMemo(() => hplcSim.calcVoidTime(state.voidVolume, state.flowRate), [state.voidVolume, state.flowRate]);
-
-  // Flow velocity
-  state.columnCrossArea = useMemo(() => hplcSim.calcCrossSectionalArea(state.innerDiameter), [state.innerDiameter]);
-  state.flowVelocity_openTube = useMemo(() => hplcSim.calcFlowVelocityOpenTube(state.flowRate, state.columnCrossArea), [state.flowRate, state.columnCrossArea]);
-  state.flowVelocity_intersitial = useMemo(() => hplcSim.calcFlowVelocityIntersitial(state.flowVelocity_openTube, state.epsilonE), [state.flowVelocity_openTube, state.epsilonE]);
-  state.flowVelocity_chromatographic = useMemo(() => hplcSim.calcFlowVelocityChromatographic(state.flowVelocity_openTube, state.epsilonT), [state.flowVelocity_openTube, state.epsilonT]);
-  state.flowVelocity_reduced = useMemo(() => hplcSim.calcFlowVelocityReduced(state.flowVelocity_intersitial, state.particleSize, state.diffusionCoefficient), [state.flowVelocity_intersitial, state.particleSize, state.diffusionCoefficient]);
-
-  // Eluent Viscosity
   state.eluentViscosity = useMemo(() => calcEluentViscosity((state.phi0+state.phiFinal)/2,state.temperature,state.solventB), [state.phi0, state.phiFinal, state.temperature,state.solventB]);
+  state.columnCrossArea = useMemo(() => chromaCore.calcCrossSectionalArea(state.innerDiameter), [state.innerDiameter]);
+
+  // Layer 2
+  state.voidVolume = useMemo(() => chromaCore.calcVoidVolume(state.innerDiameter, state.length, state.epsilonT), [state.innerDiameter, state.length, state.epsilonT]);
+  state.diffusionCoefficient = useMemo(() => chromaCore.calcDiffusionCoefficient(state.temperature, state.solventAssociationParameter, state.solventMolecularWeight, state.eluentViscosity, state.volumeMolar), [state.temperature, state.solventAssociationParameter, state.solventMolecularWeight, state.eluentViscosity, state.volumeMolar]);
+  state.flowVelocity_openTube = useMemo(() => chromaCore.calcFlowVelocityOpenTube(state.flowRate, state.columnCrossArea), [state.flowRate, state.columnCrossArea]);
+
+  // Layer 3
+  state.voidTime = useMemo(() => chromaCore.calcVoidTime(state.voidVolume, state.flowRate), [state.voidVolume, state.flowRate]);
+  state.flowVelocity_intersitial = useMemo(() => chromaCore.calcFlowVelocityIntersitial(state.flowVelocity_openTube, state.epsilonE), [state.flowVelocity_openTube, state.epsilonE]);
+  state.flowVelocity_chromatographic = useMemo(() => chromaCore.calcFlowVelocityChromatographic(state.flowVelocity_openTube, state.epsilonT), [state.flowVelocity_openTube, state.epsilonT]);
+  state.backPressure = useMemo(() => chromaCore.calcBackPressure(state.flowVelocity_openTube, state.eluentViscosity, state.length, state.epsilonE, state.particleSize), [state.flowVelocity_openTube, state.eluentViscosity, state.length, state.epsilonE, state.particleSize]);
+
+  // Layer 4
+  state.flowVelocity_reduced = useMemo(() => chromaCore.calcFlowVelocityReduced(state.flowVelocity_intersitial, state.particleSize, state.diffusionCoefficient), [state.flowVelocity_intersitial, state.particleSize, state.diffusionCoefficient]);
   
+  // Layer 5
+  state.reducedPlateHeight = useMemo(() => chromaCore.calcReducedPlateHeight(state.flowVelocity_reduced, state.vanDeemterA, state.vanDeemterB, state.vanDeemterC), [state.flowVelocity_reduced, state.vanDeemterA, state.vanDeemterB, state.vanDeemterC]);
+
+  // Layer 6
+  state.HETP = useMemo(() => chromaCore.calcHeightEquivalentTheoreticalPlate(state.reducedPlateHeight, state.particleSize), [state.reducedPlateHeight, state.particleSize]);
+
+  // Layer 7
+  state.theoreticalPlateNumber = useMemo(() => chromaCore.calcTheoreticalPlateNumber(state.length, state.HETP), [state.length, state.HETP]);
 
   return (
     <div id="content" style={{
