@@ -68,7 +68,7 @@ export function MenuChromatographic({
     <OutputNumber
         label='H (plate height)'
         unit='cm'
-        formatting='.4f'
+        formatting='.4e'
         value={plateHeight}
         />
     <OutputNumber
