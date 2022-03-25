@@ -39,6 +39,14 @@ function calcMorg(solventB) {
   }
 }
 
+function checkPhiFinal(phi0, phiFinal) {
+  if(phiFinal < phi0) {
+    return phi0;
+  } else {
+    return phiFinal;
+  }
+}
+
 export function App({state, dispatch}) {
 
   function handleInputChange(name, value) {
@@ -147,6 +155,8 @@ export function App({state, dispatch}) {
   }
 
   //const statusUpdater = useCallback((status) => dispatch({type: 'set-status', payload: status}), [dispatch]);
+
+  state.phiFinal = useMemo(() => checkPhiFinal(state.phi0, state.phiFinal), [state.phi0, state.phiFinal]);
 
   // Layer 0
   state.mOrg = useMemo(() => calcMorg(state.solventB), [state.solventB]);
