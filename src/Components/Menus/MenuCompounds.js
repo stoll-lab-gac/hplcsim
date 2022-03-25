@@ -3,22 +3,30 @@ import { InputNumber } from '../Inputs/InputNumber';
 export function MenuCompounds({
   compounds,
   compoundList,
-  onChangeConcentration
+  onChangeConcentration,
+  onChangeCompoundList
 }) {
+
+  //console.log(compoundList);
 
   const compoundNames = Object.keys(compounds);
 
   let compoundTable = [];
 
-  console.log(compoundNames);
+  //console.log(compoundNames);
   for(let i = 0; i < compoundNames.length; i++) {
     const compoundName = compoundNames[i];
     const compound = compounds[compoundName];
 
-    let compoundRowCheckbox = (<input type="checkbox"></input>);
+    /*
+    let compoundRowCheckbox = (<input type="checkbox" onChange={val=>onChangeCompoundList(compoundName,true)} checked={false}></input>);
     if(compoundList.includes(compoundNames[i])){
-      compoundRowCheckbox = (<input type="checkbox" checked></input>);
+      compoundRowCheckbox = (<input type="checkbox" onChange={val=>onChangeCompoundList(compoundName,false)} checked={true}></input>);
     }
+    */
+
+    const compoundChecked = compoundList.includes(compoundNames[i]);
+    const compoundDisabled = compoundList.length === 1;
     
 
     compoundTable.push(
@@ -32,7 +40,7 @@ export function MenuCompounds({
         marginTop: '5px'
     }}>
       <div>
-        {compoundRowCheckbox}
+        <input type="checkbox" onChange={val=>onChangeCompoundList(compoundName,!compoundChecked)} checked={compoundChecked} disabled={compoundDisabled && compoundChecked}></input>
       </div>
       <div>{compoundNames[i]}</div>
       <div>

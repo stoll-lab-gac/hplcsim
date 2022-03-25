@@ -98,15 +98,47 @@ function reducer(state, action){
   switch(action.type){
     case 'edit-inputs': {
       const conditions = {...state, ...action.payload};
-      console.log(conditions);
+      //console.log(conditions);
       return conditions;
     }
 
     case 'edit-concentration': {
-      const newState = state;
+      let newState = state;
       newState.compoundParameters[action.payload.selectedColumn][action.payload.solventB][action.payload.compound].M = action.payload.conc;
-      console.log(newState);
-      return newState;
+      const conditions = {...state, ...newState};
+      //console.log(conditions);
+      return conditions;
+    }
+
+    case 'edit-compound-list': {
+      let newState = state;
+      const compoundName = action.payload.compoundName;
+      const compoundChecked = action.payload.compoundChecked;
+
+      //console.debug(compoundName + " = " + compoundChecked);
+
+      if(compoundChecked === true){
+        newState.compoundList.push(compoundName);
+      }
+      else
+      {
+        if(newState.compoundList.length > 1){
+          let newCompoundList = [];
+          for(let i = 0; i < state.compoundList.length; i++) {
+            if(state.compoundList[i] !== compoundName){
+              newCompoundList.push(state.compoundList[i]);
+            }
+          }
+          newState.compoundList = newCompoundList;
+        }
+        else
+        {
+          console.log(compoundName + " is the only compound remaining in the list! Please add other compounds first!")
+        }
+      }
+      const conditions = {...state, ...newState};
+      //console.log(conditions);
+      return conditions;
     }
 
     case 'update': {

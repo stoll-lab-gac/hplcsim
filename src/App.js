@@ -136,6 +136,16 @@ export function App({state, dispatch}) {
     });
   }
 
+  function onChangeCompoundList(compoundName,compoundChecked) {
+    dispatch({
+      type: 'edit-compound-list',
+      payload: {
+        "compoundName": compoundName,
+        "compoundChecked": compoundChecked
+      }
+    });
+  }
+
   //const statusUpdater = useCallback((status) => dispatch({type: 'set-status', payload: status}), [dispatch]);
 
   // Layer 0
@@ -171,6 +181,10 @@ export function App({state, dispatch}) {
   // Layer 7
   state.theoreticalPlateNumber = useMemo(() => chromaCore.calcTheoreticalPlateNumber(state.length, state.HETP), [state.length, state.HETP]);
 
+  state.compoundList = useMemo(() => state.compoundList, [state.compoundList]);
+
+  console.log(state);
+
   return (
     <div id="content" style={{
       width: '1148px',
@@ -204,6 +218,7 @@ export function App({state, dispatch}) {
               compounds={state.compoundParameters[state.selectedColumn][state.solventB]}
               compoundList={state.compoundList}
               onChangeConcentration={(compound, conc) => onChangeConcentration(state.selectedColumn, state.solventB, compound, conc)}
+              onChangeCompoundList={(compoundName, checked) => onChangeCompoundList(compoundName, checked)}
             />
           </fieldset>
         </Menu>
