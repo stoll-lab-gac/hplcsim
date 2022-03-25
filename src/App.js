@@ -9,7 +9,7 @@ import { useMemo } from 'react';
 
 const chromaCore = require('@stoll-lab-gac/chroma-core');
 
-function calcEluentViscosity(phi0, phiFinal, gradientTime, temperature, solventB) {
+function calcEluentViscosity(phi0, phiFinal, temperature, solventB) {
   if(phi0 === phiFinal) {
     if(solventB === "Methanol") {
       return chromaCore.calcViscosityMethanolWater(phi0, temperature);
@@ -155,7 +155,7 @@ export function App({state, dispatch}) {
 
   // Layer 1
   state.epsilonT = useMemo(() => chromaCore.calcEpsilonTotal(state.epsilonE, state.epsilonI), [state.epsilonE, state.epsilonI]);
-  state.eluentViscosity = useMemo(() => calcEluentViscosity(state.phi0,state.phiFinal,state.gradientTime,state.temperature,state.solventB), [state.phi0,state.phiFinal,state.gradientTime,state.temperature,state.solventB]);
+  state.eluentViscosity = useMemo(() => calcEluentViscosity(state.phi0,state.phiFinal,state.temperature,state.solventB), [state.phi0,state.phiFinal,state.temperature,state.solventB]);
   state.columnCrossArea = useMemo(() => chromaCore.calcCrossSectionalArea(state.innerDiameter), [state.innerDiameter]);
 
   // Layer 2
