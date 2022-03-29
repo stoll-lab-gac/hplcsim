@@ -1,7 +1,7 @@
 export function InputButton({
-  id,
+  id="",
   value,
-  className,
+  className="",
   onClick,
   disabled=false
 }) {
