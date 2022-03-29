@@ -5,6 +5,8 @@ import { MenuMobilePhase } from './Components/Menus/MenuMobilePhase';
 import { MenuChromatographic } from './Components/Menus/MenuChromatographic';
 import { MenuGeneral } from './Components/Menus/MenuGeneral';
 import { MenuColumn } from './Components/Menus/MenuColumn';
+import { InputButton } from './Components/Inputs/InputButton'
+import { InputButtonLink } from './Components/Inputs/InputButtonLink'
 import { useMemo } from 'react';
 
 const chromaCore = require('@stoll-lab-gac/chroma-core');
@@ -154,6 +156,18 @@ export function App({state, dispatch}) {
     });
   }
 
+  function resetMenus() {
+
+  }
+
+  function logExportFileData_Full() {
+
+  }
+
+  function logExportFileData_Selected() {
+
+  }
+
   //const statusUpdater = useCallback((status) => dispatch({type: 'set-status', payload: status}), [dispatch]);
 
   state.phiFinal = useMemo(() => checkPhiFinal(state.phi0, state.phiFinal), [state.phi0, state.phiFinal]);
@@ -205,19 +219,44 @@ export function App({state, dispatch}) {
       }}>
       <div id="header_title">
 				<div id="title">HPLC Simulator</div>
-        <input id="resetBtn" type="button" value="Reset" onclick="resetMenus()" />
+        <InputButton
+          id="resetBtn"
+          value="Reset"
+          onClick={ resetMenus() }
+        />
 			</div>
       <div id="header">
         <div>
-					<a href="../about"><input class="title_button" type="button" value="About" /></a>
-					<a href="../whats_new"><input class="title_button" type="button" value="What's New" /></a>
+          <InputButtonLink
+            href="../about"
+            value="About"
+            className="title_button"
+          />
+          <InputButtonLink
+            href="../whats_new"
+            value="What's New"
+            className="title_button"
+          />
 				</div>
 				<div>
-					<a href="../instructor_resources"><input id="instructor_resources_btn" class="title_button" type="button" value="Instructor Resources" /></a>
+        <InputButtonLink
+            href="../instructor_resources"
+            value="Instructor Resources"
+            id="instructor_resources_btn"
+            className="title_button"
+          />
 				</div>
 				<div>
-					<input class="export_button" type="button" value="Export Chromatogram" onclick="logExportFileData_Full()" />
-					<input class="export_button" type="button" value="Export Selected Compound" onclick="logExportFileData_Selected()" />
+          <InputButton
+            value="Export Chromatogram"
+            className="export_button"
+            onClick={logExportFileData_Full()}
+          />
+          <InputButton
+            value="Export Selected Compound"
+            className="export_button"
+            onClick={logExportFileData_Selected()}
+          />
 				</div>
 				<span id="versionDisplay">Version:<br />v{process.env.REACT_APP_VERSION}</span>
       </div>
