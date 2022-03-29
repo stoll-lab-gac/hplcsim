@@ -219,44 +219,19 @@ export function App({state, dispatch}) {
       }}>
       <div id="header_title">
 				<div id="title">HPLC Simulator</div>
-        <InputButton
-          id="resetBtn"
-          value="Reset"
-          onClick={ resetMenus() }
-        />
+        <InputButton id="resetBtn" value="Reset" onClick={ resetMenus() } />
 			</div>
       <div id="header">
         <div>
-          <InputButtonLink
-            href="../about"
-            value="About"
-            className="title_button"
-          />
-          <InputButtonLink
-            href="../whats_new"
-            value="What's New"
-            className="title_button"
-          />
+          <InputButtonLink href="../about" value="About" className="title_button" />
+          <InputButtonLink href="../whats_new" value="What's New" className="title_button" />
 				</div>
 				<div>
-        <InputButtonLink
-            href="../instructor_resources"
-            value="Instructor Resources"
-            id="instructor_resources_btn"
-            className="title_button"
-          />
+        <InputButtonLink href="../instructor_resources" value="Instructor Resources" id="instructor_resources_btn" className="title_button" />
 				</div>
 				<div>
-          <InputButton
-            value="Export Chromatogram"
-            className="export_button"
-            onClick={logExportFileData_Full()}
-          />
-          <InputButton
-            value="Export Selected Compound"
-            className="export_button"
-            onClick={logExportFileData_Selected()}
-          />
+          <InputButton value="Export Chromatogram" className="export_button" onClick={logExportFileData_Full()} />
+          <InputButton value="Export Selected Compound" className="export_button" onClick={logExportFileData_Selected()} />
 				</div>
 				<span id="versionDisplay">Version:<br />v{process.env.REACT_APP_VERSION}</span>
       </div>
