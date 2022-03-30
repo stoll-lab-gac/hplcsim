@@ -7,7 +7,7 @@
   "homepage": "./",
   "private": true,
   "dependencies": {
-    "@stoll-lab-gac/chroma-core": "^1.0.0",
+    "@stoll-lab-gac/chroma-core": "^1.1.0",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
