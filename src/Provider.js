@@ -85,6 +85,7 @@ function init(){
     reducedPlateHeight: 0,
     HETP: 0,
     theoreticalPlateNumber: 0,
+    plotData: [],
   };
 
   const state = {...stateCompounds, ...stateInputs, ...stateOutputs};
