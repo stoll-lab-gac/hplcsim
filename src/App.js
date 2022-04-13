@@ -207,6 +207,29 @@ export function App({state, dispatch}) {
 
   state.compoundList = useMemo(() => state.compoundList, [state.compoundList]);
 
+
+
+  for(let compoundIndx = 0; compoundIndx < state.compoundList.length; compoundIndx++){
+    const compoundName = state.compoundList[compoundIndx];
+    let compoundResults = {};
+    const compoundParams = state.compoundParameters[state.selectedColumn][state.solventB][compoundName];
+    console.log(compoundParams);
+
+    compoundResults.solventSensitivityFactor = chromaCore.LSS.calcSolventSensitivityFactor(compoundParams.S_intercept, compoundParams.S_slope, state.temperature, true);
+    compoundResults.lnRetentionFactorWater = chromaCore.LSS.calcLnRetentionFactorWater(compoundParams.lnkw_intercept, compoundParams.lnkw_slope, state.temperature, true);
+
+    if(state.useGradient) {
+      compoundResults.retentionTime = chromaCore.LSS.calcGradientRetentionTime(compoundResults.lnRetentionFactorWater, compoundResults.solventSensitivityFactor, state.flowRate, state.phi0, state.phiFinal, state.voidVolume, state.voidTime, state.gradientTime, 0, true);
+      compoundResults.retentionFactor = chromaCore.LSS.calcGradientRetentionFactorEffective(compoundResults.lnRetentionFactorWater, compoundResults.solventSensitivityFactor, state.phi0, state.phiFinal, state.voidTime, state.gradientTime*60, compoundResults.retentionTime, 0, true);
+      compoundResults.peakWidth = chromaCore.LSS.calcGradientPeakWidth(compoundResults.retentionFactor, state.theoreticalPlateNumber, state.voidTime/60, state.detectorTimeConstant, true);
+    } else {
+      compoundResults.retentionFactor = chromaCore.LSS.calcIsocraticRetentionFactor(compoundResults.lnRetentionFactorWater, compoundResults.solventSensitivityFactor, state.phi0, true);
+      compoundResults.retentionTime = chromaCore.LSS.calcIsocraticRetentionTime(compoundResults.retentionFactor, state.voidTime, true);
+      compoundResults.peakWidth = chromaCore.LSS.calcIsocraticPeakWidth(compoundResults.retentionTime, state.theoreticalPlateNumber, state.flowRate, state.injectionVolume, state.detectorTimeConstant, true);
+    }
+  }
+
+
   console.log(state);
 
   return (
