@@ -222,11 +222,11 @@ export function App({state, dispatch}) {
   state.compoundList = useMemo(() => state.compoundList, [state.compoundList]);
 
   state.compoundResults = {};
-  state.plotData = [{}];
+  state.plotData = [{},{}];
 
   const numPeakWidths = 8;
   const xStep = 1/state.detectorFrequency;
-  let timeMax = 0;
+  let timeMax = 0; let heightMax = 0;
 
   for(let compoundIndx = 0; compoundIndx < state.compoundList.length; compoundIndx++){
     const compoundName = state.compoundList[compoundIndx];
@@ -238,7 +238,7 @@ export function App({state, dispatch}) {
     compoundResults.solventSensitivityFactor = chromaCore.LSS.calcSolventSensitivityFactor(compoundParams.S_intercept, compoundParams.S_slope, state.temperature);
     compoundResults.lnRetentionFactorWater = chromaCore.LSS.calcLnRetentionFactorWater(compoundParams.lnkw_intercept, compoundParams.lnkw_slope, state.temperature);
 
-    if(state.useGradient) {
+    if(state.useGradient && (state.phi0 !== state.phiFinal)) {
       if(compoundName === "uracil") {
         compoundResults.retentionTime = state.voidTime;
         compoundResults.retentionFactor = 0;
@@ -259,6 +259,7 @@ export function App({state, dispatch}) {
     }
 
     compoundResults.height = chromaCore.general.calcChromatogram(compoundResults.retentionTime, compoundParams.M*(state.injectionVolume/100), compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime);
+    if(compoundResults.height > heightMax) { heightMax = compoundResults.height; }
 
     compoundResults.timeMin = round_to_xStep(compoundResults.retentionTime-(numPeakWidths*compoundResults.peakWidth), xStep);
     compoundResults.timeMax = round_to_xStep(compoundResults.retentionTime+(numPeakWidths*compoundResults.peakWidth), xStep);
@@ -303,7 +304,7 @@ export function App({state, dispatch}) {
       },
       line: {
         color: compoundColorHEX,
-        width: 2
+        width: 1
       }
     });
     //*/
@@ -336,7 +337,8 @@ export function App({state, dispatch}) {
   //console.log(xValues);
   //console.log(yValues);
 
-  state.plotData[0] = {
+  /*
+  state.plotData[1] = {
     x: xValues,
     y: yValues,
     type: 'scatter',
@@ -350,7 +352,57 @@ export function App({state, dispatch}) {
     },
     line: {
       color: "#000000",
-      width: 1
+      width: 2
+    }
+  };
+  //*/
+  state.plotData.push({
+    x: xValues,
+    y: yValues,
+    type: 'scatter',
+    name: "full",
+    showlegend: false,
+    legendrank: 0,
+    mode: 'lines',
+    marker: {
+      color: "#000000",
+      size: 3
+    },
+    line: {
+      color: "#000000",
+      width: 2
+    }
+  });
+
+  xValues = [0]; yValues = [state.phi0*100];
+  if(state.useGradient) {
+    if(state.gradientTime < timeMax/60){
+      xValues.push(state.gradientTime); yValues.push(state.phiFinal*100);
+      xValues.push(state.gradientTime+0.00000001); yValues.push(state.phi0*100);
+      xValues.push(timeMax/60); yValues.push(state.phi0*100);
+    } else {
+      const gradientSlope = (state.phiFinal - state.phi0) / state.gradientTime;
+      xValues.push(timeMax/60); yValues.push(((gradientSlope * (timeMax/60)) + state.phi0)*100);
+    }
+  } else {
+    xValues.push(timeMax/60); yValues.push(state.phi0*100);
+  }
+  state.plotData[0] = {
+    x: xValues,
+    y: yValues,
+    type: 'scatter',
+    name: "Solvent B",
+    showlegend: false,
+    legendrank: 0,
+    mode: 'lines+markers',
+    yaxis: 'y2',
+    marker: {
+      color: "#FF0000",
+      size: 3
+    },
+    line: {
+      color: "#FF0000",
+      width: 0.5
     }
   };
 
@@ -460,7 +512,24 @@ export function App({state, dispatch}) {
       <div id="graph">
       <Plot
         data={state.plotData}
-        layout={{width: '765px', height: '512px'}}
+        layout={{
+          width: '765px',
+          height: '512px',
+          xaxis: {
+            range: [0, timeMax/60],
+            title: 'Time (min)',
+          },
+          yaxis: {
+            range: [0, heightMax],
+            title: 'Signal (mAU)',
+          },
+          yaxis2: {
+            range: [0, 100],
+            title: 'Solvent B Fraction (% v/v)',
+            overlaying: 'y',
+            side: 'right'
+          }
+        }}
       />
       </div>
       <div id="tableDiv"><ResultsTable compoundResultsObject={state.compoundResults} useGradient={state.useGradient} /></div>
