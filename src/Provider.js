@@ -29,6 +29,7 @@ function init(){
   const stateCompounds = {
     "compoundParameters": compoundParametersNew,
     "compoundList": [
+      "uracil",
       "phenol",
       "benzonitrile",
       "p-chlorophenol",
