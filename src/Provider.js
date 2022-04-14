@@ -48,6 +48,8 @@ function init(){
     phiFinal: 0.4,          // final phi [0-1]
     gradientTime: 5.0,      // gradient time (min)
 
+    delayTime: 0,
+
     temperature: 40,
     injectionVolume: 5,     // injection volume (microliters)
     flowRate: 2.0,          // flow rate (mL/min)
@@ -88,6 +90,7 @@ function init(){
     reducedPlateHeight: 0,
     HETP: 0,
     theoreticalPlateNumber: 0,
+    compoundResults: {},
     plotData: [],
   };
 
