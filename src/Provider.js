@@ -75,7 +75,7 @@ export function init(){
 
     plotCompounds: false,
     plotPumpSolventB: false,
-    plotColumnSolventB: false,
+    plotDetectorSolventB: false,
   };
 
   const stateOutputs = {

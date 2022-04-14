@@ -115,8 +115,8 @@ export function App({state, dispatch}) {
       case 'plotPumpSolventB':
         updatedCondition = {plotPumpSolventB: value}
         break;
-      case 'plotColumnSolventB':
-        updatedCondition = {plotColumnSolventB: value}
+      case 'plotDetectorSolventB':
+        updatedCondition = {plotDetectorSolventB: value}
         break;
       case 'plotCompounds':
         updatedCondition = {plotCompounds: value}
@@ -433,12 +433,12 @@ export function App({state, dispatch}) {
       };
     }
     
-    if(state.plotColumnSolventB){
+    if(state.plotDetectorSolventB){
       state.plotData[1] = {
         x: xValuesOffset,
         y: yValuesOffset,
         type: 'scatter',
-        name: "%B Column",
+        name: "%B Detector",
         showlegend: false,
         legendrank: 0,
         mode: 'lines+markers',
@@ -460,7 +460,7 @@ export function App({state, dispatch}) {
     xValuesOffset.push((timeMax/60)+xValuesOffsetValue);
     yValues.push(state.phi0*100);
 
-    if(state.plotColumnSolventB){
+    if(state.plotDetectorSolventB){
       state.plotData[0] = {
         x: xValues,
         y: yValues,
@@ -567,7 +567,7 @@ export function App({state, dispatch}) {
               detectorFrequency={state.detectorFrequency}
               plotCompounds={state.plotCompounds}
               plotPumpSolventB={state.plotPumpSolventB}
-              plotColumnSolventB={state.plotColumnSolventB}
+              plotDetectorSolventB={state.plotDetectorSolventB}
               useGradient={state.useGradient}
               onChange={(name, value) => handleInputChange(name, value)}
             />

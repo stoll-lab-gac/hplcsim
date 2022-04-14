@@ -8,7 +8,7 @@ export function MenuGeneral({
   detectorFrequency=1,
   plotCompounds=false,
   plotPumpSolventB=false,
-  plotColumnSolventB=false,
+  plotDetectorSolventB=false,
   useGradient=false,
   onChange
 }) {
@@ -43,9 +43,9 @@ export function MenuGeneral({
       />
       <hr />
       <InputCheckbox
-        label='Plot %B Column'
-        isChecked={plotColumnSolventB}
-        onChange={val=>onChange('plotColumnSolventB', val)}
+        label='Plot %B Detector'
+        isChecked={plotDetectorSolventB}
+        onChange={val=>onChange('plotDetectorSolventB', val)}
       />
       <InputCheckbox
         label='Plot %B Pump'
