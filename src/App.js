@@ -118,6 +118,9 @@ export function App({state, dispatch}) {
       case 'plotColumnSolventB':
         updatedCondition = {plotColumnSolventB: value}
         break;
+      case 'plotCompounds':
+        updatedCondition = {plotCompounds: value}
+        break;
       
       // stationary phase
       case 'selected-column':
@@ -303,23 +306,26 @@ export function App({state, dispatch}) {
     state.compoundResults[compoundName] = compoundResults;
     
     //*
-    state.plotData.push({
-      x: xValues,
-      y: yValues,
-      type: 'scatter',
-      name: compoundName,
-      showlegend: false,
-      legendrank: compoundResults.retentionTime,
-      mode: 'lines',
-      marker: {
-        color: compoundColorHEX,
-        size: 3
-      },
-      line: {
-        color: compoundColorHEX,
-        width: 2
-      }
-    });
+    if(state.plotCompounds){
+      state.plotData.push({
+        x: xValues,
+        y: yValues,
+        type: 'scatter',
+        name: compoundName,
+        showlegend: false,
+        legendrank: compoundResults.retentionTime,
+        mode: 'lines',
+        marker: {
+          color: compoundColorHEX,
+          size: 3
+        },
+        line: {
+          color: compoundColorHEX,
+          width: 2
+        }
+      });
+    }
+    
     //*/
   }
 
@@ -574,6 +580,7 @@ export function App({state, dispatch}) {
               eluentViscosity={state.eluentViscosity}
               diffusionCoefficient={state.diffusionCoefficient}
               detectorFrequency={state.detectorFrequency}
+              plotCompounds={state.plotCompounds}
               plotPumpSolventB={state.plotPumpSolventB}
               plotColumnSolventB={state.plotColumnSolventB}
               useGradient={state.useGradient}

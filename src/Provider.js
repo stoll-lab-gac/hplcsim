@@ -73,6 +73,7 @@ function init(){
     detectorFrequency: 1,
     detectorTimeConstant: 0.1,
 
+    plotCompounds: false,
     plotPumpSolventB: false,
     plotColumnSolventB: false,
   };

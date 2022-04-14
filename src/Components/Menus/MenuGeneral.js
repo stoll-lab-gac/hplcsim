@@ -6,8 +6,9 @@ export function MenuGeneral({
   eluentViscosity,
   diffusionCoefficient,
   detectorFrequency=1,
-  plotPumpSolventB=true,
-  plotColumnSolventB=true,
+  plotCompounds=false,
+  plotPumpSolventB=false,
+  plotColumnSolventB=false,
   useGradient=false,
   onChange
 }) {
@@ -34,6 +35,12 @@ export function MenuGeneral({
         onChange={val=>onChange('detectorFrequency', val)}
         step={0.1}
         />
+      <hr />
+      <InputCheckbox
+        label='Plot Compounds'
+        isChecked={plotCompounds}
+        onChange={val=>onChange('plotCompounds', val)}
+      />
       <hr />
       <InputCheckbox
         label='Plot %B Column'
