@@ -222,7 +222,7 @@ export function App({state, dispatch}) {
   state.compoundList = useMemo(() => state.compoundList, [state.compoundList]);
 
   state.compoundResults = {};
-  state.plotData = [{},{}];
+  state.plotData = [{},{},{}];
 
   const numPeakWidths = 8;
   const xStep = 1/state.detectorFrequency;
@@ -345,7 +345,7 @@ export function App({state, dispatch}) {
   //console.log(yValues);
 
   //*
-  state.plotData[1] = {
+  state.plotData[2] = {
     x: xValues,
     y: yValues,
     type: 'scatter',
@@ -359,7 +359,7 @@ export function App({state, dispatch}) {
     },
     line: {
       color: "#000000",
-      width: 1
+      width: 2
     }
   };
   //*/
@@ -385,36 +385,98 @@ export function App({state, dispatch}) {
   //*/
 
   xValues = [0]; yValues = [state.phi0*100];
+  let xValuesOffsetValue = (state.delayTime+state.voidTime)/60;
+  let xValuesOffset = [0, 0+xValuesOffsetValue];
+  let yValuesOffset = [state.phi0*100, state.phi0*100];
   if(state.useGradient) {
     if(state.gradientTime < timeMax/60){
-      xValues.push(state.gradientTime); yValues.push(state.phiFinal*100);
-      xValues.push(state.gradientTime+0.00000001); yValues.push(state.phi0*100);
-      xValues.push(timeMax/60); yValues.push(state.phi0*100);
+      xValues.push(state.gradientTime);
+      yValues.push(state.phiFinal*100);
+      xValuesOffset.push(state.gradientTime+xValuesOffsetValue);
+      yValuesOffset.push(state.phiFinal*100);
+      
+      xValues.push(state.gradientTime+0.00000001);
+      yValues.push(state.phi0*100);
+      xValuesOffset.push(state.gradientTime+0.00000001+xValuesOffsetValue);
+      yValuesOffset.push(state.phi0*100);
+      
+      xValues.push(timeMax/60);
+      yValues.push(state.phi0*100);
+      xValuesOffset.push(timeMax/60+xValuesOffsetValue);
+      yValuesOffset.push(state.phi0*100);
     } else {
       const gradientSlope = (state.phiFinal - state.phi0) / state.gradientTime;
-      xValues.push(timeMax/60); yValues.push(((gradientSlope * (timeMax/60)) + state.phi0)*100);
+      xValues.push(timeMax/60);
+      yValues.push(((gradientSlope * (timeMax/60)) + state.phi0)*100);
+      xValuesOffset.push((timeMax/60)+xValuesOffsetValue);
+      yValuesOffset.push(((gradientSlope * (timeMax/60)) + state.phi0)*100);
     }
+
+    state.plotData[0] = {
+      x: xValues,
+      y: yValues,
+      type: 'scatter',
+      name: "%B Pump",
+      showlegend: false,
+      legendrank: 0,
+      mode: 'lines+markers',
+      yaxis: 'y2',
+      marker: {
+        color: "#FF0000",
+        size: 3
+      },
+      line: {
+        color: "#FF0000",
+        width: 0.5,
+        dash: "dash"
+      }
+    };
+  
+    state.plotData[1] = {
+      x: xValuesOffset,
+      y: yValuesOffset,
+      type: 'scatter',
+      name: "%B Column",
+      showlegend: false,
+      legendrank: 0,
+      mode: 'lines+markers',
+      yaxis: 'y2',
+      marker: {
+        color: "#FF0000",
+        size: 3
+      },
+      line: {
+        color: "#FF0000",
+        width: 0.5,
+        dash: "solid"
+      }
+    };
   } else {
-    xValues.push(timeMax/60); yValues.push(state.phi0*100);
+    xValues.push(timeMax/60);
+    xValuesOffset.push((timeMax/60)+xValuesOffsetValue);
+    yValues.push(state.phi0*100);
+
+    state.plotData[0] = {
+      x: xValues,
+      y: yValues,
+      type: 'scatter',
+      name: "Solvent B",
+      showlegend: false,
+      legendrank: 0,
+      mode: 'lines+markers',
+      yaxis: 'y2',
+      marker: {
+        color: "#FF0000",
+        size: 3
+      },
+      line: {
+        color: "#FF0000",
+        width: 0.5,
+        dash: "solid"
+      }
+    };
   }
-  state.plotData[0] = {
-    x: xValues,
-    y: yValues,
-    type: 'scatter',
-    name: "Solvent B",
-    showlegend: false,
-    legendrank: 0,
-    mode: 'lines+markers',
-    yaxis: 'y2',
-    marker: {
-      color: "#FF0000",
-      size: 3
-    },
-    line: {
-      color: "#FF0000",
-      width: 0.5
-    }
-  };
+  
 
   console.log(state);
 
