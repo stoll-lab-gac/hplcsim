@@ -112,6 +112,12 @@ export function App({state, dispatch}) {
       case 'detectorFrequency':
         updatedCondition = {detectorFrequency: value}
         break;
+      case 'plotPumpSolventB':
+        updatedCondition = {plotPumpSolventB: value}
+        break;
+      case 'plotColumnSolventB':
+        updatedCondition = {plotColumnSolventB: value}
+        break;
       
       // stationary phase
       case 'selected-column':
@@ -226,7 +232,7 @@ export function App({state, dispatch}) {
 
   const numPeakWidths = 8;
   const xStep = 1/state.detectorFrequency;
-  let timeMax = 0; let heightMax = 0;
+  let timeMax = 0;
 
   for(let compoundIndx = 0; compoundIndx < state.compoundList.length; compoundIndx++){
     const compoundName = state.compoundList[compoundIndx];
@@ -266,7 +272,7 @@ export function App({state, dispatch}) {
     }
 
     compoundResults.height = chromaCore.general.calcChromatogram(compoundResults.retentionTime, compoundParams.M*(state.injectionVolume/100), compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime);
-    if(compoundResults.height > heightMax) { heightMax = compoundResults.height; }
+    //if(compoundResults.height > heightMax) { heightMax = compoundResults.height; }
 
     compoundResults.timeMin = round_to_xStep(compoundResults.retentionTime-(numPeakWidths*compoundResults.peakWidth), xStep);
     compoundResults.timeMax = round_to_xStep(compoundResults.retentionTime+(numPeakWidths*compoundResults.peakWidth), xStep);
@@ -341,6 +347,8 @@ export function App({state, dispatch}) {
     let key = ""+(t.toFixed(6)); if((t.toFixed(6)) % 1 === 0) { key += ".0"; }; yValues.push(fullChromatogram[key]);
   }
 
+  let heightMax = Math.max(yValues);
+
   //console.log(xValues);
   //console.log(yValues);
 
@@ -412,71 +420,82 @@ export function App({state, dispatch}) {
       yValuesOffset.push(((gradientSlope * (timeMax/60)) + state.phi0)*100);
     }
 
-    state.plotData[0] = {
-      x: xValues,
-      y: yValues,
-      type: 'scatter',
-      name: "%B Pump",
-      showlegend: false,
-      legendrank: 0,
-      mode: 'lines+markers',
-      yaxis: 'y2',
-      marker: {
-        color: "#FF0000",
-        size: 3
-      },
-      line: {
-        color: "#FF0000",
-        width: 0.5,
-        dash: "dash"
-      }
-    };
-  
-    state.plotData[1] = {
-      x: xValuesOffset,
-      y: yValuesOffset,
-      type: 'scatter',
-      name: "%B Column",
-      showlegend: false,
-      legendrank: 0,
-      mode: 'lines+markers',
-      yaxis: 'y2',
-      marker: {
-        color: "#FF0000",
-        size: 3
-      },
-      line: {
-        color: "#FF0000",
-        width: 0.5,
-        dash: "solid"
-      }
-    };
+    if(state.plotPumpSolventB){
+      state.plotData[0] = {
+        x: xValues,
+        y: yValues,
+        type: 'scatter',
+        name: "%B Pump",
+        showlegend: false,
+        legendrank: 0,
+        mode: 'lines+markers',
+        yaxis: 'y2',
+        marker: {
+          color: "#FF0000",
+          size: 3
+        },
+        line: {
+          color: "#FF0000",
+          width: 0.5,
+          dash: "dash"
+        }
+      };
+    }
+    
+    if(state.plotColumnSolventB){
+      state.plotData[1] = {
+        x: xValuesOffset,
+        y: yValuesOffset,
+        type: 'scatter',
+        name: "%B Column",
+        showlegend: false,
+        legendrank: 0,
+        mode: 'lines+markers',
+        yaxis: 'y2',
+        marker: {
+          color: "#FF0000",
+          size: 3
+        },
+        line: {
+          color: "#FF0000",
+          width: 0.5,
+          dash: "solid"
+        }
+      };
+    }
+    
   } else {
     xValues.push(timeMax/60);
     xValuesOffset.push((timeMax/60)+xValuesOffsetValue);
     yValues.push(state.phi0*100);
 
-    state.plotData[0] = {
-      x: xValues,
-      y: yValues,
-      type: 'scatter',
-      name: "Solvent B",
-      showlegend: false,
-      legendrank: 0,
-      mode: 'lines+markers',
-      yaxis: 'y2',
-      marker: {
-        color: "#FF0000",
-        size: 3
-      },
-      line: {
-        color: "#FF0000",
-        width: 0.5,
-        dash: "solid"
-      }
-    };
+    if(state.plotColumnSolventB){
+      state.plotData[0] = {
+        x: xValues,
+        y: yValues,
+        type: 'scatter',
+        name: "Solvent B",
+        showlegend: false,
+        legendrank: 0,
+        mode: 'lines+markers',
+        yaxis: 'y2',
+        marker: {
+          color: "#FF0000",
+          size: 3
+        },
+        line: {
+          color: "#FF0000",
+          width: 0.5,
+          dash: "solid"
+        }
+      };
+    }
+    
   }
   
+  if(!state.useGradient) {
+    state.plotPumpSolventB = false;
+  }
 
   console.log(state);
 
@@ -555,6 +574,9 @@ export function App({state, dispatch}) {
               eluentViscosity={state.eluentViscosity}
               diffusionCoefficient={state.diffusionCoefficient}
               detectorFrequency={state.detectorFrequency}
+              plotPumpSolventB={state.plotPumpSolventB}
+              plotColumnSolventB={state.plotColumnSolventB}
+              useGradient={state.useGradient}
               onChange={(name, value) => handleInputChange(name, value)}
             />
           </fieldset>
