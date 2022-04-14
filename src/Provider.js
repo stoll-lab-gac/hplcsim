@@ -71,8 +71,10 @@ function init(){
     mOrg: 41.05,
 
     detectorFrequency: 1,
-
     detectorTimeConstant: 0.1,
+
+    plotPumpSolventB: true,
+    plotColumnSolventB: true,
   };
 
   const stateOutputs = {
