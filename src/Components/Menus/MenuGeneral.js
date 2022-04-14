@@ -8,6 +8,7 @@ export function MenuGeneral({
   detectorFrequency=1,
   plotPumpSolventB=true,
   plotColumnSolventB=true,
+  useGradient=false,
   onChange
 }) {
 
@@ -35,14 +36,15 @@ export function MenuGeneral({
         />
       <hr />
       <InputCheckbox
-        label='Plot %B Pump'
-        isChecked={plotPumpSolventB}
-        onChange={val=>onChange('plot-solventB-pump', val)}
-      />
-      <InputCheckbox
         label='Plot %B Column'
         isChecked={plotColumnSolventB}
-        onChange={val=>onChange('plot-solventB-column', val)}
+        onChange={val=>onChange('plotColumnSolventB', val)}
+      />
+      <InputCheckbox
+        label='Plot %B Pump'
+        isChecked={useGradient && plotPumpSolventB}
+        onChange={val=>onChange('plotPumpSolventB', val)}
+        disabled={!useGradient}
       />
     </>
   );
