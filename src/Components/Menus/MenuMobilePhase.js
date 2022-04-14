@@ -101,7 +101,7 @@ export function MenuMobilePhase(
         gridTemplateColumns: '1fr 2fr',
         gridTemplateRows: 'auto auto',
         alignItems: 'center',
-        height: '100%',
+        height: 'auto',
         width: '100%',
         marginBottom: '5px'
         }}>

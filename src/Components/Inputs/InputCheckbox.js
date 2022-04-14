@@ -15,7 +15,7 @@ export function InputCheckbox({
 
   return (
     <>
-    <div className='InputSelect' style={
+    <div className='InputCheckbox' style={
       { 
         display: 'grid', 
         // a b c
@@ -24,7 +24,7 @@ export function InputCheckbox({
         gridTemplateRows: 'auto',
         alignItems: 'center',
         justifyItems: 'center',
-        height: '100%',
+        height: 'auto',
         width: '100%',
         marginBottom: '5px'
       }}>

@@ -34,7 +34,7 @@ export function MenuCompounds({
       display: 'grid', 
         gridTemplateColumns: '1fr 5fr 3fr',
         alignItems: 'center',
-        height: '100%',
+        height: 'auto',
         width: '100%',
         borderBottom: '1px solid black',
         marginTop: '5px'

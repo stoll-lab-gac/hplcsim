@@ -89,7 +89,7 @@ export function InputSlider({
         gridTemplateColumns: '1fr 1fr 1fr',
         gridTemplateRows: 'auto auto',
         alignItems: 'center',
-        height: '100%',
+        height: 'auto',
         width: '100%',
         marginBottom: '5px'
       }}>
