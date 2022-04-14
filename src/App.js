@@ -358,6 +358,11 @@ export function App({state, dispatch}) {
   //console.log(xValues);
   //console.log(yValues);
 
+  let fullChromatogramLineWidth = 2;
+  if(state.plotCompounds){
+    fullChromatogramLineWidth = 1;
+  }
+
   //*
   state.plotData[2] = {
     x: xValues,
@@ -373,7 +378,7 @@ export function App({state, dispatch}) {
     },
     line: {
       color: "#000000",
-      width: 2
+      width: fullChromatogramLineWidth
     }
   };
   //*/
