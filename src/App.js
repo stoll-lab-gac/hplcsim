@@ -511,8 +511,8 @@ export function App({state, dispatch}) {
         <InputButtonLink href="../instructor_resources" value="Instructor Resources" id="instructor_resources_btn" className="title_button" />
 				</div>
 				<div>
-          <InputButton value="Export Chromatogram" className="export_button" onClick={logExportFileData_Full()} />
-          <InputButton value="Export Selected Compound" className="export_button" onClick={logExportFileData_Selected()} />
+          <InputButton value="Export Chromatogram" className="export_button" onClick={logExportFileData_Full()} disabled={true} />
+          <InputButton value="Export Selected Compound" className="export_button" onClick={logExportFileData_Selected()} disabled={true} />
 				</div>
 				<span id="versionDisplay">Version:<br />v{process.env.REACT_APP_VERSION}</span>
       </div>
