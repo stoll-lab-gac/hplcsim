@@ -68,7 +68,9 @@ export function ResultsTable({
     <table style={{
       textAlign: 'center'
     }}>
-      {resultsRows}
+      <tbody>
+        {resultsRows}
+      </tbody>
     </table>
   );
 
