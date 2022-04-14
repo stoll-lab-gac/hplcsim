@@ -2,6 +2,7 @@
 export const compoundParameters = {
 	"Agilent SB-C18": {
     "Acetonitrile": {
+      "uracil":{"lnkw_intercept":0,"lnkw_slope":0,"S_intercept":0,"S_slope":0},
       "N-benzylformamide":{"lnkw_intercept":4.11763684964633,"lnkw_slope":-0.00859108668819096,"S_intercept":5.72460154055311,"S_slope":-0.004518391449322835},
 			"benzylalcohol":{"lnkw_intercept":4.295870151731668,"lnkw_slope":-0.00838504826707623,"S_intercept":5.11516782884082,"S_slope":-0.0035429892224701012},
 			"phenol":{"lnkw_intercept":7.250245913957449,"lnkw_slope":-0.01623644076804236,"S_intercept":8.080764119773358,"S_slope":-0.011393740748934839},
@@ -47,6 +48,7 @@ export const compoundParameters = {
 			"Impurity-G":{"lnkw_intercept":4.36,"lnkw_slope":0.01,"S_intercept":0.72,"S_slope":0.029},
     },
 		"Methanol": {
+      "uracil":{"lnkw_intercept":0,"lnkw_slope":0,"S_intercept":0,"S_slope":0},
 			"N-benzylformamide":{"lnkw_intercept":9.164256973698459,"lnkw_slope":-0.02056138653509061,"S_intercept":11.017552429310824,"S_slope":-0.017627024734002957},
 			"benzylalcohol":{"lnkw_intercept":9.368291799905602,"lnkw_slope":-0.02044397690961204,"S_intercept":10.719335353513642,"S_slope":-0.017293059939322706},
 			"phenol":{"lnkw_intercept":10.528635454669072,"lnkw_slope":-0.024096647274333242,"S_intercept":11.830889215104005,"S_slope":-0.020815067582978557},
