@@ -70,6 +70,8 @@ function init(){
     xOrg: 1.9,
     mOrg: 41.05,
 
+    detectorFrequency: 1,
+
     detectorTimeConstant: 0.1,
   };
 

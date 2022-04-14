@@ -108,6 +108,11 @@ export function App({state, dispatch}) {
         updatedCondition = {flowRate: value}
         break;
       
+      // general parameters
+      case 'detectorFrequency':
+        updatedCondition = {detectorFrequency: value}
+        break;
+      
       // stationary phase
       case 'selected-column':
         updatedCondition = {column: value}
@@ -220,7 +225,7 @@ export function App({state, dispatch}) {
   state.plotData = [{}];
 
   const numPeakWidths = 8;
-  const xStep = 0.5;
+  const xStep = 1/state.detectorFrequency;
   let timeMax = 0;
 
   for(let compoundIndx = 0; compoundIndx < state.compoundList.length; compoundIndx++){
@@ -273,11 +278,11 @@ export function App({state, dispatch}) {
     let chromatogram = {};
     //const numPeakWidths = 8;
     for(let t = compoundResults.timeMin; t <= compoundResults.timeMax; t += xStep){
-      xValues.push(t/60);
-      yValues.push(chromaCore.general.calcChromatogram(t, compoundParams.M*(state.injectionVolume/100), compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime));
-      let key = ""+t;
-      if(t % 1 === 0) { key += ".0"; }
-      chromatogram[key] = chromaCore.general.calcChromatogram(t, compoundParams.M*(state.injectionVolume/100), compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime);
+      xValues.push((t.toFixed(6))/60);
+      yValues.push(chromaCore.general.calcChromatogram(t.toFixed(6), compoundParams.M*(state.injectionVolume/100), compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime));
+      let key = ""+(t.toFixed(6));
+      if((t.toFixed(6)) % 1 === 0) { key += ".0"; }
+      chromatogram[key] = chromaCore.general.calcChromatogram(t.toFixed(6), compoundParams.M*(state.injectionVolume/100), compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime);
     }
     compoundResults.chromatogram = chromatogram;
 
@@ -307,7 +312,7 @@ export function App({state, dispatch}) {
   timeMax = round_to_xStep(timeMax, xStep) + xStep;
 
   let fullChromatogram = {};
-  for(let t = 0; t <= timeMax; t += xStep) { let key = ""+t; if(t % 1 === 0) { key += ".0"; }; fullChromatogram[key] = 0; }
+  for(let t = 0; t <= timeMax; t += xStep) { let key = ""+(t.toFixed(6)); if((t.toFixed(6)) % 1 === 0) { key += ".0"; }; fullChromatogram[key] = 0; }
   //console.log(fullChromatogram);
 
   let compoundResultsKeys = Object.keys(state.compoundResults);
@@ -324,8 +329,8 @@ export function App({state, dispatch}) {
 
   let xValues = []; let yValues = [];
   for(let t = 0; t <= timeMax; t += xStep) {
-    xValues.push(t/60);
-    let key = ""+t; if(t % 1 === 0) { key += ".0"; }; yValues.push(fullChromatogram[key]);
+    xValues.push((t.toFixed(6))/60);
+    let key = ""+(t.toFixed(6)); if((t.toFixed(6)) % 1 === 0) { key += ".0"; }; yValues.push(fullChromatogram[key]);
   }
 
   //console.log(xValues);
@@ -425,6 +430,8 @@ export function App({state, dispatch}) {
             <MenuGeneral
               eluentViscosity={state.eluentViscosity}
               diffusionCoefficient={state.diffusionCoefficient}
+              detectorFrequency={state.detectorFrequency}
+              onChange={(name, value) => handleInputChange(name, value)}
             />
           </fieldset>
         </Menu>
