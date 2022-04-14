@@ -1,10 +1,13 @@
 import { InputNumber } from '../Inputs/InputNumber';
+import { InputCheckbox } from '../Inputs/InputCheckbox';
 import { OutputNumber } from '../Outputs/OutputNumber';
 
 export function MenuGeneral({
   eluentViscosity,
   diffusionCoefficient,
-  detectorFrequency,
+  detectorFrequency=1,
+  plotPumpSolventB=true,
+  plotColumnSolventB=true,
   onChange
 }) {
 
@@ -28,7 +31,19 @@ export function MenuGeneral({
         value={detectorFrequency}
         verify={a => a >= 1 && a <= 10}
         onChange={val=>onChange('detectorFrequency', val)}
-        step={0.1} />
+        step={0.1}
+        />
+      <hr />
+      <InputCheckbox
+        label='Plot %B Pump'
+        isChecked={plotPumpSolventB}
+        onChange={val=>onChange('plot-solventB-pump', val)}
+      />
+      <InputCheckbox
+        label='Plot %B Column'
+        isChecked={plotColumnSolventB}
+        onChange={val=>onChange('plot-solventB-column', val)}
+      />
     </>
   );
 }
