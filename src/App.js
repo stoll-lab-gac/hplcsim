@@ -251,7 +251,7 @@ export function App({state, dispatch}) {
       compoundResults.peakWidth = chromaCore.LSS.calcIsocraticPeakWidth(compoundResults.retentionTime, state.theoreticalPlateNumber, state.flowRate, state.injectionVolume, state.detectorTimeConstant);
     }
 
-    compoundResults.height = chromaCore.general.calcChromatogram(compoundResults.retentionTime, compoundParams.M, compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime);
+    compoundResults.height = chromaCore.general.calcChromatogram(compoundResults.retentionTime, compoundParams.M*(state.injectionVolume/100), compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime);
 
     compoundResults.timeMin = round_to_xStep(compoundResults.retentionTime-(numPeakWidths*compoundResults.peakWidth), xStep);
     compoundResults.timeMax = round_to_xStep(compoundResults.retentionTime+(numPeakWidths*compoundResults.peakWidth), xStep);
@@ -272,10 +272,10 @@ export function App({state, dispatch}) {
     //const numPeakWidths = 8;
     for(let t = compoundResults.timeMin; t <= compoundResults.timeMax; t += xStep){
       xValues.push(t/60);
-      yValues.push(chromaCore.general.calcChromatogram(t, compoundParams.M, compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime));
+      yValues.push(chromaCore.general.calcChromatogram(t, compoundParams.M*(state.injectionVolume/100), compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime));
       let key = ""+t;
       if(t % 1 === 0) { key += ".0"; }
-      chromatogram[key] = chromaCore.general.calcChromatogram(t, compoundParams.M, compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime);
+      chromatogram[key] = chromaCore.general.calcChromatogram(t, compoundParams.M*(state.injectionVolume/100), compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime);
     }
     compoundResults.chromatogram = chromatogram;
 
@@ -333,7 +333,7 @@ export function App({state, dispatch}) {
     x: xValues,
     y: yValues,
     type: 'scatter',
-    name: "fullChromatogram",
+    name: "full",
     showlegend: false,
     legendrank: 0,
     mode: 'lines',
