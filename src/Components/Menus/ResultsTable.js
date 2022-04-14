@@ -22,6 +22,7 @@ export function ResultsTable({
     resultsRows.push(<tr>
       <th>Compound</th>
       <th>k<sub>e</sub></th>
+      <th>ϕ<sub>e</sub></th>
       <th>t<sub>R</sub> (min)</th>
       <th>σ (s)</th>
       <th>k<sub>w</sub></th>
@@ -40,14 +41,27 @@ export function ResultsTable({
   
   for(let i = 0; i < compoundResults.length; i++) {
     const tmpCompoundResults = compoundResults[i];
-    resultsRows.push(<tr>
-      <td>{tmpCompoundResults.compoundName}</td>
-      <td>{tmpCompoundResults.retentionFactor.toFixed(4)}</td>
-      <td>{(tmpCompoundResults.retentionTime/60).toFixed(4)}</td>
-      <td>{tmpCompoundResults.peakWidth.toFixed(4)}</td>
-      <td>{Math.exp(tmpCompoundResults.lnRetentionFactorWater).toFixed(4)}</td>
-      <td>{tmpCompoundResults.solventSensitivityFactor.toFixed(4)}</td>
-    </tr>);
+    if(useGradient){
+      resultsRows.push(<tr>
+        <td>{tmpCompoundResults.compoundName}</td>
+        <td>{tmpCompoundResults.retentionFactor.toFixed(4)}</td>
+        <td>{(tmpCompoundResults.phiEffective*100).toFixed(4)}</td>
+        <td>{(tmpCompoundResults.retentionTime/60).toFixed(4)}</td>
+        <td>{tmpCompoundResults.peakWidth.toFixed(4)}</td>
+        <td>{Math.exp(tmpCompoundResults.lnRetentionFactorWater).toFixed(4)}</td>
+        <td>{tmpCompoundResults.solventSensitivityFactor.toFixed(4)}</td>
+      </tr>);
+    } else {
+      resultsRows.push(<tr>
+        <td>{tmpCompoundResults.compoundName}</td>
+        <td>{tmpCompoundResults.retentionFactor.toFixed(4)}</td>
+        <td>{(tmpCompoundResults.retentionTime/60).toFixed(4)}</td>
+        <td>{tmpCompoundResults.peakWidth.toFixed(4)}</td>
+        <td>{Math.exp(tmpCompoundResults.lnRetentionFactorWater).toFixed(4)}</td>
+        <td>{tmpCompoundResults.solventSensitivityFactor.toFixed(4)}</td>
+      </tr>);
+    }
+    
   }
 
   return (

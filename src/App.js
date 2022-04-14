@@ -247,6 +247,12 @@ export function App({state, dispatch}) {
         compoundResults.retentionFactor = chromaCore.LSS.calcGradientRetentionFactorEffective(compoundResults.lnRetentionFactorWater, compoundResults.solventSensitivityFactor, state.phi0, state.phiFinal, state.voidTime, state.gradientTime*60, compoundResults.retentionTime, state.delayTime);
       }
       compoundResults.peakWidth = chromaCore.LSS.calcGradientPeakWidth(compoundResults.retentionFactor, state.theoreticalPlateNumber, state.voidTime/60, state.detectorTimeConstant);
+      const gradientSlope = (state.phiFinal - state.phi0)/(state.gradientTime*60);
+      if(compoundResults.retentionTime-state.delayTime-state.voidTime < state.gradientTime*60) {
+        compoundResults.phiEffective = gradientSlope*(compoundResults.retentionTime-state.delayTime-state.voidTime)+state.phi0;
+      } else {
+        compoundResults.phiEffective = state.phi0;
+      }
     } else {
       if(compoundName === "uracil") {
         compoundResults.retentionTime = state.voidTime;
@@ -256,6 +262,7 @@ export function App({state, dispatch}) {
         compoundResults.retentionTime = chromaCore.LSS.calcIsocraticRetentionTime(compoundResults.retentionFactor, state.voidTime);
       }
       compoundResults.peakWidth = chromaCore.LSS.calcIsocraticPeakWidth(compoundResults.retentionTime, state.theoreticalPlateNumber, state.flowRate, state.injectionVolume, state.detectorTimeConstant);
+      compoundResults.phiEffective = state.phi0;
     }
 
     compoundResults.height = chromaCore.general.calcChromatogram(compoundResults.retentionTime, compoundParams.M*(state.injectionVolume/100), compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime);
@@ -304,7 +311,7 @@ export function App({state, dispatch}) {
       },
       line: {
         color: compoundColorHEX,
-        width: 1
+        width: 2
       }
     });
     //*/
@@ -337,7 +344,7 @@ export function App({state, dispatch}) {
   //console.log(xValues);
   //console.log(yValues);
 
-  /*
+  //*
   state.plotData[1] = {
     x: xValues,
     y: yValues,
@@ -352,10 +359,12 @@ export function App({state, dispatch}) {
     },
     line: {
       color: "#000000",
-      width: 2
+      width: 1
     }
   };
   //*/
+
+  /*
   state.plotData.push({
     x: xValues,
     y: yValues,
@@ -373,6 +382,7 @@ export function App({state, dispatch}) {
       width: 2
     }
   });
+  //*/
 
   xValues = [0]; yValues = [state.phi0*100];
   if(state.useGradient) {
