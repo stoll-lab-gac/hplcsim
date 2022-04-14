@@ -16,6 +16,8 @@ import { HSL2HEX } from './Components/Utilities/HSL2HEX';
 
 const chromaCore = require('@stoll-lab-gac/chroma-core');
 
+const round_to_xStep = (x, xStep) => { return Math.round(x/xStep)*xStep; };
+
 function calcEluentViscosity(phi0, phiFinal, temperature, solventB) {
   if(phi0 === phiFinal) {
     if(solventB === "Methanol") {
@@ -212,8 +214,12 @@ export function App({state, dispatch}) {
 
   state.compoundList = useMemo(() => state.compoundList, [state.compoundList]);
 
+  state.compoundResults = {};
+  state.plotData = [{}];
 
-  state.plotData = [];
+  const numPeakWidths = 8;
+  const xStep = 0.5;
+  let timeMax = 0;
 
   for(let compoundIndx = 0; compoundIndx < state.compoundList.length; compoundIndx++){
     const compoundName = state.compoundList[compoundIndx];
@@ -222,56 +228,124 @@ export function App({state, dispatch}) {
     const compoundParams = state.compoundParameters[state.selectedColumn][state.solventB][compoundName];
     //console.debug(compoundParams);
 
-    compoundResults.solventSensitivityFactor = chromaCore.LSS.calcSolventSensitivityFactor(compoundParams.S_intercept, compoundParams.S_slope, state.temperature, true);
-    compoundResults.lnRetentionFactorWater = chromaCore.LSS.calcLnRetentionFactorWater(compoundParams.lnkw_intercept, compoundParams.lnkw_slope, state.temperature, true);
+    compoundResults.solventSensitivityFactor = chromaCore.LSS.calcSolventSensitivityFactor(compoundParams.S_intercept, compoundParams.S_slope, state.temperature);
+    compoundResults.lnRetentionFactorWater = chromaCore.LSS.calcLnRetentionFactorWater(compoundParams.lnkw_intercept, compoundParams.lnkw_slope, state.temperature);
 
     if(state.useGradient) {
       if(compoundName === "uracil") {
         compoundResults.retentionTime = state.voidTime;
         compoundResults.retentionFactor = 0;
       } else {
-        compoundResults.retentionTime = chromaCore.LSS.calcGradientRetentionTime(compoundResults.lnRetentionFactorWater, compoundResults.solventSensitivityFactor, state.flowRate, state.phi0, state.phiFinal, state.voidVolume, state.voidTime, state.gradientTime, 0, true);
-        compoundResults.retentionFactor = chromaCore.LSS.calcGradientRetentionFactorEffective(compoundResults.lnRetentionFactorWater, compoundResults.solventSensitivityFactor, state.phi0, state.phiFinal, state.voidTime, state.gradientTime*60, compoundResults.retentionTime, 0, true);
+        compoundResults.retentionTime = chromaCore.LSS.calcGradientRetentionTime(compoundResults.lnRetentionFactorWater, compoundResults.solventSensitivityFactor, state.flowRate, state.phi0, state.phiFinal, state.voidVolume, state.voidTime, state.gradientTime, state.delayTime);
+        compoundResults.retentionFactor = chromaCore.LSS.calcGradientRetentionFactorEffective(compoundResults.lnRetentionFactorWater, compoundResults.solventSensitivityFactor, state.phi0, state.phiFinal, state.voidTime, state.gradientTime*60, compoundResults.retentionTime, state.delayTime);
       }
-      compoundResults.peakWidth = chromaCore.LSS.calcGradientPeakWidth(compoundResults.retentionFactor, state.theoreticalPlateNumber, state.voidTime/60, state.detectorTimeConstant, true);
+      compoundResults.peakWidth = chromaCore.LSS.calcGradientPeakWidth(compoundResults.retentionFactor, state.theoreticalPlateNumber, state.voidTime/60, state.detectorTimeConstant);
     } else {
       if(compoundName === "uracil") {
         compoundResults.retentionTime = state.voidTime;
         compoundResults.retentionFactor = 0;
       } else {
-        compoundResults.retentionFactor = chromaCore.LSS.calcIsocraticRetentionFactor(compoundResults.lnRetentionFactorWater, compoundResults.solventSensitivityFactor, state.phi0, true);
-        compoundResults.retentionTime = chromaCore.LSS.calcIsocraticRetentionTime(compoundResults.retentionFactor, state.voidTime, true);
+        compoundResults.retentionFactor = chromaCore.LSS.calcIsocraticRetentionFactor(compoundResults.lnRetentionFactorWater, compoundResults.solventSensitivityFactor, state.phi0);
+        compoundResults.retentionTime = chromaCore.LSS.calcIsocraticRetentionTime(compoundResults.retentionFactor, state.voidTime);
       }
-      compoundResults.peakWidth = chromaCore.LSS.calcIsocraticPeakWidth(compoundResults.retentionTime, state.theoreticalPlateNumber, state.flowRate, state.injectionVolume, state.detectorTimeConstant, true);
+      compoundResults.peakWidth = chromaCore.LSS.calcIsocraticPeakWidth(compoundResults.retentionTime, state.theoreticalPlateNumber, state.flowRate, state.injectionVolume, state.detectorTimeConstant);
     }
 
-    let xValues = [];
-    let yValues = [];
-    const numPeakWidths = 8;
-    for(let t = compoundResults.retentionTime-(numPeakWidths*compoundResults.peakWidth); t < compoundResults.retentionTime+(numPeakWidths*compoundResults.peakWidth); t += 1/10){
-      xValues.push(t/60);
-      yValues.push(chromaCore.general.calcChromatogram(t, compoundParams.M, compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime));
-    }
+    compoundResults.height = chromaCore.general.calcChromatogram(compoundResults.retentionTime, compoundParams.M, compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime);
 
-    let compoundHue = 0; let compoundColorHEX = "#000000";
+    compoundResults.timeMin = round_to_xStep(compoundResults.retentionTime-(numPeakWidths*compoundResults.peakWidth), xStep);
+    compoundResults.timeMax = round_to_xStep(compoundResults.retentionTime+(numPeakWidths*compoundResults.peakWidth), xStep);
+    if(compoundResults.timeMax > timeMax) { timeMax = compoundResults.timeMax; }
+
+    let compoundHue = 0; let compoundColorHEX = "#828282";
     if(compoundName !== "uracil") {
       compoundHue = (360/state.compoundList.length)*compoundIndx;
-      compoundColorHEX = HSL2HEX(compoundHue, 100, 50);
+      compoundColorHEX = HSL2HEX(compoundHue, 80, 50);
     }
     //console.debug("compoundHue: " + compoundHue + ", compoundColorHEX: " + compoundColorHEX);
+    compoundResults.color = compoundColorHEX;
+    
+    let xValues = [];
+    let yValues = [];
 
+    let chromatogram = {};
+    //const numPeakWidths = 8;
+    for(let t = compoundResults.timeMin; t <= compoundResults.timeMax; t += xStep){
+      xValues.push(t/60);
+      yValues.push(chromaCore.general.calcChromatogram(t, compoundParams.M, compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime));
+      let key = ""+t;
+      if(t % 1 === 0) { key += ".0"; }
+      chromatogram[key] = chromaCore.general.calcChromatogram(t, compoundParams.M, compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime);
+    }
+    compoundResults.chromatogram = chromatogram;
+
+    state.compoundResults[compoundName] = compoundResults;
+    
+    //*
     state.plotData.push({
       x: xValues,
       y: yValues,
       type: 'scatter',
       name: compoundName,
-      showlegend: true,
+      showlegend: false,
       legendrank: compoundResults.retentionTime,
       mode: 'lines',
-      marker: {color: compoundColorHEX},
+      marker: {
+        color: compoundColorHEX,
+        size: 3
+      },
+      line: {
+        color: compoundColorHEX,
+        width: 2
+      }
     });
+    //*/
   }
 
+  timeMax = round_to_xStep(timeMax, xStep) + xStep;
+
+  let fullChromatogram = {};
+  for(let t = 0; t <= timeMax; t += xStep) { let key = ""+t; if(t % 1 === 0) { key += ".0"; }; fullChromatogram[key] = 0; }
+  //console.log(fullChromatogram);
+
+  let compoundResultsKeys = Object.keys(state.compoundResults);
+  for(let compoundIndx = 0; compoundIndx < compoundResultsKeys.length; compoundIndx++) {
+    const compoundResults = state.compoundResults[compoundResultsKeys[compoundIndx]];
+    const compoundChromatogram = compoundResults.chromatogram;
+
+    let compoundChromatogramKeys = Object.keys(compoundChromatogram);
+    for(let compoundChromatogramKeyIndx = 0; compoundChromatogramKeyIndx < compoundChromatogramKeys.length; compoundChromatogramKeyIndx++) {
+      fullChromatogram[compoundChromatogramKeys[compoundChromatogramKeyIndx]] = fullChromatogram[compoundChromatogramKeys[compoundChromatogramKeyIndx]] + compoundChromatogram[compoundChromatogramKeys[compoundChromatogramKeyIndx]];
+    }
+  }
+  //console.log(fullChromatogram);
+
+  let xValues = []; let yValues = [];
+  for(let t = 0; t <= timeMax; t += xStep) {
+    xValues.push(t/60);
+    let key = ""+t; if(t % 1 === 0) { key += ".0"; }; yValues.push(fullChromatogram[key]);
+  }
+
+  //console.log(xValues);
+  //console.log(yValues);
+
+  state.plotData[0] = {
+    x: xValues,
+    y: yValues,
+    type: 'scatter',
+    name: "fullChromatogram",
+    showlegend: false,
+    legendrank: 0,
+    mode: 'lines',
+    marker: {
+      color: "#000000",
+      size: 3
+    },
+    line: {
+      color: "#000000",
+      width: 1
+    }
+  };
 
   console.log(state);
 
@@ -377,7 +451,7 @@ export function App({state, dispatch}) {
       <div id="graph">
       <Plot
         data={state.plotData}
-        layout={{width: '100%', height: '100%'}}
+        layout={{width: '765px', height: '512px'}}
       />
       </div>
       <div id="tableDiv">tableDiv</div>
