@@ -4,7 +4,7 @@ import { App } from './App'
 
 import { compoundParameters, M } from './CompoundParameters'
 
-function init(){
+export function init(){
 
   let compoundParametersNew = compoundParameters;
   let allSolventBs = [];
@@ -158,7 +158,9 @@ function reducer(state, action){
     }
 
     case 'reset': {
-      return init();
+      let newState = init();
+      const conditions = {...state, ...newState};
+      return conditions;
     }
 
     default:

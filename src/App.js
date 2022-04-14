@@ -180,7 +180,7 @@ export function App({state, dispatch}) {
   }
 
   function resetMenus() {
-
+    dispatch({type: 'reset', payload: {}});
   }
 
   function logExportFileData_Full() {
@@ -383,26 +383,6 @@ export function App({state, dispatch}) {
   };
   //*/
 
-  /*
-  state.plotData.push({
-    x: xValues,
-    y: yValues,
-    type: 'scatter',
-    name: "full",
-    showlegend: false,
-    legendrank: 0,
-    mode: 'lines',
-    marker: {
-      color: "#000000",
-      size: 3
-    },
-    line: {
-      color: "#000000",
-      width: 2
-    }
-  });
-  //*/
-
   xValues = [0]; yValues = [state.phi0*100];
   let xValuesOffsetValue = (state.delayTime+state.voidTime)/60;
   let xValuesOffset = [0, 0+xValuesOffsetValue];
@@ -520,7 +500,7 @@ export function App({state, dispatch}) {
       }}>
       <div id="header_title">
 				<div id="title">HPLC Simulator</div>
-        <InputButton id="resetBtn" value="Reset" onClick={ resetMenus() } />
+        <InputButton id="resetBtn" value="Reset" onClick={ val=>resetMenus() } />
 			</div>
       <div id="header">
         <div>
