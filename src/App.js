@@ -1,14 +1,18 @@
-//import { useCallback } from 'react';
+import { useMemo } from 'react';
+
+import Plot from 'react-plotly.js';
+
 import { Menu } from './Components/Menus/Menu';
 import { MenuCompounds } from './Components/Menus/MenuCompounds';
 import { MenuMobilePhase } from './Components/Menus/MenuMobilePhase';
 import { MenuChromatographic } from './Components/Menus/MenuChromatographic';
 import { MenuGeneral } from './Components/Menus/MenuGeneral';
 import { MenuColumn } from './Components/Menus/MenuColumn';
+
 import { InputButton } from './Components/Inputs/InputButton'
 import { InputButtonLink } from './Components/Inputs/InputButtonLink'
-import { useMemo } from 'react';
-import Plot from 'react-plotly.js';
+
+import { HSL2HEX } from './Components/Utilities/HSL2HEX';
 
 const chromaCore = require('@stoll-lab-gac/chroma-core');
 
@@ -238,6 +242,10 @@ export function App({state, dispatch}) {
       yValues.push(chromaCore.general.calcChromatogram(t, compoundParams.M, compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime));
     }
 
+    const compoundHue = (360/state.compoundList.length)*compoundIndx;
+    const compoundColorHEX = HSL2HEX(compoundHue, 100, 50);
+    console.debug("compoundHue: " + compoundHue + ", compoundColorHEX: " + compoundColorHEX);
+
     state.plotData.push({
       x: xValues,
       y: yValues,
@@ -246,7 +254,7 @@ export function App({state, dispatch}) {
       showlegend: true,
       legendrank: compoundResults.retentionTime,
       mode: 'lines',
-      marker: {color: 'red'},
+      marker: {color: compoundColorHEX},
     });
   }
 
