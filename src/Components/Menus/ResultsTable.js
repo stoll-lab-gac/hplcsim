@@ -15,7 +15,7 @@ export function ResultsTable({
 
   compoundResults.sort(function (a, b) { return a.retentionTime - b.retentionTime; });
 
-  console.log(compoundResults);
+  //console.log(compoundResults);
 
   let resultsRows = [];
   if(useGradient){
