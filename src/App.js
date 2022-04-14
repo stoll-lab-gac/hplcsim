@@ -599,8 +599,16 @@ export function App({state, dispatch}) {
       <Plot
         data={state.plotData}
         layout={{
-          width: '765px',
-          height: '512px',
+          autosize: true,
+          width: 765,
+          height: 514,
+          margin: {
+            l: 80,
+            r: 80,
+            b: 50,
+            t: 20,
+            pad: 5
+          },
           xaxis: {
             range: [0, timeMax/60],
             title: 'Time (min)',
