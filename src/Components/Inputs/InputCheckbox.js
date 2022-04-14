@@ -32,7 +32,7 @@ export function InputCheckbox({
       <input style={{ gridArea: 'a'}}
         type="checkbox"
         checked={isChecked}
-        onChange={onChange}
+        onChange={val=>onChange(!isChecked)}
         disabled={disabled}
       />
     </div>
