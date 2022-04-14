@@ -110,13 +110,13 @@ export function MenuMobilePhase(
           type='radio'
           checked={!useGradient}
           onChange={(e) => onChange('isocratic-radio', e.target.value)} />
-        <label for="isocraticRadio" style={{fontSize: 'var(--fontSize)'}}>Isocratic Elution Mode</label>
+        <label htmlFor={"isocraticRadio"} style={{fontSize: 'var(--fontSize)'}}>Isocratic Elution Mode</label>
         <input style={{width: '100%'}}
           id='gradientRadio'
           type='radio'
           checked={useGradient}
           onChange={(e) => onChange('gradient-radio', e.target.value)} />
-        <label for="gradientRadio" style={{fontSize: 'var(--fontSize)'}}>Gradient Elution Mode</label>
+        <label htmlFor={"gradientRadio"} style={{fontSize: 'var(--fontSize)'}}>Gradient Elution Mode</label>
       </div>
       <br />
       <InputSlider
