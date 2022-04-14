@@ -7,10 +7,10 @@ export function InputCheckbox({
 
   let labelSpan = [];
   if(disabled) {
-    labelSpan.push(<span style={{ gridArea: 'b', textAlign: 'left', fontSize: 'var(--fontSize)', fontWeight: 'bold', width: '95%', textDecoration: 'line-through'}}>{label} </span>);
+    labelSpan.push(<span key={0} style={{ gridArea: 'b', textAlign: 'left', fontSize: 'var(--fontSize)', fontWeight: 'bold', width: '95%', textDecoration: 'line-through'}}>{label} </span>);
     //text-decoration: line-through
   } else {
-    labelSpan.push(<span style={{ gridArea: 'b', textAlign: 'left', fontSize: 'var(--fontSize)', fontWeight: 'bold', width: '95%'}}>{label} </span>);
+    labelSpan.push(<span key={0} style={{ gridArea: 'b', textAlign: 'left', fontSize: 'var(--fontSize)', fontWeight: 'bold', width: '95%'}}>{label} </span>);
   }
 
   return (

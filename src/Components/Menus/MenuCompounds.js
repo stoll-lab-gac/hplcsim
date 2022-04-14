@@ -30,7 +30,7 @@ export function MenuCompounds({
     
 
     compoundTable.push(
-    <div style={{
+    <div key={i} style={{
       display: 'grid', 
         gridTemplateColumns: '1fr 5fr 3fr',
         alignItems: 'center',
