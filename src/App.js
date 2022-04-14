@@ -9,6 +9,8 @@ import { MenuChromatographic } from './Components/Menus/MenuChromatographic';
 import { MenuGeneral } from './Components/Menus/MenuGeneral';
 import { MenuColumn } from './Components/Menus/MenuColumn';
 
+import { ResultsTable } from './Components/Menus/ResultsTable';
+
 import { InputButton } from './Components/Inputs/InputButton'
 import { InputButtonLink } from './Components/Inputs/InputButtonLink'
 
@@ -454,7 +456,7 @@ export function App({state, dispatch}) {
         layout={{width: '765px', height: '512px'}}
       />
       </div>
-      <div id="tableDiv">tableDiv</div>
+      <div id="tableDiv"><ResultsTable compoundResultsObject={state.compoundResults} useGradient={state.useGradient} /></div>
     </div>
   );
 }
