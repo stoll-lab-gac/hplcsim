@@ -8,6 +8,7 @@ import { MenuColumn } from './Components/Menus/MenuColumn';
 import { InputButton } from './Components/Inputs/InputButton'
 import { InputButtonLink } from './Components/Inputs/InputButtonLink'
 import { useMemo } from 'react';
+import Plot from 'react-plotly.js';
 
 const chromaCore = require('@stoll-lab-gac/chroma-core');
 
@@ -208,6 +209,7 @@ export function App({state, dispatch}) {
   state.compoundList = useMemo(() => state.compoundList, [state.compoundList]);
 
 
+  state.plotData = [];
 
   for(let compoundIndx = 0; compoundIndx < state.compoundList.length; compoundIndx++){
     const compoundName = state.compoundList[compoundIndx];
@@ -227,6 +229,25 @@ export function App({state, dispatch}) {
       compoundResults.retentionTime = chromaCore.LSS.calcIsocraticRetentionTime(compoundResults.retentionFactor, state.voidTime, true);
       compoundResults.peakWidth = chromaCore.LSS.calcIsocraticPeakWidth(compoundResults.retentionTime, state.theoreticalPlateNumber, state.flowRate, state.injectionVolume, state.detectorTimeConstant, true);
     }
+
+    let xValues = [];
+    let yValues = [];
+    const numPeakWidths = 8;
+    for(let t = compoundResults.retentionTime-(numPeakWidths*compoundResults.peakWidth); t < compoundResults.retentionTime+(numPeakWidths*compoundResults.peakWidth); t += 1/10){
+      xValues.push(t/60);
+      yValues.push(chromaCore.general.calcChromatogram(t, compoundParams.M, compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime));
+    }
+
+    state.plotData.push({
+      x: xValues,
+      y: yValues,
+      type: 'scatter',
+      name: compoundName,
+      showlegend: true,
+      legendrank: compoundResults.retentionTime,
+      mode: 'lines',
+      marker: {color: 'red'},
+    });
   }
 
 
@@ -331,7 +352,12 @@ export function App({state, dispatch}) {
           </fieldset>
         </Menu>
       </div>
-      <div id="graph">graph</div>
+      <div id="graph">
+      <Plot
+        data={state.plotData}
+        layout={{width: '100%', height: '100%'}}
+      />
+      </div>
       <div id="tableDiv">tableDiv</div>
     </div>
   );
