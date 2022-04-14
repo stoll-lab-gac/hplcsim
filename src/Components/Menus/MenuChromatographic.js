@@ -32,13 +32,13 @@ export function MenuChromatographic({
         label='Injection Volume'
         unit='µL'
         value={injectionVolume}
-        verify={a => a >= 1 && a <= 100}
+        verify={a => a >= 0.01 && a <= 100}
         onChange={(val)=>onChange('injection-volume', val)}  />
     <InputNumber
         label='Flow Rate'
         unit='mL/min'
         value={flowRate}
-        verify={a => a >= 0.1 && a <= 10}
+        verify={a => a >= 0.01 && a <= 20}
         onChange={(val)=>onChange('flow-rate', val)}  />
     <br />
     <OutputNumber
