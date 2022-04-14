@@ -492,11 +492,11 @@ export function App({state, dispatch}) {
 
   return (
     <div id="content" style={{
-      width: '1148px',
-      height: '690px',
+      //width: '1148px',
+      //height: '690px',
       backgroundColor: '#fff',
-      marginLeft: '386px',
-      marginTop: '142px'
+      //marginLeft: '386px',
+      //marginTop: '142px'
       }}>
       <div id="header_title">
 				<div id="title">HPLC Simulator</div>
