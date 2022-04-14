@@ -5,6 +5,14 @@ export function InputCheckbox({
   disabled=false
 }) {
 
+  let labelSpan = [];
+  if(disabled) {
+    labelSpan.push(<span style={{ gridArea: 'b', textAlign: 'left', fontSize: 'var(--fontSize)', fontWeight: 'bold', width: '95%', textDecoration: 'line-through'}}>{label} </span>);
+    //text-decoration: line-through
+  } else {
+    labelSpan.push(<span style={{ gridArea: 'b', textAlign: 'left', fontSize: 'var(--fontSize)', fontWeight: 'bold', width: '95%'}}>{label} </span>);
+  }
+
   return (
     <>
     <div className='InputSelect' style={
@@ -20,7 +28,7 @@ export function InputCheckbox({
         width: '100%',
         marginBottom: '5px'
       }}>
-      <span style={{ gridArea: 'b', textAlign: 'left', fontSize: 'var(--fontSize)', fontWeight: 'bold', width: '95%'}}>{label} </span>
+      {labelSpan}
       <input style={{ gridArea: 'a'}}
         type="checkbox"
         checked={isChecked}
