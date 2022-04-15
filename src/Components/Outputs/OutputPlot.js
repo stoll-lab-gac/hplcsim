@@ -23,8 +23,8 @@ export const OutputPlot = ({plotData, timeMax, heightMax}) => {
     window.addEventListener("resize", getDivSize);
   }, []);
 
-  console.log("Width: " + width);
-  console.log("Height: " + height);
+  //console.log("Width: " + width);
+  //console.log("Height: " + height);
 
   return (
     <div id="graph" ref={divRef}>
