@@ -101,7 +101,7 @@ export function init(){
 
   const state = {...stateCompounds, ...stateInputs, ...stateOutputs};
 
-  console.log(state);
+  //console.log(state);
   
   return state;
 }
