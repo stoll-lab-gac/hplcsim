@@ -315,6 +315,7 @@ export function App({state, dispatch}) {
         showlegend: false,
         legendrank: compoundResults.retentionTime,
         mode: 'lines',
+        yaxis: 'y',
         marker: {
           color: compoundColorHEX,
           size: 3
@@ -353,7 +354,7 @@ export function App({state, dispatch}) {
     let key = ""+(t.toFixed(6)); if((t.toFixed(6)) % 1 === 0) { key += ".0"; }; yValues.push(fullChromatogram[key]);
   }
 
-  let heightMax = Math.max(yValues);
+  let heightMax = 0; for(let i = 0; i < yValues.length; i++){ if(yValues[i] > heightMax) { heightMax = yValues[i]; } }; //heightMax *= 1.02;
 
   //console.log(xValues);
   //console.log(yValues);
@@ -372,6 +373,7 @@ export function App({state, dispatch}) {
     showlegend: false,
     legendrank: 0,
     mode: 'lines',
+    yaxis: 'y',
     marker: {
       color: "#000000",
       size: 3
