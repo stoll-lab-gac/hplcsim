@@ -294,13 +294,15 @@ export function App({state, dispatch}) {
 
     let chromatogram = {};
     //const numPeakWidths = 8;
+    xValues.push(((compoundResults.timeMin-xStep).toFixed(6))/60); yValues.push(0); chromatogram[""+((compoundResults.timeMin-xStep).toFixed(6))] = 0;
     for(let t = compoundResults.timeMin; t <= compoundResults.timeMax; t += xStep){
       xValues.push((t.toFixed(6))/60);
       yValues.push(chromaCore.general.calcChromatogram(t.toFixed(6), compoundParams.M*(state.injectionVolume/100), compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime));
       let key = ""+(t.toFixed(6));
-      if((t.toFixed(6)) % 1 === 0) { key += ".0"; }
+      //if((t.toFixed(6)) % 1 === 0) { key += ".0"; }
       chromatogram[key] = chromaCore.general.calcChromatogram(t.toFixed(6), compoundParams.M*(state.injectionVolume/100), compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime);
     }
+    xValues.push(((compoundResults.timeMax+xStep).toFixed(6))/60); yValues.push(0); chromatogram[""+((compoundResults.timeMax+xStep).toFixed(6))] = 0;
     compoundResults.chromatogram = chromatogram;
 
     state.compoundResults[compoundName] = compoundResults;
@@ -333,7 +335,7 @@ export function App({state, dispatch}) {
   timeMax = round_to_xStep(timeMax, xStep) + xStep;
 
   let fullChromatogram = {};
-  for(let t = 0; t <= timeMax; t += xStep) { let key = ""+(t.toFixed(6)); if((t.toFixed(6)) % 1 === 0) { key += ".0"; }; fullChromatogram[key] = 0; }
+  //for(let t = 0; t <= timeMax; t += xStep) { let key = ""+(t.toFixed(6)); fullChromatogram[key] = 0; }
   //console.log(fullChromatogram);
 
   let compoundResultsKeys = Object.keys(state.compoundResults);
@@ -342,21 +344,31 @@ export function App({state, dispatch}) {
     const compoundChromatogram = compoundResults.chromatogram;
 
     let compoundChromatogramKeys = Object.keys(compoundChromatogram);
+
     for(let compoundChromatogramKeyIndx = 0; compoundChromatogramKeyIndx < compoundChromatogramKeys.length; compoundChromatogramKeyIndx++) {
-      fullChromatogram[compoundChromatogramKeys[compoundChromatogramKeyIndx]] = fullChromatogram[compoundChromatogramKeys[compoundChromatogramKeyIndx]] + compoundChromatogram[compoundChromatogramKeys[compoundChromatogramKeyIndx]];
+      let fullChromatogramKey = compoundChromatogramKeys[compoundChromatogramKeyIndx];
+      if(fullChromatogram[fullChromatogramKey] === undefined) {
+        fullChromatogram[fullChromatogramKey] = compoundChromatogram[fullChromatogramKey];
+      } else {
+        fullChromatogram[fullChromatogramKey] = fullChromatogram[fullChromatogramKey] + compoundChromatogram[fullChromatogramKey];
+      }
+      
     }
   }
-  //console.log(fullChromatogram);
+  console.log(fullChromatogram);
+  console.log(Object.keys(fullChromatogram).length);
 
   let xValues = []; let yValues = [];
-  for(let t = 0; t <= timeMax; t += xStep) {
+  let fullChromatogramKeys = Object.keys(fullChromatogram);
+  for(let i = 0; i <= fullChromatogramKeys.length; i++) {
+    const t = Number(fullChromatogramKeys[i]);
     xValues.push((t.toFixed(6))/60);
-    let key = ""+(t.toFixed(6)); if((t.toFixed(6)) % 1 === 0) { key += ".0"; }; yValues.push(fullChromatogram[key]);
+    let key = ""+(t.toFixed(6)); yValues.push(fullChromatogram[key]);
   }
 
   let heightMax = 0; for(let i = 0; i < yValues.length; i++){ if(yValues[i] > heightMax) { heightMax = yValues[i]; } }; //heightMax *= 1.02;
 
-  //console.log(xValues);
+  console.log("Full Chromatogram Points = " + xValues.length);
   //console.log(yValues);
 
   let fullChromatogramLineWidth = 2;
