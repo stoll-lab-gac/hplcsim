@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import Plot from 'react-plotly.js';
+import { OutputPlot } from './Components/Outputs/OutputPlot';
 
 import { Menu } from './Components/Menus/Menu';
 import { MenuCompounds } from './Components/Menus/MenuCompounds';
@@ -609,37 +609,11 @@ export function App({state, dispatch}) {
           </fieldset>
         </Menu>
       </div>
-      <div id="graph">
-      <Plot
-        data={state.plotData}
-        layout={{
-          autosize: true,
-          width: 765,
-          height: 514,
-          margin: {
-            l: 80,
-            r: 80,
-            b: 50,
-            t: 20,
-            pad: 5
-          },
-          xaxis: {
-            range: [0, timeMax/60],
-            title: 'Time (min)',
-          },
-          yaxis: {
-            range: [0, heightMax],
-            title: 'Signal (mAU)',
-          },
-          yaxis2: {
-            range: [0, 100],
-            title: 'Solvent B Fraction (% v/v)',
-            overlaying: 'y',
-            side: 'right'
-          }
-        }}
+      <OutputPlot
+        plotData={state.plotData}
+        timeMax={timeMax}
+        heightMax={heightMax}
       />
-      </div>
       <div id="tableDiv"><ResultsTable compoundResultsObject={state.compoundResults} useGradient={state.useGradient} /></div>
     </div>
   );

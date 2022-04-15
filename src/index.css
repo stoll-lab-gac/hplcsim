@@ -9,7 +9,7 @@
         "params tableDiv";
     
     grid-template-columns: 1fr 2fr;
-    grid-template-rows: 50px 6fr 2fr;
+    grid-template-rows: 50px 3fr 1fr;
 
     justify-items: center; /* Center Horizontally */
     align-items: center; /* Center Vertically */
