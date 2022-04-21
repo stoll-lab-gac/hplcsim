@@ -3,6 +3,7 @@ export const compoundParameters = {
 	"Agilent SB-C18": {
     "Acetonitrile": {
       "uracil":{"lnkw_intercept":0,"lnkw_slope":0,"S_intercept":0,"S_slope":0},
+      "caffeine":{"lnkw_intercept":1.67764145010277,"lnkw_slope":0,"S_intercept":-0.0462819285682413,"S_slope":0},
       "N-benzylformamide":{"lnkw_intercept":4.11763684964633,"lnkw_slope":-0.00859108668819096,"S_intercept":5.72460154055311,"S_slope":-0.004518391449322835},
 			"benzylalcohol":{"lnkw_intercept":4.295870151731668,"lnkw_slope":-0.00838504826707623,"S_intercept":5.11516782884082,"S_slope":-0.0035429892224701012},
 			"phenol":{"lnkw_intercept":7.250245913957449,"lnkw_slope":-0.01623644076804236,"S_intercept":8.080764119773358,"S_slope":-0.011393740748934839},
