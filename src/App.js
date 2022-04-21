@@ -58,6 +58,21 @@ function checkPhiFinal(phi0, phiFinal) {
   }
 }
 
+function validateCompoundList(compoundList, compoundParameters, selectedColumn, solventA, solventB) {
+  let compoundListNew = [];
+
+  const compoundParametersKeys = Object.keys(compoundParameters[selectedColumn][solventB]);
+  for(let i = 0; i < compoundList.length; i++) {
+    if(compoundParametersKeys.includes(compoundList[i])) {
+      compoundListNew.push(compoundList[i]);
+    }
+  }
+
+  if(compoundListNew.length === 0) { compoundListNew.push("uracil"); }
+
+  return compoundListNew;
+}
+
 export function App({state, dispatch}) {
 
   function handleInputChange(name, value) {
@@ -190,6 +205,8 @@ export function App({state, dispatch}) {
   function logExportFileData_Selected() {
 
   }
+
+  state.compoundList = useMemo(() => validateCompoundList(state.compoundList, state.compoundParameters, state.selectedColumn, state.solventA, state.solventB), [state.compoundList, state.compoundParameters, state.selectedColumn, state.solventA, state.solventB]);
 
   //const statusUpdater = useCallback((status) => dispatch({type: 'set-status', payload: status}), [dispatch]);
 
