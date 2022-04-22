@@ -20,8 +20,6 @@ import { round_to_xStep } from './Components/Utilities/round_to_xStep';
 
 const chromaCore = require('@stoll-lab-gac/chroma-core');
 
-//const round_to_xStep = (x, xStep) => { return Math.round(x/xStep)*xStep; };
-
 function calcEluentViscosity(phi0, phiFinal, temperature, solventB) {
   if(phi0 === phiFinal) {
     if(solventB === "Methanol") {
