@@ -16,10 +16,11 @@ import { InputButton } from './Components/Inputs/InputButton'
 import { InputButtonLink } from './Components/Inputs/InputButtonLink'
 
 import { HSL2HEX } from './Components/Utilities/HSL2HEX';
+import { round_to_xStep } from './Components/Utilities/round_to_xStep';
 
 const chromaCore = require('@stoll-lab-gac/chroma-core');
 
-const round_to_xStep = (x, xStep) => { return Math.round(x/xStep)*xStep; };
+//const round_to_xStep = (x, xStep) => { return Math.round(x/xStep)*xStep; };
 
 function calcEluentViscosity(phi0, phiFinal, temperature, solventB) {
   if(phi0 === phiFinal) {
