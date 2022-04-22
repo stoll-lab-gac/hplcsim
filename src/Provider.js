@@ -38,6 +38,10 @@ export function init(){
     ]
   };
 
+  const stateConstants = {
+    numPeakWidths: 8
+  };
+
   const stateInputs = {
     solventAs: allSolventAs_unique, //['Water'], //['Water','Buffer, 3.2 pH'],
     solventBs: allSolventBs_unique, //['Acetonitrile', 'Methanol'],
@@ -79,6 +83,8 @@ export function init(){
   };
 
   const stateOutputs = {
+    xStep: 1,
+    timeMax: 0,
     epsilonT: 0,
     voidVolume: 0,
     voidTime: 0,
@@ -99,7 +105,7 @@ export function init(){
     plotData: [],
   };
 
-  const state = {...stateCompounds, ...stateInputs, ...stateOutputs};
+  const state = {...stateCompounds, ...stateConstants, ...stateInputs, ...stateOutputs};
 
   //console.log(state);
   
