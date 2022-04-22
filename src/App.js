@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+//import fetch from 'node-fetch';
 
 import { OutputPlot } from './Components/Outputs/OutputPlot';
 
@@ -247,11 +248,12 @@ export function App({state, dispatch}) {
 
   state.compoundList = useMemo(() => state.compoundList, [state.compoundList]);
 
+  state.xStep = useMemo(() => (1/state.detectorFrequency), [state.detectorFrequency]);
+
   state.compoundResults = {};
   state.plotData = [{},{},{}];
 
-  const numPeakWidths = 8;
-  const xStep = 1/state.detectorFrequency;
+  state.xStep = 1/state.detectorFrequency;
   let timeMax = 0;
 
   for(let compoundIndx = 0; compoundIndx < state.compoundList.length; compoundIndx++){
@@ -294,8 +296,8 @@ export function App({state, dispatch}) {
     compoundResults.height = chromaCore.general.calcChromatogram(compoundResults.retentionTime, compoundParams.M*(state.injectionVolume/100), compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime);
     //if(compoundResults.height > heightMax) { heightMax = compoundResults.height; }
 
-    compoundResults.timeMin = round_to_xStep(compoundResults.retentionTime-(numPeakWidths*compoundResults.peakWidth), xStep);
-    compoundResults.timeMax = round_to_xStep(compoundResults.retentionTime+(numPeakWidths*compoundResults.peakWidth), xStep);
+    compoundResults.timeMin = round_to_xStep(compoundResults.retentionTime-(state.numPeakWidths*compoundResults.peakWidth), state.xStep);
+    compoundResults.timeMax = round_to_xStep(compoundResults.retentionTime+(state.numPeakWidths*compoundResults.peakWidth), state.xStep);
     if(compoundResults.timeMax > timeMax) { timeMax = compoundResults.timeMax; }
 
     let compoundHue = 0; let compoundColorHEX = "#828282";
@@ -311,15 +313,15 @@ export function App({state, dispatch}) {
 
     let chromatogram = {};
     //const numPeakWidths = 8;
-    xValues.push(((compoundResults.timeMin-xStep).toFixed(6))/60); yValues.push(0); chromatogram[""+((compoundResults.timeMin-xStep).toFixed(6))] = 0;
-    for(let t = compoundResults.timeMin; t <= compoundResults.timeMax; t += xStep){
+    xValues.push(((compoundResults.timeMin-state.xStep).toFixed(6))/60); yValues.push(0); chromatogram[""+((compoundResults.timeMin-state.xStep).toFixed(6))] = 0;
+    for(let t = compoundResults.timeMin; t <= compoundResults.timeMax; t += state.xStep){
       xValues.push((t.toFixed(6))/60);
       yValues.push(chromaCore.general.calcChromatogram(t.toFixed(6), compoundParams.M*(state.injectionVolume/100), compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime));
       let key = ""+(t.toFixed(6));
       //if((t.toFixed(6)) % 1 === 0) { key += ".0"; }
       chromatogram[key] = chromaCore.general.calcChromatogram(t.toFixed(6), compoundParams.M*(state.injectionVolume/100), compoundResults.peakWidth, state.flowRate, compoundResults.retentionTime);
     }
-    xValues.push(((compoundResults.timeMax+xStep).toFixed(6))/60); yValues.push(0); chromatogram[""+((compoundResults.timeMax+xStep).toFixed(6))] = 0;
+    xValues.push(((compoundResults.timeMax+state.xStep).toFixed(6))/60); yValues.push(0); chromatogram[""+((compoundResults.timeMax+state.xStep).toFixed(6))] = 0;
     compoundResults.chromatogram = chromatogram;
 
     state.compoundResults[compoundName] = compoundResults;
@@ -349,7 +351,7 @@ export function App({state, dispatch}) {
     //*/
   }
 
-  timeMax = round_to_xStep(timeMax, xStep) + xStep;
+  timeMax = round_to_xStep(timeMax, state.xStep) + state.xStep;
 
   let fullChromatogram = {};
   //for(let t = 0; t <= timeMax; t += xStep) { let key = ""+(t.toFixed(6)); fullChromatogram[key] = 0; }
