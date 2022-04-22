@@ -334,7 +334,7 @@ export function App({state, dispatch}) {
   let xValues = []; let yValues = [];
   let fullChromatogramKeys = Object.keys(fullChromatogram);
   fullChromatogramKeys.sort(function(a, b) { return a - b; });
-  for(let i = 0; i <= fullChromatogramKeys.length; i++) {
+  for(let i = 0; i < fullChromatogramKeys.length; i++) {
     const t = Number(fullChromatogramKeys[i]);
     xValues.push((t.toFixed(6))/60);
     let key = ""+(t.toFixed(6)); yValues.push(fullChromatogram[key]);
