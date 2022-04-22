@@ -332,10 +332,7 @@ export function App({state, dispatch}) {
   console.log("Full Chromatogram Points = " + xValues.length);
   //console.log(yValues);
 
-  let fullChromatogramLineWidth = 2;
-  if(state.plotCompounds){
-    fullChromatogramLineWidth = 1;
-  }
+  let fullChromatogramLineWidth = 2; if(state.plotCompounds){ fullChromatogramLineWidth = 1; }
 
   //*
   state.plotData[2] = {
@@ -459,9 +456,7 @@ export function App({state, dispatch}) {
     
   }
   
-  if(!state.useGradient) {
-    state.plotPumpSolventB = false;
-  }
+  if(!state.useGradient) { state.plotPumpSolventB = false; }
 
   console.log(state);
 
