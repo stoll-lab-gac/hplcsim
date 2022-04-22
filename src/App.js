@@ -270,8 +270,8 @@ export function App({state, dispatch}) {
     //*
     if(state.plotCompounds){
       state.plotData.push({
-        x: xValues,
-        y: yValues,
+        x: compoundResults.xValues,
+        y: compoundResults.yValues,
         type: 'scatter',
         name: compoundName,
         showlegend: false,
