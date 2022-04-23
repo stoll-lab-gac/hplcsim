@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 //import fetch from 'node-fetch';
 
 import { OutputPlot } from './Components/Outputs/OutputPlot';
+import { createPlotDataObject } from './Components/Utilities/createPlotDataObject';
 
 import { Menu } from './Components/Menus/Menu';
 import { MenuCompounds } from './Components/Menus/MenuCompounds';
@@ -267,29 +268,18 @@ export function App({state, dispatch}) {
 
     state.compoundResults[compoundName] = compoundResults;
     
-    //*
     if(state.plotCompounds){
-      state.plotData.push({
-        x: compoundResults.xValues,
-        y: compoundResults.yValues,
-        type: 'scatter',
-        name: compoundName,
-        showlegend: false,
-        legendrank: compoundResults.retentionTime,
-        mode: 'lines',
-        yaxis: 'y',
-        marker: {
+      state.plotData.push(
+        createPlotDataObject({
+          xValues: compoundResults.xValues,
+          yValues: compoundResults.yValues,
+          name: compoundName,
           color: compoundResults.color,
-          size: 3
-        },
-        line: {
-          color: compoundResults.color,
-          width: 2
-        }
-      });
+          legendrank: compoundResults.retentionTime
+        })
+      );
     }
     
-    //*/
   }
 
   timeMax = round_to_xStep(timeMax, state.xStep) + state.xStep;
@@ -335,24 +325,17 @@ export function App({state, dispatch}) {
   let fullChromatogramLineWidth = 2; if(state.plotCompounds){ fullChromatogramLineWidth = 1; }
 
   //*
-  state.plotData[2] = {
-    x: xValues,
-    y: yValues,
-    type: 'scatter',
-    name: "full",
-    showlegend: false,
+
+  
+
+  state.plotData[2] = createPlotDataObject({
+    xValues: xValues,
+    yValues: yValues,
+    name: 'full',
+    color: '#000000',
     legendrank: 0,
-    mode: 'lines',
-    yaxis: 'y',
-    marker: {
-      color: "#000000",
-      size: 3
-    },
-    line: {
-      color: "#000000",
-      width: fullChromatogramLineWidth
-    }
-  };
+    lineWidth: fullChromatogramLineWidth
+  });
   //*/
 
   xValues = [0]; yValues = [state.phi0*100];
