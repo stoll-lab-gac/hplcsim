@@ -258,13 +258,13 @@ export function App({state, dispatch}) {
   state.plotData = [{},{},{}];
 
   state.xStep = 1/state.detectorFrequency;
-  let timeMax = 0;
+  state.timeMax = 0;
 
   for(let compoundIndx = 0; compoundIndx < state.compoundList.length; compoundIndx++){
     const compoundName = state.compoundList[compoundIndx];
     //console.debug(compoundName);
     let compoundResults = calcCompoundResults(compoundIndx, state);
-    if (compoundResults.timeMax > timeMax) { timeMax = compoundResults.timeMax; }
+    if (compoundResults.timeMax > state.timeMax) { state.timeMax = compoundResults.timeMax; }
     
     compoundResults = calcCompoundChromatogram(compoundResults, state);
 
@@ -286,14 +286,14 @@ export function App({state, dispatch}) {
 
   state.plotData[2] = calcFullChromatogram(state);
 
-  timeMax = round_to_xStep(timeMax, state.xStep) + state.xStep;
+  state.timeMax = round_to_xStep(state.timeMax, state.xStep) + state.xStep;
 
   let xValues = [0]; let yValues = [state.phi0*100];
   let xValuesOffsetValue = (state.delayTime+state.voidTime)/60;
   let xValuesOffset = [0, 0+xValuesOffsetValue];
   let yValuesOffset = [state.phi0*100, state.phi0*100];
   if(state.useGradient) {
-    if(state.gradientTime < timeMax/60){
+    if(state.gradientTime < state.timeMax/60){
       xValues.push(state.gradientTime);
       yValues.push(state.phiFinal*100);
       xValuesOffset.push(state.gradientTime+xValuesOffsetValue);
@@ -304,16 +304,16 @@ export function App({state, dispatch}) {
       xValuesOffset.push(state.gradientTime+0.00000001+xValuesOffsetValue);
       yValuesOffset.push(state.phi0*100);
       
-      xValues.push(timeMax/60);
+      xValues.push(state.timeMax/60);
       yValues.push(state.phi0*100);
-      xValuesOffset.push(timeMax/60+xValuesOffsetValue);
+      xValuesOffset.push(state.timeMax/60+xValuesOffsetValue);
       yValuesOffset.push(state.phi0*100);
     } else {
       const gradientSlope = (state.phiFinal - state.phi0) / state.gradientTime;
-      xValues.push(timeMax/60);
-      yValues.push(((gradientSlope * (timeMax/60)) + state.phi0)*100);
-      xValuesOffset.push((timeMax/60)+xValuesOffsetValue);
-      yValuesOffset.push(((gradientSlope * (timeMax/60)) + state.phi0)*100);
+      xValues.push(state.timeMax/60);
+      yValues.push(((gradientSlope * (state.timeMax/60)) + state.phi0)*100);
+      xValuesOffset.push((state.timeMax/60)+xValuesOffsetValue);
+      yValuesOffset.push(((gradientSlope * (state.timeMax/60)) + state.phi0)*100);
     }
 
     if(state.plotPumpSolventB){
@@ -361,8 +361,8 @@ export function App({state, dispatch}) {
     }
     
   } else {
-    xValues.push(timeMax/60);
-    xValuesOffset.push((timeMax/60)+xValuesOffsetValue);
+    xValues.push(state.timeMax/60);
+    xValuesOffset.push((state.timeMax/60)+xValuesOffsetValue);
     yValues.push(state.phi0*100);
 
     if(state.plotDetectorSolventB){
@@ -500,7 +500,7 @@ export function App({state, dispatch}) {
       </div>
       <OutputPlot
         plotData={state.plotData}
-        timeMax={timeMax}
+        timeMax={state.timeMax}
         heightMax={arrayMax(state.plotData[2].y)}
       />
       <div id="tableDiv"><ResultsTable compoundResultsObject={state.compoundResults} useGradient={state.useGradient} /></div>
