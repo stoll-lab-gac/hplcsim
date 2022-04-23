@@ -17,9 +17,11 @@ import { InputButton } from './Components/Inputs/InputButton'
 import { InputButtonLink } from './Components/Inputs/InputButtonLink'
 
 import { round_to_xStep } from './Components/Utilities/round_to_xStep';
+import { arrayMax } from './Components/Utilities/arrayMax';
 
 import { calcCompoundResults } from './Components/ChromatogramCreation/calcCompoundResults';
 import { calcCompoundChromatogram } from './Components/ChromatogramCreation/calcCompoundChromatogram';
+import { calcFullChromatogram } from './Components/ChromatogramCreation/calcFullChromatogram';
 
 const chromaCore = require('@stoll-lab-gac/chroma-core');
 
@@ -282,63 +284,11 @@ export function App({state, dispatch}) {
     
   }
 
+  state.plotData[2] = calcFullChromatogram(state);
+
   timeMax = round_to_xStep(timeMax, state.xStep) + state.xStep;
 
-  let fullChromatogram = {};
-  //for(let t = 0; t <= timeMax; t += xStep) { let key = ""+(t.toFixed(6)); fullChromatogram[key] = 0; }
-  //console.log(fullChromatogram);
-
-  let compoundResultsKeys = Object.keys(state.compoundResults);
-  for(let compoundIndx = 0; compoundIndx < compoundResultsKeys.length; compoundIndx++) {
-    const compoundResults = state.compoundResults[compoundResultsKeys[compoundIndx]];
-    const compoundChromatogram = compoundResults.chromatogram;
-
-    let compoundChromatogramKeys = Object.keys(compoundChromatogram);
-
-    for(let compoundChromatogramKeyIndx = 0; compoundChromatogramKeyIndx < compoundChromatogramKeys.length; compoundChromatogramKeyIndx++) {
-      let fullChromatogramKey = compoundChromatogramKeys[compoundChromatogramKeyIndx];
-      if(fullChromatogram[fullChromatogramKey] === undefined) {
-        fullChromatogram[fullChromatogramKey] = compoundChromatogram[fullChromatogramKey];
-      } else {
-        fullChromatogram[fullChromatogramKey] = fullChromatogram[fullChromatogramKey] + compoundChromatogram[fullChromatogramKey];
-      }
-      
-    }
-  }
-  console.log(fullChromatogram);
-  console.log(Object.keys(fullChromatogram).length);
-
-  let xValues = []; let yValues = [];
-  let fullChromatogramKeys = Object.keys(fullChromatogram);
-  fullChromatogramKeys.sort(function(a, b) { return a - b; });
-  for(let i = 0; i < fullChromatogramKeys.length; i++) {
-    const t = Number(fullChromatogramKeys[i]);
-    xValues.push((t.toFixed(6))/60);
-    let key = ""+(t.toFixed(6)); yValues.push(fullChromatogram[key]);
-  }
-
-  let heightMax = 0; for(let i = 0; i < yValues.length; i++){ if(yValues[i] > heightMax) { heightMax = yValues[i]; } }; //heightMax *= 1.02;
-
-  console.log("Full Chromatogram Points = " + xValues.length);
-  //console.log(yValues);
-
-  let fullChromatogramLineWidth = 2; if(state.plotCompounds){ fullChromatogramLineWidth = 1; }
-
-  //*
-
-  
-
-  state.plotData[2] = createPlotDataObject({
-    xValues: xValues,
-    yValues: yValues,
-    name: 'full',
-    color: '#000000',
-    legendrank: 0,
-    lineWidth: fullChromatogramLineWidth
-  });
-  //*/
-
-  xValues = [0]; yValues = [state.phi0*100];
+  let xValues = [0]; let yValues = [state.phi0*100];
   let xValuesOffsetValue = (state.delayTime+state.voidTime)/60;
   let xValuesOffset = [0, 0+xValuesOffsetValue];
   let yValuesOffset = [state.phi0*100, state.phi0*100];
@@ -551,7 +501,7 @@ export function App({state, dispatch}) {
       <OutputPlot
         plotData={state.plotData}
         timeMax={timeMax}
-        heightMax={heightMax}
+        heightMax={arrayMax(state.plotData[2].y)}
       />
       <div id="tableDiv"><ResultsTable compoundResultsObject={state.compoundResults} useGradient={state.useGradient} /></div>
     </div>
