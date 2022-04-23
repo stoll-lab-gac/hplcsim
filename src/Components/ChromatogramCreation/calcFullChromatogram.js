@@ -23,8 +23,8 @@ export const calcFullChromatogram = (state) => {
       
     }
   }
-  console.log(fullChromatogram);
-  console.log(Object.keys(fullChromatogram).length);
+  //console.log(fullChromatogram);
+  //console.log(Object.keys(fullChromatogram).length);
 
   let xValues = []; let yValues = [];
   let fullChromatogramKeys = Object.keys(fullChromatogram);
@@ -35,9 +35,9 @@ export const calcFullChromatogram = (state) => {
     let key = ""+(t.toFixed(6)); yValues.push(fullChromatogram[key]);
   }
 
-  let heightMax = 0; for(let i = 0; i < yValues.length; i++){ if(yValues[i] > heightMax) { heightMax = yValues[i]; } }; //heightMax *= 1.02;
+  //let heightMax = 0; for(let i = 0; i < yValues.length; i++){ if(yValues[i] > heightMax) { heightMax = yValues[i]; } }; //heightMax *= 1.02;
 
-  console.log("Full Chromatogram Points = " + xValues.length);
+  //console.log("Full Chromatogram Points = " + xValues.length);
   //console.log(yValues);
 
   let fullChromatogramLineWidth = 2; if(state.plotCompounds){ fullChromatogramLineWidth = 1; }
